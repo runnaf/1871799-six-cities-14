@@ -1,4 +1,5 @@
 import { Logo } from '../../ui/logo';
+import { DataHeader } from './header-data';
 
 export function Header(): JSX.Element {
   return (
@@ -6,7 +7,7 @@ export function Header(): JSX.Element {
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Logo />
+          <Logo classNameLinks={DataHeader.classNameLinks} classNameImages={DataHeader.classNameImages} href={DataHeader.href} width={DataHeader.width} height={DataHeader.height}/>
           </div>
           <nav className="header__nav">
             <ul className="header__nav-list">
