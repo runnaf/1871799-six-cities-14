@@ -1,4 +1,4 @@
-import { TLogoProps } from "../../ui/logo";
+import { TLogoProps } from '../../ui/logo';
 
 export const DataHeader: TLogoProps = {
   classNameLinks: ['header__logo-link', 'header__logo-link--active'],

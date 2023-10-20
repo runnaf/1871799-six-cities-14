@@ -1,4 +1,4 @@
-import { TLogoProps } from "../../ui/logo";
+import { TLogoProps } from '../../ui/logo';
 
 export const DataFooter: TLogoProps = {
   classNameLinks: ['footer__logo-link'],
