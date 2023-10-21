@@ -1,11 +1,11 @@
 import { Card } from './blocks-card';
 import { DataCities, TCardProps } from './data/data-cities-card';
 
-type CityArray = string[];
+type TCityArray = string[];
 
-const CITYARRAY: CityArray = ['Amsterdam', 'Paris', 'Cologne', 'Brussels', 'Hamburg', 'Dusseldorf'];
+const CITYARRAY: TCityArray = ['Amsterdam', 'Paris', 'Cologne', 'Brussels', 'Hamburg', 'Dusseldorf'];
 
-function getCardFavoritesCity(arrayCity: CityArray, data: TCardProps): JSX.Element {
+function getCardFavoritesCity(arrayCity: TCityArray, data: TCardProps): JSX.Element {
   arrayCity.forEach((element)=>{
     const filterArray = data.filter((itemFilter)=> itemFilter.city.name === element && itemFilter.isFavorite);
     if (filterArray.length > 0) {

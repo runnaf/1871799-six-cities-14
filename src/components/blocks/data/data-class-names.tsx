@@ -6,7 +6,7 @@ export const DataMainClassName: TMainClass = {
     default: ['places__option'],
     isActive: 'places__option--active',
   },
-  locationClassListNames: ['ocations__list tabs__list'],
+  locationClassListNames: ['locations__list tabs__list'],
   locationClassItemNames: ['locations__item'],
   locationClassLinkNames: {
     default: ['locations__item-link', 'tabs__item'],
