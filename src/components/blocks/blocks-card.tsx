@@ -1,4 +1,5 @@
-import { Premium } from '../ui/premium';
+import { conversionToPercentage } from '../ui/conversationToPercentage';
+import { Premium, TPremiumProp } from '../ui/premium';
 
 export type TCard = {
   previewImage: string;
@@ -17,15 +18,11 @@ type TCardClasses = {
   cardInfo?: string;
 }
 
-function conversionToPercentage(rating: number) {
-  return (rating * 100 / 5);
-}
-
-export function Card(props: TCard & TCardClasses): JSX.Element {
-  const {previewImage, isPremium, price, rating, title, type, isFavorite, card, wrapper, cardInfo, id} = props;
+export function Card(props: TCard & TCardClasses & TPremiumProp): JSX.Element {
+  const {previewImage, isPremium, price, rating, title, type, isFavorite, card, wrapper, cardInfo, id, classNamePremium} = props;
   return (
     <article className={card + ' ' + 'place-card'} key={id}>
-      {isPremium && <Premium />}
+      {isPremium && <Premium classNamePremium = {classNamePremium} />}
       <div className={wrapper + 'place-card__image-wrapper'}>
         <a href="#">
           <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place image" />

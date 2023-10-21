@@ -7,7 +7,7 @@ const CITYARRAY: CityArray = ['Amsterdam', 'Paris', 'Cologne', 'Brussels', 'Hamb
 
 function getCardFavoritesCity(arrayCity: CityArray, data: TCardProps): JSX.Element {
   arrayCity.forEach((element)=>{
-    const filterArray = data.filter((itemFilter)=> itemFilter.city.name === element);
+    const filterArray = data.filter((itemFilter)=> itemFilter.city.name === element && itemFilter.isFavorite);
     if (filterArray.length > 0) {
       return (
         <li className="favorites__locations-items">
@@ -22,7 +22,7 @@ function getCardFavoritesCity(arrayCity: CityArray, data: TCardProps): JSX.Eleme
             {filterArray.map((item): JSX.Element => {
               const {previewImage, isPremium, price, rating, title, type, isFavorite, id} = item;
               return (
-                <Card previewImage={previewImage} isPremium={isPremium} price={price} rating={rating} title={title} type={type} isFavorite={isFavorite} card={'favorites__card'} wrapper={'favorites__image-wrapper'} cardInfo={'favorites__card-info'} key = {id} id={id}/>
+                <Card previewImage={previewImage} isPremium={isPremium} price={price} rating={rating} title={title} type={type} isFavorite={isFavorite} card={'favorites__card'} wrapper={'favorites__image-wrapper'} cardInfo={'favorites__card-info'} id={id} classNamePremium = {'place-card__mark'}/>
               );
             })}
           </div>

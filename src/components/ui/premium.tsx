@@ -1,6 +1,10 @@
-export function Premium (): JSX.Element {
+export type TPremiumProp = {
+  classNamePremium: string;
+};
+
+export function Premium (classNamePremium: TPremiumProp): JSX.Element {
   return (
-    <div className="place-card__mark">
+    <div className={classNamePremium.classNamePremium}>
       <span>Premium</span>
     </div>
   );
