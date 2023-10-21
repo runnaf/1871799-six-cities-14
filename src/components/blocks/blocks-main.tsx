@@ -2,7 +2,6 @@ import { ListLocation, ListPlacesOptions } from '../ui/list-main';
 import { DataMain } from './data/data-main';
 import { DataMainClassName } from './data/data-class-names';
 import { DataCities } from './data/data-cities-card';
-import { v4 as uuidv4 } from 'uuid';
 import { Card } from './blocks-card';
 
 export type TMainBlocks= {
@@ -27,6 +26,8 @@ export type TClassName = {
     default: string[];
     isActive: string;
 }
+
+const CITY = 'Amsterdam';
 
 export function Main(): JSX.Element {
   return (
@@ -54,8 +55,8 @@ export function Main(): JSX.Element {
             </form>
             <div className="cities__places-list places__list tabs__content">
               {DataCities.map((item) => {
-                const {previewImage, isPremium, price, rating, title, type, isFavorite} = item;
-                return <Card previewImage = {previewImage} isPremium = {isPremium} price = {price} rating={rating} title={title} type={type} isFavorite={isFavorite} card="cities__card" wrapper='cities__image-wrapper' key={uuidv4()} />;
+                const {previewImage, isPremium, price, rating, title, type, isFavorite, city, id} = item;
+                return city.name === CITY && <Card previewImage = {previewImage} isPremium = {isPremium} price = {price} rating={rating} title={title} type={type} isFavorite={isFavorite} card="cities__card" wrapper='cities__image-wrapper' id={id} />;
               })}
             </div>
           </section>
