@@ -1,5 +1,5 @@
-import { Footer } from "../layout/footer/footer";
-import { Header } from "../layout/header/header";
+import { Footer } from '../layout/footer/footer';
+import { Header } from '../layout/header/header';
 
 export function PageMainEmpty (): ISX.Element {
   return (
@@ -18,5 +18,5 @@ export function PageMainEmpty (): ISX.Element {
       </main>
       <Footer />
     </div>
-    )
+  );
 }

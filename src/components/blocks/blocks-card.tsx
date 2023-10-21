@@ -10,27 +10,33 @@ export type TCard = {
   type: string ;
 }
 
+type TCardClasses = {
+  card: string;
+  wrapper: string;
+  cardInfo?: string;
+}
+
 function conversionToPercentage(rating: number) {
   return (rating * 100 / 5);
 }
 
-export function Card(props: TCard): JSX.Element {
-  const {previewImage, isPremium, price, rating, title, type, isFavorite} = props;
+export function Card(props: TCard & TCardClasses): JSX.Element {
+  const {previewImage, isPremium, price, rating, title, type, isFavorite, card, wrapper, cardInfo} = props;
   return (
-    <article className="cities__card place-card">
+    <article className={card + ' ' + 'place-card'}>
       {isPremium && <Premium />}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={wrapper + "place-card__image-wrapper"}>
         <a href="#">
           <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place image" />
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={cardInfo !== undefined ? cardInfo + ' ' + 'place-card__info' : 'place-card__info'}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">€{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className={isFavorite ? 'place-card__bookmark-button place-card__bookmark-button--active button' : 'place-card__bookmark-button button'} type="button">
+          <button className={isFavorite ? "place-card__bookmark-button place-card__bookmark-button--active button" : "place-card__bookmark-button button"} type="button">
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark" />
             </svg>
