@@ -1,7 +1,7 @@
 import { Footer } from '../layout/footer/footer';
 import { Header } from '../layout/header/header';
 
-export function PageMainEmpty (): ISX.Element {
+export function PageMainEmpty (): JSX.Element {
   return (
     <div className="page page--favorites-empty">
       <Header />
