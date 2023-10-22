@@ -1,5 +1,4 @@
-import { Card } from '../blocks/blocks-card';
-import { DataNear } from '../blocks/data/data-near';
+import { NearPlaces } from '../blocks/near-places';
 import { TOfferData } from '../blocks/data/data-offer';
 import { Header } from '../layout/header/header';
 import { conversionToPercentage } from '../ui/conversationToPercentage';
@@ -21,13 +20,11 @@ export function PagesOffer(props:TOfferData): JSX.Element {
               <div className="offer__image-wrapper">
                 <img className="offer__image" src={previewImage} alt="Photo studio" />
               </div>
-              {images.map((image)=>{
-                return (
-                  <div className="offer__image-wrapper" key={uuidv4()}>
-                    <img className="offer__image" src={image} alt="Photo studio" />
-                  </div>
-                );
-              })}
+              {images.map((image)=>(
+                <div className="offer__image-wrapper" key={uuidv4()}>
+                  <img className="offer__image" src={image} alt="Photo studio" />
+                </div>
+              ))}
             </div>
           </div>
           <div className="offer__container container">
@@ -69,13 +66,11 @@ export function PagesOffer(props:TOfferData): JSX.Element {
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  {goods.map((good): JSX.Element => {
-                    return (
-                      <li className="offer__inside-item" key={uuidv4()}>
-                        {good}
-                      </li>
-                    );
-                  })}
+                  {goods.map((good): JSX.Element => (
+                    <li className="offer__inside-item" key={uuidv4()}>
+                      {good}
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div className="offer__host">
@@ -124,18 +119,16 @@ export function PagesOffer(props:TOfferData): JSX.Element {
                 <form className="reviews__form form" action="#" method="post">
                   <label className="reviews__label form__label" htmlFor="review">Your review</label>
                   <div className="reviews__rating-form form__rating">
-                    {RATINGS.map((ratingItem) => {
-                      return (
-                        <>
-                          <input className="form__rating-input visually-hidden" name="rating" value={ratingItem} id={ratingItem + '-stars'} type="radio" />
-                          <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
-                            <svg className="form__star-image" width="37" height="33">
-                              <use xlinkHref="#icon-star"></use>
-                            </svg>
-                          </label>
-                        </>
-                      );
-                    })}
+                    {RATINGS.map((ratingItem) => (
+                      <>
+                        <input className="form__rating-input visually-hidden" name="rating" value={ratingItem} id={`${ratingItem}-stars`} type="radio" />
+                        <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
+                          <svg className="form__star-image" width="37" height="33">
+                            <use xlinkHref="#icon-star"></use>
+                          </svg>
+                        </label>
+                      </>
+                    ))}
                   </div>
                   <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"></textarea>
                   <div className="reviews__button-wrapper">
@@ -154,12 +147,7 @@ export function PagesOffer(props:TOfferData): JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {DataNear.map((nearItem)=>{
-                const {previewImage, isPremium, price, rating, title, type, isFavorite, id} = nearItem;
-                return (
-                  <Card previewImage={previewImage} isPremium={isPremium} price={price} rating={rating} title={title} type={type} isFavorite={isFavorite} card={'near-places__card'} wrapper={'near-places__image-wrapper'} classNamePremium='place-card__mark' id={id} />
-                );
-              })}
+              <NearPlaces />
             </div>
           </section>
         </div>

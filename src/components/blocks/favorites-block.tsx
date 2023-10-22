@@ -1,4 +1,4 @@
-import { Card } from './blocks-card';
+import { Card } from './card';
 import { DataCities, TCardProps } from './data/data-cities-card';
 
 type TCityArray = string[];
@@ -22,7 +22,7 @@ function getCardFavoritesCity(arrayCity: TCityArray, data: TCardProps): JSX.Elem
             {filterArray.map((item): JSX.Element => {
               const {previewImage, isPremium, price, rating, title, type, isFavorite, id} = item;
               return (
-                <Card previewImage={previewImage} isPremium={isPremium} price={price} rating={rating} title={title} type={type} isFavorite={isFavorite} card={'favorites__card'} wrapper={'favorites__image-wrapper'} cardInfo={'favorites__card-info'} id={id} classNamePremium = {'place-card__mark'}/>
+                <Card previewImage={previewImage} isPremium={isPremium} price={price} rating={rating} title={title} type={type} isFavorite={isFavorite} card={'favorites__card'} wrapper={'favorites__image-wrapper'} cardInfo={'favorites__card-info'} key={id} classNamePremium = {'place-card__mark'}/>
               );
             })}
           </div>

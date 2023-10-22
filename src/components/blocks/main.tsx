@@ -2,7 +2,7 @@ import { ListLocation, ListPlacesOptions } from '../ui/list-main';
 import { DataMain } from './data/data-main';
 import { DataMainClassName } from './data/data-class-names';
 import { DataCities } from './data/data-cities-card';
-import { Card } from './blocks-card';
+import { Card } from './card';
 
 export type TMainBlocks= {
     placesOptions: TMainItem[];
@@ -28,7 +28,7 @@ export type TClassName = {
 }
 
 const CITY = 'Amsterdam';
-const count = DataCities.filter(item => item.city.name === CITY).length;
+const count = DataCities.filter((item) => item.city.name === CITY).length;
 
 export function Main(): JSX.Element {
   return (

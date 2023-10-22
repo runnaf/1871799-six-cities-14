@@ -1,4 +1,4 @@
-import { TMainClass } from '../blocks-main';
+import { TMainClass } from '../main';
 
 export const DataMainClassName: TMainClass = {
   placesClassListNames: ['places__options', 'places__options--custom', 'places__options--opened'],

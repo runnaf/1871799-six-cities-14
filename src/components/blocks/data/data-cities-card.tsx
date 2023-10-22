@@ -1,4 +1,4 @@
-import { TCard } from '../blocks-card';
+import { TCard } from '../card';
 
 type TCardCities = {
   city: {
@@ -6,7 +6,11 @@ type TCardCities = {
   };
 }
 
-type TProps = TCard & TCardCities
+type TCardId = {
+  id: number;
+}
+
+type TProps = TCard & TCardCities & TCardId
 
 export type TCardProps = TProps[];
 

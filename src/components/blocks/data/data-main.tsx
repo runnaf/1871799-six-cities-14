@@ -1,4 +1,4 @@
-import { TMainBlocks } from '../blocks-main';
+import { TMainBlocks } from '../main';
 
 export const DataMain: TMainBlocks = {
   placesOptions: [{

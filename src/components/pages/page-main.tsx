@@ -1,4 +1,4 @@
-import { Main } from '../blocks/blocks-main';
+import { Main } from '../blocks/main';
 import { Header } from '../layout/header/header';
 
 export function PageMain(): JSX.Element {

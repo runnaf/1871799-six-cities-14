@@ -9,7 +9,6 @@ export type TCard = {
   rating: number;
   title: string;
   type: string ;
-  id: number;
 }
 
 type TCardClasses = {
@@ -19,16 +18,16 @@ type TCardClasses = {
 }
 
 export function Card(props: TCard & TCardClasses & TPremiumProp): JSX.Element {
-  const {previewImage, isPremium, price, rating, title, type, isFavorite, card, wrapper, cardInfo, id, classNamePremium} = props;
+  const {previewImage, isPremium, price, rating, title, type, isFavorite, card, wrapper, cardInfo, classNamePremium} = props;
   return (
-    <article className={card + ' ' + 'place-card'} key={id}>
+    <article className={ `${card} place-card` }>
       {isPremium && <Premium classNamePremium = {classNamePremium} />}
-      <div className={wrapper + 'place-card__image-wrapper'}>
+      <div className={`${wrapper} place-card__image-wrapper`}>
         <a href="#">
           <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place image" />
         </a>
       </div>
-      <div className={cardInfo !== undefined ? cardInfo + ' ' + 'place-card__info' : 'place-card__info'}>
+      <div className={cardInfo !== undefined ? `${cardInfo} place-card__info` : 'place-card__info'}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">€{price}</b>
