@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 import logo from '../../assets/logo.svg';
 
 export type TLogoProps = {
@@ -8,10 +9,10 @@ export type TLogoProps = {
     href: string;
   };
 
-export function Logo({classNameLinks, classNameImages, width, height, href}:TLogoProps): JSX.Element {
+export function Logo({classNameLinks, classNameImages, width, height}:TLogoProps): JSX.Element {
   return (
-    <a className={classNameLinks.join(' ')} href= {href}>
+    <Link className={classNameLinks.join(' ')} to= '/'>
       <img className={classNameImages.join(' ')} src={logo} alt="6 cities logo" width={width} height={height} />
-    </a>
+    </Link>
   );
 }
