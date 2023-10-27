@@ -4,7 +4,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import { PagesLogin } from '../pages/pages-login';
 import { Favorites } from '../pages/pages-favorites';
 import { PagesOffer } from '../pages/pages-offer';
-import { Error } from '../pages/page-error';
+import { Error } from '../pages/error/page-error';
 import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { ProtectedRoute } from '../protected-rout/protected-rout';
