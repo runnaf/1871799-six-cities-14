@@ -5,5 +5,4 @@ export const DataHeader: TLogoProps = {
   classNameImages: ['header__logo'],
   width: '81',
   height: '41',
-  href: '#',
 };
