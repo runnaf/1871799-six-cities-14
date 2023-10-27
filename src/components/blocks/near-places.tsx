@@ -9,7 +9,7 @@ export function NearPlaces(): JSX.Element{
         {DataNear.map((nearItem)=>{
           const {previewImage, isPremium, price, rating, title, type, isFavorite, id} = nearItem;
           return (
-            <Card previewImage={previewImage} isPremium={isPremium} price={price} rating={rating} title={title} type={type} isFavorite={isFavorite} card={'near-places__card'} wrapper={'near-places__image-wrapper'} classNamePremium='place-card__mark' key={id} />
+            <Card previewImage={previewImage} isPremium={isPremium} price={price} rating={rating} title={title} type={type} isFavorite={isFavorite} card={'near-places__card'} wrapper={'near-places__image-wrapper'} classNamePremium='place-card__mark' key={id} id={id}/>
           );
         })}
       </div>

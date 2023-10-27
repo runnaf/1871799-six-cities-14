@@ -57,7 +57,7 @@ export function Main(): JSX.Element {
             <div className="cities__places-list places__list tabs__content">
               {DataCities.map((item) => {
                 const {previewImage, isPremium, price, rating, title, type, isFavorite, city, id} = item;
-                return city.name === CITY && <Card previewImage = {previewImage} isPremium = {isPremium} price = {price} rating={rating} title={title} type={type} isFavorite={isFavorite} card="cities__card" wrapper='cities__image-wrapper' key={id} classNamePremium = {'place-card__mark'}/>;
+                return city.name === CITY && <Card previewImage = {previewImage} isPremium = {isPremium} price = {price} rating={rating} title={title} type={type} isFavorite={isFavorite} card="cities__card" wrapper='cities__image-wrapper' key={id} id={id} classNamePremium = {'place-card__mark'}/>;
               })}
             </div>
           </section>

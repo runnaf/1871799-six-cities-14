@@ -17,9 +17,10 @@ export type TOfferData = {
     avatarUrl: string;
   };
   description: string;
+  id: number;
 }
 
-type TOfferDataArray = TOfferData[]
+export type TOfferDataArray = TOfferData[]
 
 export const DataOffer: TOfferDataArray = [
   {
@@ -59,5 +60,6 @@ export const DataOffer: TOfferDataArray = [
       avatarUrl: 'img/avatar-angelina.jpg'
     },
     description: 'A new spacious villa, one floor. All commodities, jacuzzi and beautiful scenery. Ideal for families or friends.',
+    id: 3,
   }
 ];

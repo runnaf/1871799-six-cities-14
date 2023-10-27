@@ -6,22 +6,33 @@ import { Favorites } from '../pages/pages-favorites';
 import { PagesOffer } from '../pages/pages-offer';
 import { Error } from '../pages/page-error';
 import { HelmetProvider } from 'react-helmet-async';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { ProtectedRoute } from '../protected-rout/protected-rout';
+import { DataOffer } from '../blocks/data/data-offer';
 
 function App() {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/">
+          <Route path={AppRoute.Root}>
             <Route index element={<PageMain />} />
-            <Route path="/login" element={<PagesLogin />} />
-            <Route path="favorites/" element={<Favorites/>} />
-            <Route path="/offer/:id" element={<PagesOffer  />} />
-            <Route path="*" element={<Error />}/>
+            <Route path={AppRoute.Login} element={<PagesLogin />} />
+            <Route path={AppRoute.Favorites} element={
+              <ProtectedRoute status={AuthorizationStatus.NoAuth} redirectPage={AppRoute.Login}>
+                <Favorites />
+              </ProtectedRoute>
+            }
+            />
+            <Route path={`${AppRoute.Offer}/:id`} element={
+              <PagesOffer offersData={DataOffer}/>
+            }
+            />
+            <Route path={AppRoute.NotFoundPage} element={<Error />}/>
           </Route>
         </Routes>
       </BrowserRouter>
-    </HelmetProvider>    
+    </HelmetProvider>
   );
 }
 

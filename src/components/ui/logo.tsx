@@ -6,7 +6,6 @@ export type TLogoProps = {
     classNameImages: string[];
     width: string;
     height: string;
-    href: string;
   };
 
 export function Logo({classNameLinks, classNameImages, width, height}:TLogoProps): JSX.Element {

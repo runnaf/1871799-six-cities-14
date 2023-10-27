@@ -6,9 +6,9 @@ import { Header } from '../layout/header/header';
 export function Favorites(): JSX.Element {
   return (
     <div className="page">
-        <Helmet>
-            <title>6 Cities: Your Favorites places</title>
-        </Helmet>
+      <Helmet>
+        <title>6 Cities: Your Favorites places</title>
+      </Helmet>
       <Header />
       <FavoritesBlock />
       <Footer />
