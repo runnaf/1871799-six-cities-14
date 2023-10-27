@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 
-const currentStatus: AuthorizationStatus = AuthorizationStatus.NoAuth;
+const currentStatus: AuthorizationStatus = AuthorizationStatus.Auth;
 
 export type TProtectedRoute = {
     status: AuthorizationStatus;
@@ -13,6 +13,6 @@ export function ProtectedRoute(props: TProtectedRoute): JSX.Element {
   const { status, redirectPage, children } = props;
 
   return (
-    currentStatus === status ? <Navigate to={redirectPage} /> : children
+    currentStatus === status ? children : <Navigate to={redirectPage} />
   );
 }

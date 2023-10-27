@@ -19,7 +19,7 @@ function App() {
             <Route index element={<PageMain />} />
             <Route path={AppRoute.Login} element={<PagesLogin />} />
             <Route path={AppRoute.Favorites} element={
-              <ProtectedRoute status={AuthorizationStatus.NoAuth} redirectPage={AppRoute.Login}>
+              <ProtectedRoute status={AuthorizationStatus.Auth} redirectPage={AppRoute.Login}>
                 <Favorites />
               </ProtectedRoute>
             }
