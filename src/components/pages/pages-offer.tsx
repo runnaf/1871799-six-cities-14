@@ -4,6 +4,7 @@ import { Header } from '../layout/header/header';
 import { conversionToPercentage } from '../ui/conversationToPercentage';
 import { Premium } from '../ui/premium';
 import { v4 as uuidv4 } from 'uuid';
+import { Helmet } from 'react-helmet-async';
 
 const RATINGS: string[] = ['5', '4', '3', '2', '1'];
 
@@ -12,6 +13,9 @@ export function PagesOffer(props:TOfferData): JSX.Element {
 
   return (
     <div className="page">
+      <Helmet>
+        <title>6 Cities: Offer Page</title>
+      </Helmet>
       <Header />
       <main className="page__main page__main--offer">
         <section className="offer">

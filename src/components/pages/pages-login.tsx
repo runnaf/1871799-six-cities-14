@@ -1,8 +1,12 @@
+import { Helmet } from 'react-helmet-async';
 import { Header } from '../layout/header/header';
 
 export function PagesLogin():JSX.Element {
   return (
     <div className="page page--gray page--login">
+      <Helmet>
+        <title>6 Cities: Login or Register</title>
+      </Helmet>
       <Header />
       <main className="page__main page__main--login">
         <div className="page__login-container container">
