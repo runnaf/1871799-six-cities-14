@@ -1,5 +1,7 @@
+import { Link } from 'react-router-dom';
 import { Logo } from '../../ui/logo';
 import { DataHeader } from './header-data';
+import { AppRoute } from '../../../const';
 
 export function Header(): JSX.Element {
   return (
@@ -19,9 +21,9 @@ export function Header(): JSX.Element {
                 </a>
               </li>
               <li className="header__nav-item">
-                <a className="header__nav-link" href="#">
+                <Link className="header__nav-link" to={AppRoute.Login}>
                   <span className="header__signout">Sign out</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>
