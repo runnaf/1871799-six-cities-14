@@ -24,12 +24,9 @@ function getCardFavoritesCity(arrayCity: TCityArray, data: TCardProps): JSX.Elem
                   </div>
                 </div>
                 <div className="favorites__places">
-                  {filterArray.map((item): JSX.Element => {
-                    const {previewImage, isPremium, price, rating, title, type, isFavorite, id} = item;
-                    return (
-                      <Card previewImage={previewImage} isPremium={isPremium} price={price} rating={rating} title={title} type={type} isFavorite={isFavorite} card={'favorites__card'} wrapper={'favorites__image-wrapper'} cardInfo={'favorites__card-info'} key={id} id={id} classNamePremium = {'place-card__mark'}/>
-                    );
-                  })}
+                  {filterArray.map((item): JSX.Element => (
+                    <Card offer={item} cardInfo={'favorites__card-info'} block= {'favorites'} key={item.id}/>
+                  ))}
                 </div>
               </li>
             );

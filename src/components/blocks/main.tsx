@@ -3,6 +3,7 @@ import { DataMain } from './data/data-main';
 import { DataMainClassName } from './data/data-class-names';
 import { DataCities } from './data/data-cities-card';
 import { Card } from './card';
+import { addPluralEnging } from '../../utils/common';
 
 export type TMainBlocks= {
     placesOptions: TMainItem[];
@@ -43,7 +44,7 @@ export function Main(): JSX.Element {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{count} places to stay in Amsterdam</b>
+            <b className="places__found">{count} place{addPluralEnging(count)} to stay in Amsterdam</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex={0}>
@@ -55,10 +56,9 @@ export function Main(): JSX.Element {
               <ListPlacesOptions classNames={DataMainClassName.placesClassListNames} itemsList={DataMain.placesOptions} classNameItems={DataMainClassName.placesClassItemNames} />
             </form>
             <div className="cities__places-list places__list tabs__content">
-              {DataCities.map((item) => {
-                const {previewImage, isPremium, price, rating, title, type, isFavorite, city, id} = item;
-                return city.name === CITY && <Card previewImage = {previewImage} isPremium = {isPremium} price = {price} rating={rating} title={title} type={type} isFavorite={isFavorite} card="cities__card" wrapper='cities__image-wrapper' key={id} id={id} classNamePremium = {'place-card__mark'}/>;
-              })}
+              {DataCities.map((item) => (
+                item.city.name === CITY && <Card block="cities" offer={item} key={item.id}/>
+              ))}
             </div>
           </section>
           <div className="cities__right-section">

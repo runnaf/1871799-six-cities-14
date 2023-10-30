@@ -6,7 +6,9 @@ import { Premium } from '../ui/premium';
 import { Helmet } from 'react-helmet-async';
 import { Navigate, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { v4 as uuidv4 } from 'uuid';
 import React from 'react';
+import { capitalize } from '../../utils/common';
 
 const RATINGS: string[] = ['5', '4', '3', '2', '1'];
 
@@ -18,7 +20,7 @@ export function PagesOffer({ offersData } : { offersData: TOfferDataArray }): JS
     return <Navigate to={AppRoute.NotFoundPage}/>;
   }
 
-  const {previewImage, images, title, isPremium, rating, type, bedrooms, maxAdults, price, goods, host, description,id} = offerData;
+  const {previewImage, images, title, isPremium, rating, type, bedrooms, maxAdults, price, goods, host, description} = offerData;
 
   return (
     <div className="page">
@@ -34,7 +36,7 @@ export function PagesOffer({ offersData } : { offersData: TOfferDataArray }): JS
                 <img className="offer__image" src={previewImage} alt="Photo studio" />
               </div>
               {images.map((image) => (
-                <div className="offer__image-wrapper" key={id}>
+                <div className="offer__image-wrapper" key={uuidv4()}>
                   <img className="offer__image" src={image} alt="Photo studio" />
                 </div>
               ))}
@@ -42,7 +44,7 @@ export function PagesOffer({ offersData } : { offersData: TOfferDataArray }): JS
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              {isPremium && <Premium classNamePremium='offer__mark' />}
+              {isPremium && <Premium />}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
                   {title}
@@ -63,7 +65,7 @@ export function PagesOffer({ offersData } : { offersData: TOfferDataArray }): JS
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {type}
+                  {capitalize(type)}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
                   {bedrooms} Bedrooms
@@ -80,7 +82,7 @@ export function PagesOffer({ offersData } : { offersData: TOfferDataArray }): JS
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
                   {goods.map((good): JSX.Element => (
-                    <li className="offer__inside-item" key={id}>
+                    <li className="offer__inside-item" key={uuidv4()}>
                       {good}
                     </li>
                   ))}
@@ -133,7 +135,7 @@ export function PagesOffer({ offersData } : { offersData: TOfferDataArray }): JS
                   <label className="reviews__label form__label" htmlFor="review">Your review</label>
                   <div className="reviews__rating-form form__rating">
                     {RATINGS.map((ratingItem) => (
-                      <React.Fragment key={ratingItem}>
+                      <React.Fragment key={uuidv4()}>
                         <input className="form__rating-input visually-hidden" name="rating" value={ratingItem} id={`${ratingItem}-stars`} type="radio" />
                         <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
                           <svg className="form__star-image" width="37" height="33">
