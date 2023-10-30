@@ -54,10 +54,10 @@ export const DataOffer: TOfferDataArray = [
       'Breakfast'
     ],
     host: {
-    id: 25,
-    name: 'Angelina',
-    isPro: true,
-    avatarUrl: 'img/avatar-angelina.jpg'
+      id: 25,
+      name: 'Angelina',
+      isPro: true,
+      avatarUrl: 'img/avatar-angelina.jpg'
     },
     description: 'A new spacious villa, one floor. All commodities, jacuzzi and beautiful scenery. Ideal for families or friends.',
     id: 1
@@ -610,7 +610,7 @@ export const DataOffer: TOfferDataArray = [
       isPro: true,
       avatarUrl: 'img/avatar-angelina.jpg'
     },
-    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a 'slow' pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
+    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a "slow" pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
     id: 14
   },
   {
@@ -654,7 +654,7 @@ export const DataOffer: TOfferDataArray = [
     id: 15
   },
   {
-     previewImage: 'https://14.react.pages.academy/static/offer/20.jpg',
+    previewImage: 'https://14.react.pages.academy/static/offer/20.jpg',
     images: [
       'https://14.react.pages.academy/static/offer/8.jpg',
       'https://14.react.pages.academy/static/offer/19.jpg',
@@ -696,7 +696,7 @@ export const DataOffer: TOfferDataArray = [
     id: 16
   },
   {
-     previewImage: 'https://14.react.pages.academy/static/offer/10.jpg',
+    previewImage: 'https://14.react.pages.academy/static/offer/10.jpg',
     images: [
       'https://14.react.pages.academy/static/offer/10.jpg',
       'https://14.react.pages.academy/static/offer/18.jpg',
@@ -859,7 +859,7 @@ export const DataOffer: TOfferDataArray = [
       isPro: true,
       avatarUrl: 'img/avatar-angelina.jpg'
     },
-    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a 'slow' pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
+    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a "slow" pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
     id: 20
   },
   {
@@ -1361,7 +1361,7 @@ export const DataOffer: TOfferDataArray = [
     id: 32
   },
   {
-     previewImage: 'https://14.react.pages.academy/static/offer/6.jpg',
+    previewImage: 'https://14.react.pages.academy/static/offer/6.jpg',
     images: [
       'https://14.react.pages.academy/static/offer/14.jpg',
       'https://14.react.pages.academy/static/offer/11.jpg',
@@ -1398,7 +1398,7 @@ export const DataOffer: TOfferDataArray = [
       isPro: true,
       avatarUrl: 'img/avatar-angelina.jpg'
     },
-    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a 'slow' pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
+    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a "slow" pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
     id: 33
   },
   {
@@ -1483,7 +1483,7 @@ export const DataOffer: TOfferDataArray = [
       avatarUrl: 'img/avatar-angelina.jpg'
     },
     description: 'I am happy to welcome you to my apartment in the city center! Three words: location, cosy and chic!',
-     id: 35
+    id: 35
   },
   {
     previewImage: 'https://14.react.pages.academy/static/offer/3.jpg',
@@ -1610,7 +1610,7 @@ export const DataOffer: TOfferDataArray = [
       isPro: true,
       avatarUrl: 'img/avatar-angelina.jpg'
     },
-    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a 'slow' pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
+    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a "slow" pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
     id: 38
   },
   {
@@ -1692,7 +1692,7 @@ export const DataOffer: TOfferDataArray = [
       isPro: true,
       avatarUrl: 'img/avatar-angelina.jpg'
     },
-    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a 'slow' pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
+    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a "slow" pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
     id: 40
   },
   {
@@ -1998,7 +1998,7 @@ export const DataOffer: TOfferDataArray = [
       isPro: true,
       avatarUrl: 'img/avatar-angelina.jpg'
     },
-    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a 'slow' pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
+    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a "slow" pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
     id: 47
   },
   {
@@ -2350,7 +2350,7 @@ export const DataOffer: TOfferDataArray = [
     id: 55
   },
   {
-     previewImage: 'https://14.react.pages.academy/static/offer/4.jpg',
+    previewImage: 'https://14.react.pages.academy/static/offer/4.jpg',
     images: [
       'https://14.react.pages.academy/static/offer/5.jpg',
       'https://14.react.pages.academy/static/offer/20.jpg',
@@ -2390,7 +2390,7 @@ export const DataOffer: TOfferDataArray = [
       isPro: true,
       avatarUrl: 'img/avatar-angelina.jpg'
     },
-    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a 'slow' pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
+    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a "slow" pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
     id: 56
   },
   {
@@ -2519,7 +2519,7 @@ export const DataOffer: TOfferDataArray = [
       isPro: true,
       avatarUrl: 'img/avatar-angelina.jpg'
     },
-    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a 'slow' pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
+    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a "slow" pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
     id: 59
   },
   {
@@ -2606,7 +2606,7 @@ export const DataOffer: TOfferDataArray = [
       isPro: true,
       avatarUrl: 'img/avatar-angelina.jpg'
     },
-    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a 'slow' pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
+    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a "slow" pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
     id: 61
   },
   {
@@ -3046,7 +3046,7 @@ export const DataOffer: TOfferDataArray = [
       isPro: true,
       avatarUrl: 'img/avatar-angelina.jpg'
     },
-    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a 'slow' pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
+    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a "slow" pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
     id: 71
   },
   {
@@ -3222,7 +3222,7 @@ export const DataOffer: TOfferDataArray = [
       isPro: true,
       avatarUrl: 'img/avatar-angelina.jpg'
     },
-    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a 'slow' pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
+    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a "slow" pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
     id: 75
   },
   {
@@ -3602,7 +3602,7 @@ export const DataOffer: TOfferDataArray = [
       isPro: true,
       avatarUrl: 'img/avatar-angelina.jpg'
     },
-    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a 'slow' pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
+    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a "slow" pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
     id: 84
   },
   {
@@ -3685,7 +3685,7 @@ export const DataOffer: TOfferDataArray = [
       isPro: true,
       avatarUrl: 'img/avatar-angelina.jpg'
     },
-    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a 'slow' pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
+    description: 'This is a place for dreamers to reset, reflect, and create. Designed with a "slow" pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
     id: 86
   },
   {
