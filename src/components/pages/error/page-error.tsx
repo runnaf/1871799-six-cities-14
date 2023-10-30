@@ -7,15 +7,17 @@ import style from './page-error.module.css';
 
 export function Error(): JSX.Element {
   return (
-    <section>
+    <section className={style.wrapper}>
       <Helmet>
         <title>6 Cities: Page not found</title>
       </Helmet>
       <Logo classNameLinks={DataHeader.classNameLinks} classNameImages={DataHeader.classNameImages} width={DataHeader.width} height={DataHeader.height}/>
-      <p className={style.title}>Page Not Found :(</p>
-      <Link className={style.link} to={AppRoute.Root}>
-        <span>Back</span>
-      </Link>
+      <div className={style.container}>
+        <p className={style.title}>Page Not Found :(</p>
+        <Link className={style.link} to={AppRoute.Root}>
+          <span>Back</span>
+        </Link>
+      </div>
     </section>
   );
 }

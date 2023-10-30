@@ -24,7 +24,7 @@ function App() {
               </ProtectedRoute>
             }
             />
-            <Route path={`${AppRoute.Offer}/:id`} element={
+            <Route path={`${AppRoute.Offer}/:offerId`} element={
               <PagesOffer offersData={DataOffer}/>
             }
             />

@@ -23,14 +23,14 @@ type TCardClasses = {
 export function Card(props: TCard & TCardClasses & TPremiumProp): JSX.Element {
   const {previewImage, isPremium, price, rating, title, type, isFavorite, card, wrapper, cardInfo, classNamePremium, id} = props;
   return (
-    <article className={ `${card} place-card` }>
+    <article className={ `${card} place-card` } key={id}>
       {isPremium && <Premium classNamePremium = {classNamePremium} />}
       <div className={`${wrapper} place-card__image-wrapper`}>
-        <Link to={`${AppRoute.Offer}/${id}}`}>
+        <Link to={`${AppRoute.Offer}/${id}`}>
           <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place image" />
         </Link>
       </div>
-      <div className={cardInfo !== undefined ? `${cardInfo} place-card__info` : 'place-card__info'}>
+      <div className={`${cardInfo} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">€{price}</b>
@@ -50,7 +50,7 @@ export function Card(props: TCard & TCardClasses & TPremiumProp): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.Offer}/${id}}`}>
+          <Link to={`${AppRoute.Offer}/${id}`}>
             {title}
           </Link>
         </h2>
