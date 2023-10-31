@@ -1,17 +1,32 @@
 import { NearPlaces } from '../blocks/near-places';
-import { TOfferData } from '../blocks/data/data-offer';
+import { TOfferDataArray } from '../blocks/data/data-offer';
 import { Header } from '../layout/header/header';
 import { conversionToPercentage } from '../ui/conversationToPercentage';
 import { Premium } from '../ui/premium';
+import { Helmet } from 'react-helmet-async';
+import { Navigate, useParams } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import { v4 as uuidv4 } from 'uuid';
+import React from 'react';
+import { capitalize } from '../../utils/common';
 
 const RATINGS: string[] = ['5', '4', '3', '2', '1'];
 
-export function PagesOffer(props:TOfferData): JSX.Element {
-  const {previewImage, images, title, isPremium, rating, type, bedrooms, maxAdults, price, goods, host, description} = props;
+export function PagesOffer({ offersData } : { offersData: TOfferDataArray }): JSX.Element {
+  const { offerId } = useParams();
+  const offerData = offersData.find(({ id }) => id.toString() === offerId);
+
+  if (!offerData) {
+    return <Navigate to={AppRoute.NotFoundPage}/>;
+  }
+
+  const {previewImage, images, title, isPremium, rating, type, bedrooms, maxAdults, price, goods, host, description} = offerData;
 
   return (
     <div className="page">
+      <Helmet>
+        <title>6 Cities: Offer Page</title>
+      </Helmet>
       <Header />
       <main className="page__main page__main--offer">
         <section className="offer">
@@ -20,7 +35,7 @@ export function PagesOffer(props:TOfferData): JSX.Element {
               <div className="offer__image-wrapper">
                 <img className="offer__image" src={previewImage} alt="Photo studio" />
               </div>
-              {images.map((image)=>(
+              {images.map((image) => (
                 <div className="offer__image-wrapper" key={uuidv4()}>
                   <img className="offer__image" src={image} alt="Photo studio" />
                 </div>
@@ -29,7 +44,7 @@ export function PagesOffer(props:TOfferData): JSX.Element {
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              {isPremium && <Premium classNamePremium = 'offer__mark' />}
+              {isPremium && <Premium />}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
                   {title}
@@ -43,14 +58,14 @@ export function PagesOffer(props:TOfferData): JSX.Element {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{width: `${conversionToPercentage(rating)}`}} ></span>
+                  <span style={{ width: `${conversionToPercentage(rating)}` }} ></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">{rating}</span>
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {type}
+                  {capitalize(type)}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
                   {bedrooms} Bedrooms
@@ -83,7 +98,7 @@ export function PagesOffer(props:TOfferData): JSX.Element {
                     {host.name}
                   </span>
                   <span className="offer__user-status">
-                    { host.isPro ? 'Pro' : ''}
+                    {host.isPro ? 'Pro' : ''}
                   </span>
                 </div>
                 <div className="offer__description">
@@ -99,7 +114,7 @@ export function PagesOffer(props:TOfferData): JSX.Element {
                         <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar" />
                       </div>
                       <span className="reviews__user-name">
-                       Max
+                        Max
                       </span>
                     </div>
                     <div className="reviews__info">
@@ -120,14 +135,14 @@ export function PagesOffer(props:TOfferData): JSX.Element {
                   <label className="reviews__label form__label" htmlFor="review">Your review</label>
                   <div className="reviews__rating-form form__rating">
                     {RATINGS.map((ratingItem) => (
-                      <>
+                      <React.Fragment key={uuidv4()}>
                         <input className="form__rating-input visually-hidden" name="rating" value={ratingItem} id={`${ratingItem}-stars`} type="radio" />
                         <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
                           <svg className="form__star-image" width="37" height="33">
                             <use xlinkHref="#icon-star"></use>
                           </svg>
                         </label>
-                      </>
+                      </React.Fragment>
                     ))}
                   </div>
                   <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"></textarea>
@@ -144,12 +159,7 @@ export function PagesOffer(props:TOfferData): JSX.Element {
           <section className="offer__map map"></section>
         </section>
         <div className="container">
-          <section className="near-places places">
-            <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              <NearPlaces />
-            </div>
-          </section>
+          <NearPlaces />
         </div>
       </main>
     </div>

@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import { Footer } from '../layout/footer/footer';
 import { Header } from '../layout/header/header';
 
@@ -5,6 +6,9 @@ export function PageMainEmpty (): JSX.Element {
   return (
     <div className="page page--favorites-empty">
       <Header />
+      <Helmet>
+        <title>6 Cities</title>
+      </Helmet>
       <main className="page__main page__main--favorites page__main--favorites-empty">
         <div className="page__favorites-container container">
           <section className="favorites favorites--empty">

@@ -1,17 +1,18 @@
+import {Link} from 'react-router-dom';
 import logo from '../../assets/logo.svg';
+import { AppRoute } from '../../const';
 
 export type TLogoProps = {
     classNameLinks: string[];
     classNameImages: string[];
     width: string;
     height: string;
-    href: string;
   };
 
-export function Logo({classNameLinks, classNameImages, width, height, href}:TLogoProps): JSX.Element {
+export function Logo({classNameLinks, classNameImages, width, height}:TLogoProps): JSX.Element {
   return (
-    <a className={classNameLinks.join(' ')} href= {href}>
+    <Link className={classNameLinks.join(' ')} to={AppRoute.Root}>
       <img className={classNameImages.join(' ')} src={logo} alt="6 cities logo" width={width} height={height} />
-    </a>
+    </Link>
   );
 }

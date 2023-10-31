@@ -1,5 +1,22 @@
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import { conversionToPercentage } from '../ui/conversationToPercentage';
-import { Premium, TPremiumProp } from '../ui/premium';
+import { Premium } from '../ui/premium';
+import { capitalize } from '../../utils/common';
+
+type TCardImageSize = 'small' | 'large';
+
+type TCitiesProps = {
+  offer:TCard;
+  block: string;
+  size?: TCardImageSize;
+  cardInfo?: string;
+}
+
+const sizeMap: Record<TCardImageSize, { width: string; height: string}> = {
+  small: { width: '150', height: '100' },
+  large: { width: '260', height: '200' },
+};
 
 export type TCard = {
   previewImage: string;
@@ -9,25 +26,20 @@ export type TCard = {
   rating: number;
   title: string;
   type: string ;
+  id: number;
 }
 
-type TCardClasses = {
-  card: string;
-  wrapper: string;
-  cardInfo?: string;
-}
-
-export function Card(props: TCard & TCardClasses & TPremiumProp): JSX.Element {
-  const {previewImage, isPremium, price, rating, title, type, isFavorite, card, wrapper, cardInfo, classNamePremium} = props;
+export function Card({ offer, block, size = 'large', cardInfo = '' }: TCitiesProps): JSX.Element {
+  const {previewImage, isPremium, price, rating, title, type, isFavorite, id } = offer;
   return (
-    <article className={ `${card} place-card` }>
-      {isPremium && <Premium classNamePremium = {classNamePremium} />}
-      <div className={`${wrapper} place-card__image-wrapper`}>
-        <a href="#">
-          <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place image" />
-        </a>
+    <article className={ `${block}__card place-card` }>
+      {isPremium && <Premium />}
+      <div className={`${block}__image-wrapper place-card__image-wrapper`}>
+        <Link to={`${AppRoute.Offer}/${id}`}>
+          <img className="place-card__image" src={previewImage} alt={title} {...sizeMap[size]} />
+        </Link>
       </div>
-      <div className={cardInfo !== undefined ? `${cardInfo} place-card__info` : 'place-card__info'}>
+      <div className={`${cardInfo} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">€{price}</b>
@@ -47,9 +59,11 @@ export function Card(props: TCard & TCardClasses & TPremiumProp): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={`${AppRoute.Offer}/${id}`}>
+            {title}
+          </Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{capitalize(type)}</p>
       </div>
     </article>
   );
