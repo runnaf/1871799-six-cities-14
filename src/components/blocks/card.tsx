@@ -6,11 +6,12 @@ import { capitalize } from '../../utils/common';
 
 type TCardImageSize = 'small' | 'large';
 
-type TCitiesProps = {
+export type TCitiesProps = {
   offer:TCard;
   block: string;
   size?: TCardImageSize;
   cardInfo?: string;
+  onCardHover?: (offerId: TCard['id'] | null) => void;
 }
 
 const sizeMap: Record<TCardImageSize, { width: string; height: string}> = {
@@ -29,10 +30,19 @@ export type TCard = {
   id: number;
 }
 
-export function Card({ offer, block, size = 'large', cardInfo = '' }: TCitiesProps): JSX.Element {
+export function Card({ offer, block, size = 'large', cardInfo = '', onCardHover }: TCitiesProps): JSX.Element {
   const {previewImage, isPremium, price, rating, title, type, isFavorite, id } = offer;
+
+  function handleMouseEnter() {
+    onCardHover?.(id);
+  }
+
+  function handleMouseLeave() {
+    onCardHover?.(null);
+  }
+
   return (
-    <article className={ `${block}__card place-card` }>
+    <article className={`${block}__card place-card`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       {isPremium && <Premium />}
       <div className={`${block}__image-wrapper place-card__image-wrapper`}>
         <Link to={`${AppRoute.Offer}/${id}`}>

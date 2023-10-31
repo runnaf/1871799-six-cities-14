@@ -1,5 +1,5 @@
-import { ChangeEvent, Fragment, useState } from "react";
-import { MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH } from "../../../const";
+import { ChangeEvent, Fragment, useState } from 'react';
+import { MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH } from '../../../const';
 
 const ratingMap = {
   '5': 'perfect',
@@ -12,17 +12,17 @@ const ratingMap = {
 export function ReviewForm() {
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState('');
-  const isValid = 
+  const isValid =
     comment.length >= MIN_COMMENT_LENGTH &&
     comment.length <= MAX_COMMENT_LENGTH &&
     rating !== '';
 
   function handleTextareaChange(evt: ChangeEvent<HTMLTextAreaElement>) {
-    setComment(evt.target.value)
+    setComment(evt.target.value);
   }
 
   function handleInputChange(evt: ChangeEvent<HTMLInputElement>) {
-    setRating(evt.target.value)
+    setRating(evt.target.value);
   }
 
   return (
@@ -40,8 +40,7 @@ export function ReviewForm() {
                 </svg>
               </label>
             </Fragment>
-          ))
-        }
+          ))}
       </div>
       <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" value={comment} onChange={handleTextareaChange}/>
       <div className="reviews__button-wrapper">
@@ -51,5 +50,5 @@ export function ReviewForm() {
         <button className="reviews__submit form__submit button" type="submit" disabled={!isValid}>Submit</button>
       </div>
     </form>
-  )
+  );
 }
