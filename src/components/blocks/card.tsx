@@ -12,7 +12,7 @@ type TCitiesProps = {
   block: string;
   size?: TCardImageSize;
   cardInfo?: string;
-  onCardHover?: (offerId:TCard['id'] | null) => void;
+  onCardHover?: (offerId: TCard['id'] | null) => void;
 }
 
 const sizeMap: Record<TCardImageSize, { width: string; height: string}> = {
@@ -44,7 +44,7 @@ export function Card({ offer, block, size = 'large', cardInfo = '', onCardHover 
   }
 
   return (
-    <article className={ `${block}__card place-card` } onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <article className={`${block}__card place-card`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       {isPremium && <Premium />}
       <div className={`${block}__image-wrapper place-card__image-wrapper`}>
         <Link to={`${AppRoute.Offer}/${id}`}>
