@@ -35,7 +35,7 @@ export function Main({offers} : {offers: TCardProps}): JSX.Element {
   const activeCity = CityMap.Amsterdam;
   const count = offers.filter((item) => item.city.name === CityMap.Amsterdam.name).length;
   const [hoveredOfferId, setHoveredOfferId] = useState<
-   TCard['id'] | null > (null);
+    TCard['id'] | null > (null);
 
   function handleCardHover(offerId: TCard['id'] | null) {
     setHoveredOfferId(offerId);
