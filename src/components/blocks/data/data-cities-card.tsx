@@ -1,4 +1,4 @@
-type TCardCities = {
+export type TCardCities = {
   name: string;
   location: TLocation;
 }
