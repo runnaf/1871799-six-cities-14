@@ -1,11 +1,12 @@
 import { ListLocation, ListPlacesOptions } from '../ui/list-main';
 import { DataMain } from './data/data-main';
 import { DataMainClassName } from './data/data-class-names';
-import { DataCities } from './data/data-cities-card';
+import { TCardProps } from './data/data-cities-card';
 import { Card, TCard } from './card';
 import { addPluralEnging } from '../../utils/common';
-import { useState } from 'react';
 import { CityMap } from '../../const';
+import { useState } from 'react';
+import { MapAdded } from './map';
 
 export type TMainBlocks= {
     placesOptions: TMainItem[];
@@ -30,14 +31,11 @@ export type TClassName = {
     isActive: string;
 }
 
-const CITY = 'Amsterdam';
-const activeCity = CityMap.Amsterdam;
-const count = DataCities.filter((item) => item.city.name === CITY).length;
-
-export function Main(): JSX.Element {
+export function Main({offers} : {offers: TCardProps}): JSX.Element {
+  const activeCity = CityMap.Amsterdam;
+  const count = offers.filter((item) => item.city.name === CityMap.Amsterdam.name).length;
   const [hoveredOfferId, setHoveredOfferId] = useState<
-  TCard['id'] | null>(null);
-  console.log(hoveredOfferId);
+    TCard['id'] | null > (null);
 
   function handleCardHover(offerId: TCard['id'] | null) {
     setHoveredOfferId(offerId);
@@ -55,7 +53,7 @@ export function Main(): JSX.Element {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{count} place{addPluralEnging(count)} to stay in {activeCity}</b>
+            <b className="places__found">{count} place{addPluralEnging(count)} to stay in {activeCity.name}</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex={0}>
@@ -67,8 +65,8 @@ export function Main(): JSX.Element {
               <ListPlacesOptions classNames={DataMainClassName.placesClassListNames} itemsList={DataMain.placesOptions} classNameItems={DataMainClassName.placesClassItemNames} />
             </form>
             <div className="cities__places-list places__list tabs__content">
-              {DataCities.map((item) => (
-                item.city.name === CITY && <Card block="cities" offer={item} key={item.id} onCardHover={handleCardHover}/>
+              {offers.map((item) => (
+                item.city.name === activeCity.name && <Card block="cities" offer={item} key={item.id} onCardHover={handleCardHover}/>
               ))}
             </div>
           </section>
