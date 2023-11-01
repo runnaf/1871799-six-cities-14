@@ -12,7 +12,7 @@ type TCitiesProps = {
   block: string;
   size?: TCardImageSize;
   cardInfo?: string;
-  onCardHover?: (offerId:TCard['id'] | null) => void
+  onCardHover?: (offerId:TCard['id'] | null) => void;
 }
 
 const sizeMap: Record<TCardImageSize, { width: string; height: string}> = {
@@ -34,13 +34,13 @@ export type TCard = {
 
 export function Card({ offer, block, size = 'large', cardInfo = '', onCardHover }: TCitiesProps): JSX.Element {
   const {previewImage, isPremium, price, rating, title, type, isFavorite, id } = offer;
-  
+
   function handleMouseEnter() {
     onCardHover?.(id);
   }
 
   function handleMouseLeave() {
-    onCardHover?.(null)
+    onCardHover?.(null);
   }
 
   return (

@@ -9,7 +9,7 @@ import { TCardProps } from './data/data-cities-card';
 type MapProps = {
   block: string;
   location: TLocation;
-  offer: TCardProps
+  offer: TCardProps;
   specialOfferId: number | null;
 };
 

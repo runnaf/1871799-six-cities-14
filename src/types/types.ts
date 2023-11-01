@@ -4,7 +4,7 @@ export type TCity = {
     latitude: number;
     longitude: number;
     zoom: number;
-  }
+  };
 }
 
 export type TLocation = {
@@ -18,7 +18,7 @@ export type TPoint = {
   location: {
     latitude: number;
     longitude: number;
-  }
+  };
 };
-  
-  export type TPoints = TPoint[];
+
+export type TPoints = TPoint[];

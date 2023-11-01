@@ -27,7 +27,7 @@ export const CityMap = {
       latitude: 48.85661,
       longitude: 2.351499,
       zoom: 13
-    } 
+    }
   },
   Cologne : {
     name: 'Cologne',
@@ -35,7 +35,7 @@ export const CityMap = {
       latitude: 50.938361,
       longitude: 6.959974,
       zoom: 13
-   }
+    }
   },
   Brussels : {
     name: 'Brussels',
@@ -61,7 +61,7 @@ export const CityMap = {
       zoom: 13
     }
   },
-}
+};
 
 export const MIN_COMMENT_LENGTH = 50;
 export const MAX_COMMENT_LENGTH = 300;
