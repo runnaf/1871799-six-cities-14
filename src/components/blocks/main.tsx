@@ -40,7 +40,6 @@ export function Main({offers} : {offers: TCardProps}): JSX.Element {
   function handleCardHover(offerId: TCard['id'] | null) {
     setHoveredOfferId(offerId);
   }
-
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>

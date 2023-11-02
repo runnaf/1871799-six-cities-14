@@ -6,7 +6,7 @@ import { capitalize } from '../../utils/common';
 
 type TCardImageSize = 'small' | 'large';
 
-type TCitiesProps = {
+export type TCitiesProps = {
   offer:TCard;
   block: string;
   size?: TCardImageSize;

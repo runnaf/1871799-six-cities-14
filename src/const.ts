@@ -11,7 +11,6 @@ export enum AuthorizationStatus {
     NoAuth = 'NO_AUTH',
     Unknown = 'UNKNOWN',
 }
-
 export const CityMap = {
   Amsterdam : {
     name: 'Amsterdam',
