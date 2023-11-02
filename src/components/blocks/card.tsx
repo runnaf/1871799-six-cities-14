@@ -41,6 +41,8 @@ export function Card({ offer, block, size = 'large', cardInfo = '', onCardHover 
     onCardHover?.(null);
   }
 
+  const ratingWidth = conversionToPercentage(rating);
+
   return (
     <article className={`${block}__card place-card`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       {isPremium && <Premium />}
@@ -64,7 +66,7 @@ export function Card({ offer, block, size = 'large', cardInfo = '', onCardHover 
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${conversionToPercentage(rating)}` }} />
+            <span style={{ width: ratingWidth }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
