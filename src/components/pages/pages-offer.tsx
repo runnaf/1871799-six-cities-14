@@ -114,9 +114,7 @@ export function PagesOffer({ offersData, reviews, nearPlaces } : { offersData: T
               </section>
             </div>
           </div>
-          <section className="container">
-            <MapAdded block="offer" offer={nearPlaces} location={activeCity.location} specialOfferId={hoveredOfferId} />
-          </section>
+          <MapAdded block="offer" offer={nearPlaces} location={activeCity.location} specialOfferId={hoveredOfferId} />
         </section>
         <div className="container">
           <NearPlaces nearPlaces = {nearPlaces} />
