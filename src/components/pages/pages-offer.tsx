@@ -20,12 +20,8 @@ export function PagesOffer({ offersData, reviews, nearPlaces } : { offersData: T
   const { offerId } = useParams();
   const offerData = offersData.find(({ id }) => id.toString() === offerId);
   const activeCity = CityMap.Amsterdam;
-  const [hoveredOfferId, setHoveredOfferId] = useState<
+  const [hoveredOfferId] = useState<
     TCard['id'] | null > (null);
-
-  function handleCardHover(offerIdNearPlace: TCard['id'] | null) {
-    setHoveredOfferId(offerIdNearPlace);
-  }
 
   if (!offerData) {
     return <Navigate to={AppRoute.NotFoundPage}/>;
@@ -43,7 +39,7 @@ export function PagesOffer({ offersData, reviews, nearPlaces } : { offersData: T
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {images.map((image) => (
+              {images.slice(0,6).map((image) => (
                 <div className="offer__image-wrapper" key={uuidv4()}>
                   <img className="offer__image" src={image} alt="Photo studio" />
                 </div>
@@ -66,7 +62,7 @@ export function PagesOffer({ offersData, reviews, nearPlaces } : { offersData: T
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{ width: `${conversionToPercentage(rating)}` }} ></span>
+                  <span style={{width: conversionToPercentage(rating)}} ></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">{rating}</span>
@@ -76,10 +72,10 @@ export function PagesOffer({ offersData, reviews, nearPlaces } : { offersData: T
                   {capitalize(type)}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {bedrooms} Bedrooms
+                  {bedrooms} Bedroom{addPluralEnging(bedrooms)}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max {maxAdults} adults
+                  Max {maxAdults} adult{addPluralEnging(maxAdults)}
                 </li>
               </ul>
               <div className="offer__price">
@@ -123,7 +119,7 @@ export function PagesOffer({ offersData, reviews, nearPlaces } : { offersData: T
           </section>
         </section>
         <div className="container">
-          <NearPlaces nearPlaces = {nearPlaces} handleCardHover={handleCardHover} />
+          <NearPlaces nearPlaces = {nearPlaces} />
         </div>
       </main>
     </div>

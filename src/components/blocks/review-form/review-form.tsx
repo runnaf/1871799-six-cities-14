@@ -25,8 +25,15 @@ export function ReviewForm() {
     setRating(evt.target.value);
   }
 
+  function submitHandler (evt: ChangeEvent<HTMLFormElement>) {
+    console.log(comment, rating)
+    evt.preventDefault();
+    setRating('');
+    setComment('')
+  }
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={submitHandler}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {Object.entries(ratingMap)
