@@ -9,6 +9,8 @@ import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { ProtectedRoute } from '../protected-rout/protected-rout';
 import { DataOffer } from '../blocks/data/data-offer';
+import { DataReviews } from '../blocks/data/data-review';
+import { DataNear } from '../blocks/data/data-near';
 
 function App() {
   return (
@@ -25,7 +27,7 @@ function App() {
             }
             />
             <Route path={`${AppRoute.Offer}/:offerId`} element={
-              <PagesOffer offersData={DataOffer}/>
+              <PagesOffer offersData={DataOffer} reviews={DataReviews} nearPlaces={DataNear} />
             }
             />
             <Route path={AppRoute.NotFoundPage} element={<Error />}/>
