@@ -6,4 +6,28 @@ function addPluralEnging(count: number) {
   return count !== 1 ? 's' : '';
 }
 
-export { capitalize, addPluralEnging };
+function getDate(data:string) {
+  const date = new Date(data);
+  const mounth = date.toLocaleString('default', { month: 'long' });
+  const year = date.getFullYear();
+
+  const newMounth = capitalize(mounth)
+
+  return (`${newMounth} ${year}`)
+}
+
+function addZero(num: number) {
+	if (num >= 0 && num <= 9) {
+		return '0' + num;
+	} else {
+		return num;
+	}
+}
+
+function getDateTime(data: string) {
+  const date = new Date(data)
+  return (`${addZero(date.getFullYear())}-${addZero(date.getMonth() + 1)}-${addZero(date.getDate())}`)
+}
+console.log
+
+export { capitalize, addPluralEnging, getDate, getDateTime };
