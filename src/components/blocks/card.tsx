@@ -3,7 +3,6 @@ import { AppRoute } from '../../const';
 import { conversionToPercentage } from '../ui/conversationToPercentage';
 import { Premium } from '../ui/premium';
 import { capitalize } from '../../utils/common';
-import { TCardCities } from './data/data-cities-card';
 
 type TCardImageSize = 'small' | 'large';
 
@@ -21,7 +20,6 @@ const sizeMap: Record<TCardImageSize, { width: string; height: string}> = {
 };
 
 export type TCard = {
-  city: TCardCities;
   previewImage: string;
   isFavorite: boolean;
   isPremium: boolean;

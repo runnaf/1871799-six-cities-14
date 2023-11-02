@@ -5,7 +5,7 @@ type TComment = {
     id: number;
     user: TUser;
   }
-  
+
   type TUser = {
     avatarUrl: string;
     id: number;
@@ -16,14 +16,27 @@ type TComment = {
 
 export const DataReviews: TComment[] = [
   {
-    comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
-    date: 'Tue Oct 31 2023 12:28:06 GMT+0300 (Москва, стандартное время)',
     id: 1,
-    rating: 4,
     user: {
-    avatarUrl: 'https://14.react.pages.academy/static/avatar/7.jpg',
-    id: 1,
-    isPro: false,
-    name: 'Oliver.conner'
-  }}
-]
+      id: 12,
+      isPro: true,
+      name: 'Isaac',
+      avatarUrl: 'https://14.react.pages.academy/static/avatar/3.jpg'
+    },
+    rating: 4,
+    comment: 'I stayed here for one night and it was an unpleasant experience.',
+    date: '2023-09-13T09:23:20.316Z'
+  },
+  {
+    id: 2,
+    user: {
+      id: 12,
+      isPro: false,
+      name: 'Jack',
+      avatarUrl: 'https://14.react.pages.academy/static/avatar/2.jpg'
+    },
+    rating: 5,
+    comment: 'What an amazing view! The house is stunning and in an amazing location. The large glass wall had an amazing view of the river!',
+    date: '2023-10-30T09:23:20.316Z'
+  }
+];

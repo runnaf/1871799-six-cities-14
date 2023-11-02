@@ -5,16 +5,27 @@ import { conversionToPercentage } from '../ui/conversationToPercentage';
 import { Premium } from '../ui/premium';
 import { Helmet } from 'react-helmet-async';
 import { Navigate, useParams } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, CityMap } from '../../const';
 import { v4 as uuidv4 } from 'uuid';
-import { capitalize } from '../../utils/common';
+import { addPluralEnging, capitalize } from '../../utils/common';
 import { ReviewForm } from '../blocks/review-form/review-form';
-import { ReviewList } from '../blocks/review-list';
-import { DataReviews } from '../blocks/data/data-reviews';
+import { ReviewList, TReviews } from '../blocks/review-list';
+import { UserStatus } from '../ui/user-status';
+import { MapAdded } from '../blocks/map';
+import { useState } from 'react';
+import { TCard } from '../blocks/card';
+import { TCardProps } from '../blocks/data/data-cities-card';
 
-export function PagesOffer({ offersData } : { offersData: TOfferDataArray }): JSX.Element {
+export function PagesOffer({ offersData, reviews, nearPlaces } : { offersData: TOfferDataArray; reviews: TReviews; nearPlaces: TCardProps }): JSX.Element {
   const { offerId } = useParams();
   const offerData = offersData.find(({ id }) => id.toString() === offerId);
+  const activeCity = CityMap.Amsterdam;
+  const [hoveredOfferId, setHoveredOfferId] = useState<
+    TCard['id'] | null > (null);
+
+  function handleCardHover(offerIdNearPlace: TCard['id'] | null) {
+    setHoveredOfferId(offerIdNearPlace);
+  }
 
   if (!offerData) {
     return <Navigate to={AppRoute.NotFoundPage}/>;
@@ -97,25 +108,25 @@ export function PagesOffer({ offersData } : { offersData: TOfferDataArray }): JS
                   <span className="offer__user-name">
                     {host.name}
                   </span>
-                  <span className="offer__user-status">
-                    {host.isPro ? 'Pro' : ''}
-                  </span>
+                  <UserStatus pro = {host.isPro} />
                 </div>
                 <div className="offer__description">
                   <p className="offer__text"> {description} </p>
                 </div>
               </div>
               <section className="offer__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-                <ReviewList reviews={DataReviews} />
+                <h2 className="reviews__title">Review{addPluralEnging(reviews.length)} &middot; <span className="reviews__amount">{reviews.length}</span></h2>
+                <ReviewList reviews={reviews} />
                 <ReviewForm />
               </section>
             </div>
           </div>
-          <section className="offer__map map"></section>
+          <section className="offer__map map">
+            <MapAdded block="offer" offer={nearPlaces} location={activeCity.location} specialOfferId={hoveredOfferId} />
+          </section>
         </section>
         <div className="container">
-          <NearPlaces />
+          <NearPlaces nearPlaces = {nearPlaces} handleCardHover={handleCardHover} />
         </div>
       </main>
     </div>

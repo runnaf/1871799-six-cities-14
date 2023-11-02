@@ -1,5 +1,6 @@
-import { getDate, getDateTime } from "../../utils/common";
-import { conversionToPercentage } from "./conversationToPercentage";
+import { getDate, getDateTime } from '../../utils/common';
+import { conversionToPercentage } from './conversationToPercentage';
+import { UserStatus } from './user-status';
 
 export type TComment = {
   comment: string;
@@ -28,6 +29,7 @@ export function ReviewItem(props:TComment): JSX.Element {
         <span className="reviews__user-name">
           {user.name}
         </span>
+        <UserStatus pro = {user.isPro} />
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
@@ -42,5 +44,5 @@ export function ReviewItem(props:TComment): JSX.Element {
         <time className="reviews__time" dateTime={getDateTime(date)}>{getDate(date)}</time>
       </div>
     </li>
-  )
+  );
 }
