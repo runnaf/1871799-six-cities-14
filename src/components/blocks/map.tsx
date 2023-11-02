@@ -54,12 +54,7 @@ export function MapAdded({offer, specialOfferId, block, location }: MapProps): J
     }
   }, [map, offer, specialOfferId]);
 
-  return <section className={`${block}__map map`} ref={mapRef} style = {{
-    height: '100%',
-    minHeight: '500px',
-    width: '100%',
-    maxWidth: '1144px',
-    margin: '0 auto',
-    }}>
-  </section>;
+  return (
+    <section className={`${block}__map map`} ref={mapRef} style={{height: '100%', minHeight: '500px', width: '100%', maxWidth: '1144px', margin: '0 auto'}}></section>
+  );
 }
