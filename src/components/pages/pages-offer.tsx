@@ -31,7 +31,7 @@ export function PagesOffer({ offersData, reviews, nearPlaces } : { offersData: T
     return <Navigate to={AppRoute.NotFoundPage}/>;
   }
 
-  const {previewImage, images, title, isPremium, rating, type, bedrooms, maxAdults, price, goods, host, description} = offerData;
+  const {images, title, isPremium, rating, type, bedrooms, maxAdults, price, goods, host, description} = offerData;
 
   return (
     <div className="page">
@@ -43,9 +43,6 @@ export function PagesOffer({ offersData, reviews, nearPlaces } : { offersData: T
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src={previewImage} alt="Photo studio" />
-              </div>
               {images.map((image) => (
                 <div className="offer__image-wrapper" key={uuidv4()}>
                   <img className="offer__image" src={image} alt="Photo studio" />
@@ -121,7 +118,7 @@ export function PagesOffer({ offersData, reviews, nearPlaces } : { offersData: T
               </section>
             </div>
           </div>
-          <section className="offer__map map">
+          <section className="container">
             <MapAdded block="offer" offer={nearPlaces} location={activeCity.location} specialOfferId={hoveredOfferId} />
           </section>
         </section>
