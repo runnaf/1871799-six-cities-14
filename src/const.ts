@@ -1,5 +1,5 @@
-import pin from '..//markup/img/pin.svg'
-import currentPin from '..//markup/img/pin-active.svg'
+import pin from '..//markup/img/pin.svg';
+import currentPin from '..//markup/img/pin-active.svg';
 
 export enum AppRoute {
   Root = '/',
@@ -67,7 +67,5 @@ export const CityMap = {
 
 export const MIN_COMMENT_LENGTH = 50;
 export const MAX_COMMENT_LENGTH = 300;
-
 export const URL_MARKER_DEFAULT = pin;
-
 export const URL_MARKER_CURRENT = currentPin;
