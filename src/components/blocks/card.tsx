@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { conversionToPercentage } from '../ui/conversationToPercentage';
 import { Premium } from '../ui/premium';
-import { capitalize } from '../../utils/common';
+import { capitalize, conversionToPercentage } from '../../utils/common';
 
 type TCardImageSize = 'small' | 'large';
 

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { ListLocation, ListPlacesOptions } from '../ui/list-main';
 import { DataMain } from './data/data-main';
 import { DataMainClassName } from './data/data-class-names';
@@ -5,7 +6,6 @@ import { TCardProps } from './data/data-cities-card';
 import { Card, TCard } from './card';
 import { addPluralEnging } from '../../utils/common';
 import { CityMap } from '../../const';
-import { useState } from 'react';
 import { MapAdded } from './map';
 
 export type TMainBlocks= {

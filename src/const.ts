@@ -65,6 +65,9 @@ export const CityMap = {
   },
 };
 
+export const TOTAL_PERCENTEGE = 100;
+export const NUMBER_OF_STARS = 5
+
 export const MIN_COMMENT_LENGTH = 50;
 export const MAX_COMMENT_LENGTH = 300;
 export const URL_MARKER_DEFAULT = pin;

@@ -1,5 +1,4 @@
-import { getDate, getDateTime } from '../../utils/common';
-import { conversionToPercentage } from './conversationToPercentage';
+import { getDate, getDateTime, conversionToPercentage } from '../../utils/common';
 import { UserStatus } from './user-status';
 
 export type TComment = {

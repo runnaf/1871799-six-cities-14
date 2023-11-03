@@ -1,3 +1,5 @@
+import { NUMBER_OF_STARS, TOTAL_PERCENTEGE } from "../const";
+
 function capitalize(str: string) {
   return str[0].toUpperCase() + str.slice(1);
 }
@@ -29,4 +31,9 @@ function getDateTime(data: string) {
   return (`${addZero(date.getFullYear())}-${addZero(date.getMonth() + 1)}-${addZero(date.getDate())}`);
 }
 
-export { capitalize, addPluralEnging, getDate, getDateTime };
+function conversionToPercentage(rating: number) {
+  const ratingRound = Math.round(rating);
+  return (`${ratingRound * TOTAL_PERCENTEGE / NUMBER_OF_STARS}%`);
+}
+
+export { capitalize, addPluralEnging, getDate, getDateTime, conversionToPercentage };
