@@ -1,20 +1,21 @@
+import { Helmet } from 'react-helmet-async';
+import { Navigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { NearPlaces } from '../blocks/near-places';
 import { TOfferDataArray } from '../blocks/data/data-offer';
 import { Header } from '../layout/header/header';
 import { conversionToPercentage } from '../ui/conversationToPercentage';
 import { Premium } from '../ui/premium';
-import { Helmet } from 'react-helmet-async';
-import { Navigate, useParams } from 'react-router-dom';
 import { AppRoute, CityMap } from '../../const';
-import { v4 as uuidv4 } from 'uuid';
 import { addPluralEnging, capitalize } from '../../utils/common';
 import { ReviewForm } from '../blocks/review-form/review-form';
 import { ReviewList, TReviews } from '../blocks/review-list';
 import { UserStatus } from '../ui/user-status';
 import { MapAdded } from '../blocks/map';
-import { useState } from 'react';
 import { TCard } from '../blocks/card';
 import { TCardProps } from '../blocks/data/data-cities-card';
+
 
 export function PagesOffer({ offersData, reviews, nearPlaces } : { offersData: TOfferDataArray; reviews: TReviews; nearPlaces: TCardProps }): JSX.Element {
   const { offerId } = useParams();
@@ -22,6 +23,14 @@ export function PagesOffer({ offersData, reviews, nearPlaces } : { offersData: T
   const activeCity = CityMap.Amsterdam;
   const [hoveredOfferId] = useState<
     TCard['id'] | null > (null);
+
+  useEffect(()=>{
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  },[offerId]);
 
   if (!offerData) {
     return <Navigate to={AppRoute.NotFoundPage}/>;

@@ -10,8 +10,8 @@ const ratingMap = {
 };
 
 export function ReviewForm() {
-  const [comment, setComment] = useState('');
-  const [rating, setRating] = useState('');
+  const [comment, setComment] = useState<string>('');
+  const [rating, setRating] = useState<string>('');
   const isValid =
     comment.length >= MIN_COMMENT_LENGTH &&
     comment.length <= MAX_COMMENT_LENGTH &&
