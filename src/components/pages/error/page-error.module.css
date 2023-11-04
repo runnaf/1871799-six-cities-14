@@ -27,8 +27,15 @@
     text-align: center
   }
 
+  .description {
+    margin: 0;
+    margin-bottom: 50px;
+  }
+
   .container {
-    margin-top: 150px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
   }
