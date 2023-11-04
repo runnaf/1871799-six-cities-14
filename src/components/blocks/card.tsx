@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { conversionToPercentage } from '../ui/conversationToPercentage';
 import { Premium } from '../ui/premium';
-import { capitalize } from '../../utils/common';
+import { capitalize, conversionToPercentage } from '../../utils/common';
 
 type TCardImageSize = 'small' | 'large';
 
@@ -41,6 +40,8 @@ export function Card({ offer, block, size = 'large', cardInfo = '', onCardHover 
     onCardHover?.(null);
   }
 
+  const ratingWidth = conversionToPercentage(rating);
+
   return (
     <article className={`${block}__card place-card`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       {isPremium && <Premium />}
@@ -64,7 +65,7 @@ export function Card({ offer, block, size = 'large', cardInfo = '', onCardHover 
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${conversionToPercentage(rating)}` }} />
+            <span style={{ width: ratingWidth }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

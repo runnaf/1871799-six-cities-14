@@ -10,8 +10,8 @@ const ratingMap = {
 };
 
 export function ReviewForm() {
-  const [comment, setComment] = useState('');
-  const [rating, setRating] = useState('');
+  const [comment, setComment] = useState<string>('');
+  const [rating, setRating] = useState<string>('');
   const isValid =
     comment.length >= MIN_COMMENT_LENGTH &&
     comment.length <= MAX_COMMENT_LENGTH &&
@@ -25,8 +25,14 @@ export function ReviewForm() {
     setRating(evt.target.value);
   }
 
+  function submitHandler (evt: ChangeEvent<HTMLFormElement>) {
+    evt.preventDefault();
+    setRating('');
+    setComment('');
+  }
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={submitHandler}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {Object.entries(ratingMap)
@@ -34,7 +40,7 @@ export function ReviewForm() {
           .map(([score, title])=>(
             <Fragment key={score}>
               <input className="form__rating-input visually-hidden" name="rating" value={score} id={`${score}-stars`} type="radio" checked={rating === score} onChange={handleInputChange} />
-              <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title={title}>
+              <label htmlFor={`${score}-stars`} className="reviews__rating-label form__rating-label" title={title}>
                 <svg className="form__star-image" width={37} height={33}>
                   <use xlinkHref="#icon-star"></use>
                 </svg>

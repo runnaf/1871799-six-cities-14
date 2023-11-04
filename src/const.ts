@@ -1,3 +1,6 @@
+import pin from '..//markup/img/pin.svg';
+import currentPin from '..//markup/img/pin-active.svg';
+
 export enum AppRoute {
   Root = '/',
   Favorites = '/favorites',
@@ -62,11 +65,10 @@ export const CityMap = {
   },
 };
 
+export const TOTAL_PERCENTEGE = 100;
+export const NUMBER_OF_STARS = 5;
+
 export const MIN_COMMENT_LENGTH = 50;
 export const MAX_COMMENT_LENGTH = 300;
-
-export const URL_MARKER_DEFAULT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
-
-export const URL_MARKER_CURRENT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+export const URL_MARKER_DEFAULT = pin;
+export const URL_MARKER_CURRENT = currentPin;

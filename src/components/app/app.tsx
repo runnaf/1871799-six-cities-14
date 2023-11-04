@@ -11,6 +11,7 @@ import { ProtectedRoute } from '../protected-rout/protected-rout';
 import { DataOffer } from '../blocks/data/data-offer';
 import { DataReviews } from '../blocks/data/data-review';
 import { DataNear } from '../blocks/data/data-near';
+import { DataFavoritesCities } from '../blocks/data/data-favirites-cityes';
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
             <Route path={AppRoute.Login} element={<PagesLogin />} />
             <Route path={AppRoute.Favorites} element={
               <ProtectedRoute status={AuthorizationStatus.Auth} redirectPage={AppRoute.Login}>
-                <Favorites />
+                <Favorites favorites={DataFavoritesCities} />
               </ProtectedRoute>
             }
             />

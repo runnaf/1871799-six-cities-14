@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async';
-import { Header } from '../layout/header/header';
 import { Link } from 'react-router-dom';
+import { Header } from '../layout/header/header';
+
 
 export function PagesLogin():JSX.Element {
   return (

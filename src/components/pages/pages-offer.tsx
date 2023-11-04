@@ -1,37 +1,41 @@
+import { Helmet } from 'react-helmet-async';
+import { Navigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { NearPlaces } from '../blocks/near-places';
 import { TOfferDataArray } from '../blocks/data/data-offer';
 import { Header } from '../layout/header/header';
-import { conversionToPercentage } from '../ui/conversationToPercentage';
 import { Premium } from '../ui/premium';
-import { Helmet } from 'react-helmet-async';
-import { Navigate, useParams } from 'react-router-dom';
 import { AppRoute, CityMap } from '../../const';
-import { v4 as uuidv4 } from 'uuid';
-import { addPluralEnging, capitalize } from '../../utils/common';
+import { addPluralEnging, capitalize, conversionToPercentage } from '../../utils/common';
 import { ReviewForm } from '../blocks/review-form/review-form';
 import { ReviewList, TReviews } from '../blocks/review-list';
 import { UserStatus } from '../ui/user-status';
-import { MapAdded } from '../blocks/map';
-import { useState } from 'react';
+import { Map } from '../blocks/map/map';
 import { TCard } from '../blocks/card';
 import { TCardProps } from '../blocks/data/data-cities-card';
+
 
 export function PagesOffer({ offersData, reviews, nearPlaces } : { offersData: TOfferDataArray; reviews: TReviews; nearPlaces: TCardProps }): JSX.Element {
   const { offerId } = useParams();
   const offerData = offersData.find(({ id }) => id.toString() === offerId);
   const activeCity = CityMap.Amsterdam;
-  const [hoveredOfferId, setHoveredOfferId] = useState<
+  const [hoveredOfferId] = useState<
     TCard['id'] | null > (null);
 
-  function handleCardHover(offerIdNearPlace: TCard['id'] | null) {
-    setHoveredOfferId(offerIdNearPlace);
-  }
+  useEffect(()=>{
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  },[offerId]);
 
   if (!offerData) {
     return <Navigate to={AppRoute.NotFoundPage}/>;
   }
 
-  const {previewImage, images, title, isPremium, rating, type, bedrooms, maxAdults, price, goods, host, description} = offerData;
+  const {images, title, isPremium, rating, type, bedrooms, maxAdults, price, goods, host, description} = offerData;
 
   return (
     <div className="page">
@@ -43,10 +47,7 @@ export function PagesOffer({ offersData, reviews, nearPlaces } : { offersData: T
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src={previewImage} alt="Photo studio" />
-              </div>
-              {images.map((image) => (
+              {images.slice(0,6).map((image) => (
                 <div className="offer__image-wrapper" key={uuidv4()}>
                   <img className="offer__image" src={image} alt="Photo studio" />
                 </div>
@@ -69,7 +70,7 @@ export function PagesOffer({ offersData, reviews, nearPlaces } : { offersData: T
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{ width: `${conversionToPercentage(rating)}` }} ></span>
+                  <span style={{width: conversionToPercentage(rating)}} ></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">{rating}</span>
@@ -79,10 +80,10 @@ export function PagesOffer({ offersData, reviews, nearPlaces } : { offersData: T
                   {capitalize(type)}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {bedrooms} Bedrooms
+                  {bedrooms} Bedroom{addPluralEnging(bedrooms)}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max {maxAdults} adults
+                  Max {maxAdults} adult{addPluralEnging(maxAdults)}
                 </li>
               </ul>
               <div className="offer__price">
@@ -121,12 +122,10 @@ export function PagesOffer({ offersData, reviews, nearPlaces } : { offersData: T
               </section>
             </div>
           </div>
-          <section className="offer__map map">
-            <MapAdded block="offer" offer={nearPlaces} location={activeCity.location} specialOfferId={hoveredOfferId} />
-          </section>
+          <Map block="offer" offer={nearPlaces} location={activeCity.location} specialOfferId={hoveredOfferId} />
         </section>
         <div className="container">
-          <NearPlaces nearPlaces = {nearPlaces} handleCardHover={handleCardHover} />
+          <NearPlaces nearPlaces = {nearPlaces} />
         </div>
       </main>
     </div>

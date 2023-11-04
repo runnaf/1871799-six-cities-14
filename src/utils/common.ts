@@ -1,3 +1,7 @@
+import { TCard } from '../components/blocks/card';
+import { TCardProps } from '../components/blocks/data/data-favirites-cityes';
+import { NUMBER_OF_STARS, TOTAL_PERCENTEGE } from '../const';
+
 function capitalize(str: string) {
   return str[0].toUpperCase() + str.slice(1);
 }
@@ -29,4 +33,29 @@ function getDateTime(data: string) {
   return (`${addZero(date.getFullYear())}-${addZero(date.getMonth() + 1)}-${addZero(date.getDate())}`);
 }
 
-export { capitalize, addPluralEnging, getDate, getDateTime };
+function conversionToPercentage(rating: number) {
+  const ratingRound = Math.round(rating);
+  return (`${ratingRound * TOTAL_PERCENTEGE / NUMBER_OF_STARS}%`);
+}
+
+type TAcc = {
+  [key: string]: TCard[];
+}
+
+function transformArray(data: TCardProps) {
+  const objectData = data.reduce(
+    (acc:TAcc, object) => {
+      const city: string = object.city.name;
+
+      acc[city] ??= [];
+      acc[city].push(object);
+      return acc;
+    },
+    {},
+  );
+
+  return objectData;
+}
+
+
+export { capitalize, addPluralEnging, getDate, getDateTime, conversionToPercentage, transformArray };
