@@ -1,23 +1,11 @@
 import { Link } from 'react-router-dom';
-import { Card, TCard } from './card';
+import { Card } from './card';
 import { TCardProps } from './data/data-cities-card';
 import { AppRoute } from '../../const';
-
-type TAcc = {
-  [key: string]: TCard[];
-}
+import { transformArray } from '../../utils/common';
 
 export function FavoritesCityItem({data}: {data: TCardProps}): JSX.Element {
-  const objectData = data.reduce(
-    (acc:TAcc, object) => {
-      const city: string = object.city.name;
-
-      acc[city] ??= [];
-      acc[city].push(object);
-      return acc;
-    },
-    {},
-  );
+  const objectData = transformArray(data);
 
   return (
     <>

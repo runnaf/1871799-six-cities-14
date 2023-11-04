@@ -21,7 +21,7 @@ type TProps = {
   previewImage: string;
   images: string[];
   title: string;
-  isFavorite: true;
+  isFavorite: boolean;
   isPremium: boolean;
   rating: number;
   type: string;
