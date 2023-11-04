@@ -11,7 +11,7 @@ import { addPluralEnging, capitalize, conversionToPercentage } from '../../utils
 import { ReviewForm } from '../blocks/review-form/review-form';
 import { ReviewList, TReviews } from '../blocks/review-list';
 import { UserStatus } from '../ui/user-status';
-import { MapAdded } from '../blocks/map';
+import { Map } from '../blocks/map/map';
 import { TCard } from '../blocks/card';
 import { TCardProps } from '../blocks/data/data-cities-card';
 
@@ -122,7 +122,7 @@ export function PagesOffer({ offersData, reviews, nearPlaces } : { offersData: T
               </section>
             </div>
           </div>
-          <MapAdded block="offer" offer={nearPlaces} location={activeCity.location} specialOfferId={hoveredOfferId} />
+          <Map block="offer" offer={nearPlaces} location={activeCity.location} specialOfferId={hoveredOfferId} />
         </section>
         <div className="container">
           <NearPlaces nearPlaces = {nearPlaces} />

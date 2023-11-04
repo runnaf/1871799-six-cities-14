@@ -6,7 +6,7 @@ import { TCardProps } from './data/data-cities-card';
 import { Card, TCard } from './card';
 import { addPluralEnging } from '../../utils/common';
 import { CityMap } from '../../const';
-import { MapAdded } from './map';
+import { Map } from './map/map';
 
 export type TMainBlocks= {
     placesOptions: TMainItem[];
@@ -70,7 +70,7 @@ export function Main({offers} : {offers: TCardProps}): JSX.Element {
             </div>
           </section>
           <div className="cities__right-section">
-            <MapAdded block="cities" offer={offers} location={activeCity.location} specialOfferId={hoveredOfferId} />
+            <Map block="cities" offer={offers} location={activeCity.location} specialOfferId={hoveredOfferId} />
           </div>
         </div>
       </div>

@@ -1,10 +1,11 @@
 import {useRef, useEffect} from 'react';
 import {Icon, Marker, layerGroup} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import useMap from '../../hooks/use-map';
-import { TLocation} from '../../types/types';
-import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
-import { TCardProps } from './data/data-cities-card';
+import style from './map.module.css';
+import useMap from '../../../hooks/use-map';
+import { TLocation} from '../../../types/types';
+import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../../const';
+import { TCardProps } from '../data/data-cities-card';
 
 type MapProps = {
   block: string;
@@ -25,7 +26,7 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-export function MapAdded({offer, specialOfferId, block, location }: MapProps): JSX.Element {
+export function Map({offer, specialOfferId, block, location }: MapProps): JSX.Element {
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, location);
@@ -55,6 +56,6 @@ export function MapAdded({offer, specialOfferId, block, location }: MapProps): J
   }, [map, offer, specialOfferId]);
 
   return (
-    <section className={`${block}__map map`} ref={mapRef} style={{height: '100%', minHeight: '500px', width: '100%', maxWidth: '1144px', margin: '0 auto'}}></section>
+    <section className={`${block}__map map ${style.container}`} ref={mapRef}></section>
   );
 }
