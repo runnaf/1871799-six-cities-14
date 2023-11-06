@@ -1,5 +1,6 @@
 import pin from '..//markup/img/pin.svg';
 import currentPin from '..//markup/img/pin-active.svg';
+import { DataCities } from './components/blocks/data/data-cities-card';
 
 export enum AppRoute {
   Root = '/',
@@ -72,3 +73,5 @@ export const MIN_COMMENT_LENGTH = 50;
 export const MAX_COMMENT_LENGTH = 300;
 export const URL_MARKER_DEFAULT = pin;
 export const URL_MARKER_CURRENT = currentPin;
+export const CITY_DEFAULT = 'Paris';
+export const DataOfferDefault = DataCities.filter((item) => item.city.name === CITY_DEFAULT);
