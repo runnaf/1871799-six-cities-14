@@ -1,19 +1,12 @@
-import { createReducer } from '@reduxjs/toolkit';
-import { DataCities } from '../components/blocks/data/data-cities-card';
-import { CITY_DEFAULT, DataOfferDefault } from '../const';
-import { filtrationCity, offerList } from './action';
+import { combineReducers } from "@reduxjs/toolkit";
+import { offerSlice } from "./slice/offer-slice";
+import { filterCitySlice } from "./slice/filter-city-slice";
+import { sortOffersSlice } from "./slice/sort-offers-slice";
+import { filterOffersSlice } from "./slice/filter-offer-slice";
 
-const inicialState = {
-  city: CITY_DEFAULT,
-  offer: DataOfferDefault,
-};
-
-export const reducer = createReducer(inicialState, (builder) => {
-  builder
-    .addCase(offerList, (state) => {
-      state.city = '';
-    })
-    .addCase(filtrationCity, (state) => {
-      state.offer = DataCities.filter((offerItem) => offerItem.city.name === state.city);
-    });
+export const reducer = combineReducers({
+  [offerSlice.name]: offerSlice.reducer,
+  [filterCitySlice.name]: filterCitySlice.reducer,
+  [sortOffersSlice.name]: sortOffersSlice.reducer,
+  [filterOffersSlice.name]: filterOffersSlice.reducer
 });

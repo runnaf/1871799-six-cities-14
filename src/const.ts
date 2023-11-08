@@ -75,3 +75,4 @@ export const URL_MARKER_DEFAULT = pin;
 export const URL_MARKER_CURRENT = currentPin;
 export const CITY_DEFAULT = 'Paris';
 export const DataOfferDefault = DataCities.filter((item) => item.city.name === CITY_DEFAULT);
+export const CitiesForFilter = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
