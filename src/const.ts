@@ -15,6 +15,22 @@ export enum AuthorizationStatus {
     NoAuth = 'NO_AUTH',
     Unknown = 'UNKNOWN',
 }
+export const URL_MARKER_DEFAULT = pin;
+
+export const URL_MARKER_CURRENT = currentPin;
+
+export const DEFAULT_ICONT = {
+  iconUrl: URL_MARKER_DEFAULT,
+  iconSize: [27, 39],
+  iconAnchor: [13.5, 39]
+};
+
+export const CURRENT_ICON = {
+  iconUrl: URL_MARKER_CURRENT,
+  iconSize: [27, 39],
+  iconAnchor: [13.5, 39]
+};
+
 export const CityMap = {
   Amsterdam : {
     name: 'Amsterdam',
@@ -71,8 +87,6 @@ export const NUMBER_OF_STARS = 5;
 
 export const MIN_COMMENT_LENGTH = 50;
 export const MAX_COMMENT_LENGTH = 300;
-export const URL_MARKER_DEFAULT = pin;
-export const URL_MARKER_CURRENT = currentPin;
 export const CITY_DEFAULT = 'Paris';
 export const DataOfferDefault = DataCities.filter((item) => item.city.name === CITY_DEFAULT);
 export const CitiesForFilter = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];

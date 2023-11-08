@@ -6,32 +6,32 @@ export type TState = ReturnType<typeof store.getState>;
 
 export type TAddDispatch = typeof store.dispatch;
 
-export type StateOffers = {
+export type TStateOffers = {
   offers: {
     offers: TCard;
   };
 }
-  
-export type StateFilterCity = {
+
+export type TStateFilterCity = {
   filterCity: {
     city: string;
   };
 }
-  
-export type StateSortOffers = {
+
+export type TStateSortOffers = {
   sortOffers: TCardProps | null;
 }
-  
-export type StateFilterOffers = {
+
+export type TStateFilterOffers = {
   filterOffers: TCardProps | null;
 }
-  
-export  type StateOffersFilter = {
+
+export type TStateOffersFilter = {
   filterOffers: {
     filterOffers: TCard;
   };
 }
-  
+
 export type StateOffersSort = {
   sortOffers: {
     sortOffers: TCard;

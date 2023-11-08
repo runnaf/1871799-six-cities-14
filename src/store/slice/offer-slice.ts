@@ -1,13 +1,13 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { DataCities, TCardProps } from "../../components/blocks/data/data-cities-card"
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { DataCities, TCardProps } from '../../components/blocks/data/data-cities-card';
 
 type TInitialState = {
-    offers: TCardProps;
+  offers: TCardProps;
 }
 
 const initialState: TInitialState = {
-    offers: DataCities,
-}
+  offers: DataCities,
+};
 
 export const offerSlice = createSlice({
   name: 'offers',

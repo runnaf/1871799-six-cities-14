@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { TCardProps } from '../../components/blocks/data/data-cities-card';
-import { StateFilterOffers } from '../../types/state';
+import { TStateFilterOffers } from '../../types/state';
 
-const initialState : StateFilterOffers = {
+const initialState : TStateFilterOffers = {
   filterOffers: []
 };
 
@@ -12,6 +12,6 @@ export const filterOffersSlice = createSlice({
   reducers: {
     addFilterOffers(state, action: PayloadAction<TCardProps>) {
       state.filterOffers = action.payload;
-     }
-   }
+    }
+  }
 });

@@ -1,5 +1,5 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { CITY_DEFAULT } from "../../const";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { CITY_DEFAULT } from '../../const';
 
 type TInitialState = {
   city: string;
@@ -7,7 +7,7 @@ type TInitialState = {
 
 const initialState: TInitialState = {
   city: CITY_DEFAULT,
-}
+};
 
 export const filterCitySlice = createSlice({
   name: 'filterCity',
@@ -17,4 +17,4 @@ export const filterCitySlice = createSlice({
       state.city = action.payload;
     }
   },
-})
+});

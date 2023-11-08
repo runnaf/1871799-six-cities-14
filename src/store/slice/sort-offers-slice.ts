@@ -1,8 +1,8 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { StateSortOffers } from "../../types/state";
-import { TCardProps } from "../../components/blocks/data/data-cities-card";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { TStateSortOffers } from '../../types/state';
+import { TCardProps } from '../../components/blocks/data/data-cities-card';
 
-const initialState: StateSortOffers = {
+const initialState: TStateSortOffers = {
   sortOffers: null,
 };
 
@@ -14,4 +14,4 @@ export const sortOffersSlice = createSlice({
       state.sortOffers = action.payload;
     }
   }
-})
+});

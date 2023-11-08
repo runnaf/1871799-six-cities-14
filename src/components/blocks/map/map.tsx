@@ -3,8 +3,8 @@ import {Icon, Marker, layerGroup} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import style from './map.module.css';
 import useMap from '../../../hooks/use-map';
-import { TLocation} from '../../../types/types';
-import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../../const';
+import { TIconToMap, TLocation} from '../../../types/types';
+import { DEFAULT_ICONT, CURRENT_ICON } from '../../../const';
 import { TCardProps } from '../data/data-cities-card';
 
 type MapProps = {
@@ -14,17 +14,9 @@ type MapProps = {
   specialOfferId: number | null;
 };
 
-const defaultCustomIcon = new Icon({
-  iconUrl: URL_MARKER_DEFAULT,
-  iconSize: [27, 39],
-  iconAnchor: [13.5, 39]
-});
+const defaultCustomIcon = new Icon(DEFAULT_ICONT as TIconToMap);
 
-const currentCustomIcon = new Icon({
-  iconUrl: URL_MARKER_CURRENT,
-  iconSize: [27, 39],
-  iconAnchor: [13.5, 39]
-});
+const currentCustomIcon = new Icon(CURRENT_ICON as TIconToMap);
 
 export function Map({offer, specialOfferId, block, location }: MapProps): JSX.Element {
 
