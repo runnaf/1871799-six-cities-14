@@ -16,7 +16,7 @@ type THost = {
   avatarUrl: string;
 }
 
-type TProps = {
+export type TProps = {
   city: TCardCities;
   previewImage: string;
   images: string[];
