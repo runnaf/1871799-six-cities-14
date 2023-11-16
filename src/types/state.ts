@@ -1,14 +1,19 @@
-import { TCard } from '../components/blocks/card';
-import { TCardProps } from '../components/blocks/data/data-cities-card';
+import { TCardProps, TProps } from '../components/blocks/data/data-cities-card';
+import { Cities } from '../const';
 import { store } from '../store';
 
 export type TState = ReturnType<typeof store.getState>;
 
 export type TAddDispatch = typeof store.dispatch;
 
+export type TInicialState = {
+  city: Cities;
+  offers: TProps | [];
+}
+
 export type TStateOffers = {
   offers: {
-    offers: TCard;
+    offers: TCardProps;
   };
 }
 
@@ -19,21 +24,21 @@ export type TStateFilterCity = {
 }
 
 export type TStateSortOffers = {
-  sortOffers: TCardProps | null;
+  sortOffers: TCardProps;
 }
 
 export type TStateFilterOffers = {
-  filterOffers: TCardProps | null;
+  filterOffers: TCardProps;
 }
 
 export type TStateOffersFilter = {
   filterOffers: {
-    filterOffers: TCard;
+    filterOffers: TCardProps;
   };
 }
 
-export type StateOffersSort = {
+export type TStateOffersSort = {
   sortOffers: {
-    sortOffers: TCard;
+    sortOffers: TCardProps;
   };
 }

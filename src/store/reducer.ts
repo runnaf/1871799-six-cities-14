@@ -1,12 +1,19 @@
-import { combineReducers } from '@reduxjs/toolkit';
-import { offerSlice } from './slice/offer-slice';
-import { filterCitySlice } from './slice/filter-city-slice';
-import { sortOffersSlice } from './slice/sort-offers-slice';
-import { filterOffersSlice } from './slice/filter-offer-slice';
+import { createReducer } from '@reduxjs/toolkit';
+import { TInicialState } from '../types/state';
+import { Cities } from '../const';
+import { filtrationCity, offerList } from './action';
 
-export const reducer = combineReducers({
-  [offerSlice.name]: offerSlice.reducer,
-  [filterCitySlice.name]: filterCitySlice.reducer,
-  [sortOffersSlice.name]: sortOffersSlice.reducer,
-  [filterOffersSlice.name]: filterOffersSlice.reducer
+const inichialState: TInicialState = {
+  city: Cities.Paris,
+  offers: [],
+};
+
+export const reducer = createReducer(inichialState, (builder) => {
+  builder
+    .addCase(filtrationCity, (state, action) => {
+      state.city = action.payload;
+    })
+    .addCase(offerList, (state, action) => {
+      state.offers = action.payload;
+    });
 });

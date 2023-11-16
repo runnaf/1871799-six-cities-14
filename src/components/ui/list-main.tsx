@@ -1,8 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
 import { TClassName, TMainItem } from '../blocks/main';
-import { useDispatch, useSelector } from 'react-redux';
-import { TStateFilterCity } from '../../types/state';
-import { filterCitySlice } from '../../store/slice/filter-city-slice';
 
 export type TListLocationProps = {
   classNames: string[];
@@ -18,18 +15,13 @@ export type TListPlacesProps = {
 }
 
 export function ListLocation(props: TListLocationProps): JSX.Element {
-  const {classNames, itemsList, classNameItems} = props;
-  const dispatch = useDispatch();
-  const stateFilter = useSelector((state: TStateFilterCity)=> state.filterCity.city)
-  
+  const {classNames, itemsList, classNameItems, classNameLinks} = props;
   return (
     <ul className={classNames.join(' ')}>
       {
         itemsList.map((item): JSX.Element => (
           <li className={ classNameItems.join(' ') } key={uuidv4()}>
-            <a className={`locations__item-link tabs__item ${item.title === stateFilter ? 'tabs__item--active' : ''}`} onClick={() => {
-                  dispatch(filterCitySlice.actions.changeCity(item.title));
-                }}>
+            <a className={item.isActive ? classNameLinks.default.join(' ') + classNameLinks.isActive : classNameLinks.default.join(' ')} href="#">
               <span>{ item.title }</span>
             </a>
           </li>

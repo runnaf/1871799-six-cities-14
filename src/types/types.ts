@@ -24,7 +24,9 @@ export type TPoint = {
 export type TPoints = TPoint[];
 
 export type TIconToMap = {
-    iconUrl: string;
-    iconSize: [number, number];
-    iconAnchor: [number, number];
-  }
+  iconUrl: string;
+  iconSize: [number, number];
+  iconAnchor: [number, number];
+}
+
+export type TCities = string[]

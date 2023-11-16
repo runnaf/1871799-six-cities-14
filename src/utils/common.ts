@@ -57,5 +57,4 @@ function transformArray(data: TCardProps) {
   return objectData;
 }
 
-
-export { capitalize, addPluralEnging, getDate, getDateTime, conversionToPercentage, transformArray };
+export { capitalize, addPluralEnging, getDate, getDateTime, conversionToPercentage, transformArray};
