@@ -1,28 +1,28 @@
 import { Helmet } from 'react-helmet-async';
 import { Navigate, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { NearPlaces } from '../blocks/near-places';
 import { TOfferDataArray } from '../blocks/data/data-offer';
 import { Header } from '../layout/header/header';
 import { Premium } from '../ui/premium';
-import { AppRoute, CityMap } from '../../const';
+import { AppRoute } from '../../const';
 import { addPluralEnging, capitalize, conversionToPercentage } from '../../utils/common';
 import { ReviewForm } from '../blocks/review-form/review-form';
 import { ReviewList, TReviews } from '../blocks/review-list';
 import { UserStatus } from '../ui/user-status';
-import { Map } from '../blocks/map/map';
-import { TCard } from '../blocks/card';
+// import { Map } from '../blocks/map/map';
+// import { TCard } from '../blocks/card';
 import { TCardProps } from '../blocks/data/data-cities-card';
 
 
 export function PagesOffer({ offersData, reviews, nearPlaces } : { offersData: TOfferDataArray; reviews: TReviews; nearPlaces: TCardProps }): JSX.Element {
   const { offerId } = useParams();
   const offerData = offersData.find(({ id }) => id.toString() === offerId);
-  const activeCity = CityMap.Amsterdam;
-  const [hoveredOfferId] = useState<
-    TCard['id'] | null > (null);
 
+  // const [hoveredOfferId] = useState<
+  //   TCard['id'] | null > (null);
+  // console.log(hoveredOfferId);
   useEffect(()=>{
     window.scrollTo({
       top: 0,
@@ -122,7 +122,7 @@ export function PagesOffer({ offersData, reviews, nearPlaces } : { offersData: T
               </section>
             </div>
           </div>
-          <Map block="offer" offer={nearPlaces} location={activeCity.location} specialOfferId={hoveredOfferId} />
+          {/* <Map block="offer" offer={nearPlaces} location={activeCity.location} specialOfferId={hoveredOfferId} /> */}
         </section>
         <div className="container">
           <NearPlaces nearPlaces = {nearPlaces} />

@@ -1,5 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
 import { TClassName, TMainItem } from '../blocks/main';
+import { CityMap } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks/use-store';
+import { changeLocationMap, filtrationCity, offerList } from '../../store/action';
+import { DataCities, TCardProps } from '../blocks/data/data-cities-card';
+import { TCity } from '../../types/types';
 
 export type TListLocationProps = {
   classNames: string[];
@@ -14,16 +19,25 @@ export type TListPlacesProps = {
   classNameItems: TClassName;
 }
 
-export function ListLocation(props: TListLocationProps): JSX.Element {
-  const {classNames, itemsList, classNameItems, classNameLinks} = props;
+export function ListLocation(): JSX.Element {
+  const activeCity = useAppSelector((state) => state.city);
+  const offersFilter: TCardProps = DataCities.filter((item) => item.city.name === activeCity);
+  const chackedCity: TCity[] = CityMap.filter((location) => location.name === activeCity);
+  const dispatch = useAppDispatch();
+
+  function changeCity (city:string) {
+    dispatch(filtrationCity(city));
+    dispatch(offerList(offersFilter));
+    dispatch(changeLocationMap(chackedCity));
+  }
   return (
-    <ul className={classNames.join(' ')}>
+    <ul className={'locations__list tabs__list'}>
       {
-        itemsList.map((item): JSX.Element => (
-          <li className={ classNameItems.join(' ') } key={uuidv4()}>
-            <a className={item.isActive ? classNameLinks.default.join(' ') + classNameLinks.isActive : classNameLinks.default.join(' ')} href="#">
-              <span>{ item.title }</span>
-            </a>
+        CityMap.map((item): JSX.Element => (
+          <li className={ 'locations__item' } key={uuidv4()}>
+            <button className={`locations__item-link tabs__item ${item.name === activeCity && 'tabs__item--active'}`} onClick={()=>changeCity(item.name)} type='button'>
+              <span>{ item.name }</span>
+            </button>
           </li>
         ))
       }

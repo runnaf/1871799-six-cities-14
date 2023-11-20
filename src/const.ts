@@ -1,6 +1,7 @@
 import pin from '..//markup/img/pin.svg';
 import currentPin from '..//markup/img/pin-active.svg';
 import { DataCities } from './components/blocks/data/data-cities-card';
+import { TCity } from './types/types';
 
 export enum AppRoute {
   Root = '/',
@@ -31,8 +32,8 @@ export const CURRENT_ICON = {
   iconAnchor: [13.5, 39]
 };
 
-export const CityMap = {
-  Amsterdam : {
+export const CityMap: TCity[] = [
+  {
     name: 'Amsterdam',
     location: {
       latitude: 52.37454,
@@ -40,7 +41,7 @@ export const CityMap = {
       zoom: 13
     }
   },
-  Paris : {
+  {
     name: 'Paris',
     location: {
       latitude: 48.85661,
@@ -48,7 +49,7 @@ export const CityMap = {
       zoom: 13
     }
   },
-  Cologne : {
+  {
     name: 'Cologne',
     location: {
       latitude: 50.938361,
@@ -56,7 +57,7 @@ export const CityMap = {
       zoom: 13
     }
   },
-  Brussels : {
+  {
     name: 'Brussels',
     location: {
       latitude: 50.846557,
@@ -64,15 +65,15 @@ export const CityMap = {
       zoom: 13
     }
   },
-  Humburg : {
-    name: 'Humburg',
+  {
+    name: 'Hamburg',
     location: {
       latitude: 53.550341,
       longitude: 10.000654,
       zoom: 13
     }
   },
-  Dusseldorf : {
+  {
     name: 'Dusseldorf',
     location: {
       latitude: 51.225402,
@@ -80,7 +81,7 @@ export const CityMap = {
       zoom: 13
     }
   },
-};
+];
 
 export const TOTAL_PERCENTEGE = 100;
 export const NUMBER_OF_STARS = 5;
@@ -89,12 +90,6 @@ export const MIN_COMMENT_LENGTH = 50;
 export const MAX_COMMENT_LENGTH = 300;
 export const CITY_DEFAULT = 'Paris';
 export const DataOfferDefault = DataCities.filter((item) => item.city.name === CITY_DEFAULT);
-export const CitiesForFilter = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
-export enum Cities {
-  Paris = 'Paris',
-  Cologne = 'Cologne',
-  Brussels = 'Brussels',
-  Amsterdam = 'Amsterdam',
-  Hamburg = 'Hamburg',
-  Dusseldorf = 'Dusseldorf',
-}
+export const DEFAULT_CITY = 'Paris';
+export const defaultOffer = DataCities.filter((item) => item.city.name === DEFAULT_CITY);
+export const defaultLocation = CityMap.filter((item)=> item.name === DEFAULT_CITY);

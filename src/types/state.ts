@@ -1,14 +1,15 @@
-import { TCardProps, TProps } from '../components/blocks/data/data-cities-card';
-import { Cities } from '../const';
+import { TCardProps } from '../components/blocks/data/data-cities-card';
 import { store } from '../store';
+import { TCity } from './types';
 
 export type TState = ReturnType<typeof store.getState>;
 
 export type TAddDispatch = typeof store.dispatch;
 
 export type TInicialState = {
-  city: Cities;
-  offers: TProps | [];
+  city: string;
+  offers: TCardProps | [];
+  locationForMap: TCity[];
 }
 
 export type TStateOffers = {

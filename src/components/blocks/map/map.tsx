@@ -3,25 +3,25 @@ import {Icon, Marker, layerGroup} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import style from './map.module.css';
 import useMap from '../../../hooks/use-map';
-import { TIconToMap, TLocation} from '../../../types/types';
+import { TIconToMap, TLocation } from '../../../types/types';
 import { DEFAULT_ICONT, CURRENT_ICON } from '../../../const';
 import { TCardProps } from '../data/data-cities-card';
 
 type MapProps = {
   block: string;
-  location: TLocation;
+  activeCity: TLocation;
   offer: TCardProps;
   specialOfferId: number | null;
 };
+
 
 const defaultCustomIcon = new Icon(DEFAULT_ICONT as TIconToMap);
 
 const currentCustomIcon = new Icon(CURRENT_ICON as TIconToMap);
 
-export function Map({offer, specialOfferId, block, location }: MapProps): JSX.Element {
-
+export function Map({offer, specialOfferId, block, activeCity}: MapProps): JSX.Element {
   const mapRef = useRef(null);
-  const map = useMap(mapRef, location);
+  const map = useMap(mapRef, activeCity);
 
   useEffect(() => {
     if (map) {
