@@ -16,7 +16,7 @@ function App({offers, reviews, favoritesCity, nearPlaces}: {offers:TCardProps; r
       <BrowserRouter>
         <Routes>
           <Route path={AppRoute.Root}>
-            <Route index element={<PageMain offers={offers} />} />
+            <Route index element={<PageMain />} />
             <Route path={AppRoute.Login} element={<PagesLogin />} />
             <Route path={AppRoute.Favorites} element={
               <ProtectedRoute status={AuthorizationStatus.Auth} redirectPage={AppRoute.Login}>
