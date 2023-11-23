@@ -88,8 +88,6 @@ export const NUMBER_OF_STARS = 5;
 
 export const MIN_COMMENT_LENGTH = 50;
 export const MAX_COMMENT_LENGTH = 300;
-export const CITY_DEFAULT = 'Paris';
-export const DataOfferDefault = DataCities.filter((item) => item.city.name === CITY_DEFAULT);
 export const DEFAULT_CITY = 'Paris';
 export const defaultOffer = DataCities.filter((item) => item.city.name === DEFAULT_CITY);
 export const defaultLocation = CityMap.filter((item)=> item.name === DEFAULT_CITY);

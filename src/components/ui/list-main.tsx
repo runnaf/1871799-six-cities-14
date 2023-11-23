@@ -4,7 +4,6 @@ import { CityMap } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-store';
 import { changeLocationMap, filtrationCity, offerList } from '../../store/action';
 import { DataCities, TCardProps } from '../blocks/data/data-cities-card';
-import { TCity } from '../../types/types';
 
 export type TListLocationProps = {
   classNames: string[];
@@ -20,15 +19,15 @@ export type TListPlacesProps = {
 }
 
 export function ListLocation(): JSX.Element {
-  const activeCity = useAppSelector((state) => state.city);
-  const offersFilter: TCardProps = DataCities.filter((item) => item.city.name === activeCity);
-  const chackedCity: TCity[] = CityMap.filter((location) => location.name === activeCity);
   const dispatch = useAppDispatch();
-
+  const activeCity = useAppSelector((state)=> state.city);
   function changeCity (city:string) {
+    const offersFilter: TCardProps = DataCities.filter((item) => item.city.name === city);
+    const checkedCity = CityMap.filter((location) => location.name === city);
+
     dispatch(filtrationCity(city));
     dispatch(offerList(offersFilter));
-    dispatch(changeLocationMap(chackedCity));
+    dispatch(changeLocationMap(checkedCity));
   }
   return (
     <ul className={'locations__list tabs__list'}>

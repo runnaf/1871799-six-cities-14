@@ -1,15 +1,16 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { TInicialState } from '../types/state';
+import { TInitialState } from '../types/state';
 import { DEFAULT_CITY, defaultLocation, defaultOffer } from '../const';
-import { changeLocationMap, filtrationCity, offerList } from './action';
+import { changeLocationMap, favoritesOfferList, filtrationCity, offerList } from './action';
 
-const inichialState: TInicialState = {
+const initialState: TInitialState = {
   city: DEFAULT_CITY,
   offers: defaultOffer,
-  locationForMap: defaultLocation
+  locationForMap: defaultLocation,
+  favoritesOffer: [],
 };
 
-export const reducer = createReducer(inichialState, (builder) => {
+export const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(filtrationCity, (state, action) => {
       state.city = action.payload;
@@ -19,5 +20,8 @@ export const reducer = createReducer(inichialState, (builder) => {
     })
     .addCase(changeLocationMap, (state, action) => {
       state.locationForMap = action.payload;
+    })
+    .addCase(favoritesOfferList, (state, action) => {
+      state.favoritesOffer.push(action.payload);
     });
 });

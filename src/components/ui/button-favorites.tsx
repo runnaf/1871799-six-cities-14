@@ -1,13 +1,21 @@
 import { useState } from 'react';
+import { TCard } from '../blocks/card';
+import { useAppDispatch } from '../../hooks/use-store';
+import { favoritesOfferList } from '../../store/action';
 
 type TButtonProps = boolean;
 
 
-export function ButtonFavorites({isFavorite}: {isFavorite:TButtonProps}): JSX.Element {
+export function ButtonFavorites({isFavorite, offer}: {isFavorite:TButtonProps; offer:TCard}): JSX.Element {
   const [isFavoriteCard, setIsFavoriteCard] = useState(isFavorite);
-
+  const dispatch = useAppDispatch();
   const onFavoriteButton = (): void => {
     setIsFavoriteCard(!isFavoriteCard);
+    // const offersFavorites = useAppSelector((state) => state.favoritesOffer)
+    dispatch(favoritesOfferList(offer));
+    // if (!isFavoriteCard) {
+
+    // }
   };
 
   return (

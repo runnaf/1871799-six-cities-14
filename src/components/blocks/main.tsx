@@ -36,8 +36,6 @@ export function Main(): JSX.Element {
 
   const activeCity = useAppSelector((state) => state.city);
 
-  const locationCity = useAppSelector((state) => state.locationForMap[0].location);
-
   const count = offersList.length;
 
   const [hoveredOfferId, setHoveredOfferId] = useState<
@@ -76,7 +74,7 @@ export function Main(): JSX.Element {
             </div>
           </section>
           <div className="cities__right-section">
-            <Map block={'cities'} offer={offersList} activeCity={locationCity} specialOfferId={hoveredOfferId} />
+            <Map block={'cities'} offer={offersList} specialOfferId={hoveredOfferId} />
           </div>
         </div>
       </div>
