@@ -7,7 +7,16 @@ const initialState: TInitialState = {
   city: DEFAULT_CITY,
   offers: defaultOffer,
   locationForMap: defaultLocation,
-  favoritesOffer: [],
+  favoritesOffer: [{
+    previewImage: 'string',
+    isFavorite: true,
+    isPremium: true,
+    price: 25,
+    rating: 25,
+    title: 'string',
+    type: 'string' ,
+    id: 25,
+  }],
 };
 
 export const reducer = createReducer(initialState, (builder) => {

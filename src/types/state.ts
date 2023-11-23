@@ -11,7 +11,7 @@ export type TInitialState = {
   city: string;
   offers: TCardProps | [];
   locationForMap: TCity[];
-  favoritesOffer: TCard[] | [];
+  favoritesOffer: [] | TCard[];
 }
 
 export type TStateOffers = {

@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { Navigate, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { NearPlaces } from '../blocks/near-places';
 import { TOfferDataArray } from '../blocks/data/data-offer';
@@ -11,8 +11,8 @@ import { addPluralEnging, capitalize, conversionToPercentage } from '../../utils
 import { ReviewForm } from '../blocks/review-form/review-form';
 import { ReviewList, TReviews } from '../blocks/review-list';
 import { UserStatus } from '../ui/user-status';
-// import { Map } from '../blocks/map/map';
-// import { TCard } from '../blocks/card';
+import { Map } from '../blocks/map/map';
+import { TCard } from '../blocks/card';
 import { TCardProps } from '../blocks/data/data-cities-card';
 
 
@@ -20,8 +20,8 @@ export function PagesOffer({ offersData, reviews, nearPlaces } : { offersData: T
   const { offerId } = useParams();
   const offerData = offersData.find(({ id }) => id.toString() === offerId);
 
-  // const [hoveredOfferId] = useState<
-  //   TCard['id'] | null > (null);
+  const [hoveredOfferId] = useState<
+    TCard['id'] | null > (null);
   // console.log(hoveredOfferId);
   useEffect(()=>{
     window.scrollTo({
@@ -122,7 +122,7 @@ export function PagesOffer({ offersData, reviews, nearPlaces } : { offersData: T
               </section>
             </div>
           </div>
-          {/* <Map block="offer" offer={nearPlaces} location={activeCity.location} specialOfferId={hoveredOfferId} /> */}
+          <Map block="offer" offer={nearPlaces} specialOfferId={hoveredOfferId} />
         </section>
         <div className="container">
           <NearPlaces nearPlaces = {nearPlaces} />

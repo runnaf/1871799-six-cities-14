@@ -6,7 +6,6 @@ import useMap from '../../../hooks/use-map';
 import { TIconToMap } from '../../../types/types';
 import { DEFAULT_ICONT, CURRENT_ICON } from '../../../const';
 import { TCardProps } from '../data/data-cities-card';
-import { useAppSelector } from '../../../hooks/use-store';
 
 type MapProps = {
   block: string;
@@ -21,7 +20,7 @@ const currentCustomIcon = new Icon(CURRENT_ICON as TIconToMap);
 
 export function Map({offer, specialOfferId, block}: MapProps): JSX.Element {
   const mapRef = useRef(null);
-  const city = useAppSelector((state)=> state.locationForMap[0].location);
+  const city = offer[0].city.location;
   const map = useMap(mapRef, city);
 
 
