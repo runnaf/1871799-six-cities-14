@@ -4,16 +4,19 @@ import { changeLocationMap, filtrationCity, offerList } from '../../../store/act
 import { DataCities, TCardProps } from '../../blocks/data/data-cities-card';
 import { v4 as uuidv4 } from 'uuid';
 import style from './list-cities.module.css';
+import { sortedOffers } from '../../../utils/common';
 
 export function ListLocation(): JSX.Element {
   const dispatch = useAppDispatch();
   const activeCity = useAppSelector((state)=> state.city);
+  const sortingValue = useAppSelector((state) => state.sorting)
   function changeCity (city:string) {
     const offersFilter: TCardProps = DataCities.filter((item) => item.city.name === city);
     const checkedCity = CityMap.filter((location) => location.name === city);
-
+    const offerListSorting: TCardProps = sortedOffers(offersFilter, sortingValue)
+    
     dispatch(filtrationCity(city));
-    dispatch(offerList(offersFilter));
+    dispatch(offerList(offerListSorting));
     dispatch(changeLocationMap(checkedCity));
   }
   return (
