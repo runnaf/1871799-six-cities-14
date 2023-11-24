@@ -9,7 +9,7 @@ export function ListLocation(): JSX.Element {
   const dispatch = useAppDispatch();
   const activeCity = useAppSelector((state)=> state.city);
   const sortingValue = useAppSelector((state) => state.sorting);
-  const allData = useAppSelector((state) => state.allData)
+  const allData = useAppSelector((state) => state.allData);
   function changeCity (city:string) {
     const offersFilter: TCardProps = allData.filter((item) => item.city.name === city);
     const checkedCity = CityMap.filter((location) => location.name === city);

@@ -10,7 +10,7 @@ export function FavoritesCityItem(): JSX.Element {
   const favoriteOffers = useAppSelector((state)=>state.favoritesOffer);
   const objectData = transformArray(favoriteOffers);
   const sortingValue = useAppSelector((state) => state.sorting);
-  const allData: TProps[] = useAppSelector((state) => state.allData)
+  const allData: TProps[] = useAppSelector((state) => state.allData);
   const dispatch = useAppDispatch();
   const redirectToCity = (city: string) => {
     const checkedCity = CityMap.filter((location) => location.name === city);
@@ -19,7 +19,7 @@ export function FavoritesCityItem(): JSX.Element {
     dispatch(getPopularOffers(offersFilter));
     dispatch(gettingSortValue(sortingValue));
     dispatch(changeLocationMap(checkedCity));
-  }
+  };
 
   return (
     <>

@@ -6,7 +6,7 @@ import { useAppSelector } from '../../../hooks/use-store';
 
 export function Header(): JSX.Element {
   const favoritesCount = useAppSelector((state)=> state.favoritesOffer.length);
-  
+
   return (
     <header className="header">
       <div className="container">

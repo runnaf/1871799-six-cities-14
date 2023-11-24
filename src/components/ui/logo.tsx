@@ -23,7 +23,7 @@ export function Logo({classNameLinks, classNameImages, width, height}:TLogoProps
     dispatch(getPopularOffers(offersFilter));
     dispatch(gettingSortValue(sortingValue));
     dispatch(changeLocationMap(checkedCity));
-  }
+  };
   return (
     <Link className={classNameLinks.join(' ')} to={AppRoute.Root} onClick = {returnToHomePage}>
       <img className={classNameImages.join(' ')} src={logo} alt="6 cities logo" width={width} height={height} />

@@ -73,11 +73,8 @@ function transformArray(data: TCardProps) {
   return objectData;
 }
 
-// const offerPopularSort = useAppSelector((state)=> state.offersPopularSort)
-
 export function sortedOffers(offers: TProps[], sorting: Sorting, offersPopular:TProps[]): TProps[] {
   if(sorting === Sorting.TopRated) {
-    console.log(offersPopular)
     return offers.sort((best, worst) => worst.rating - best.rating);
   } else if(sorting === Sorting.HighToLow) {
     return offers.sort((high, low) => low.price - high.price);

@@ -9,17 +9,18 @@ export function ButtonFavorites({offer, block}: {offer:TProps; block: string}): 
   const allData = useAppSelector((state)=> state.allData);
   const onFavoriteButton = (): void => {
     const newAllData = () => {
-      let offers:TCardProps = [];
+      const offers:TCardProps = [];
       allData.map((item)=> {
-        
         if (item.id === offer.id) {
           const newItem = {...item, isFavorite: !item.isFavorite};
-          offers.push(newItem)
-        } else offers.push(item)
-      })
-      return offers
-    } 
-    dispatch(getAllData(newAllData()))
+          offers.push(newItem);
+        } else {
+          offers.push(item);
+        }
+      });
+      return offers;
+    };
+    dispatch(getAllData(newAllData()));
     setIsOffer({...isOffer, isFavorite: !isOffer.isFavorite});
     dispatch(changeOfOffer(isOffer));
     if (!isOffer.isFavorite) {
