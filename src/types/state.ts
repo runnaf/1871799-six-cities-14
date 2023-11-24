@@ -1,4 +1,5 @@
 import { TCardProps, TProps } from '../components/blocks/data/data-cities-card';
+import { Sorting } from '../const';
 import { store } from '../store';
 import { TCity } from './types';
 
@@ -11,6 +12,7 @@ export type TInitialState = {
   offers: TCardProps;
   locationForMap: TCity[];
   favoritesOffer: TProps[];
+  sorting: Sorting;
 }
 
 export type TStateOffers = {

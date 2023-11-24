@@ -1,13 +1,15 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { TInitialState } from '../types/state';
-import { DEFAULT_CITY, defaultLocation, defaultOffer } from '../const';
-import { changeLocationMap, changeOfOffer, favoritesOfferList, filtrationCity, offerList, removeFavoritesOffer } from './action';
+import { DEFAULT_CITY, Sorting, defaultLocation, defaultOffer } from '../const';
+import { changeLocationMap, changeOfOffer, favoritesOfferList, filtrationCity, gettingSortValue, offerList, removeFavoritesOffer } from './action';
+import { sortedOffers } from '../utils/common';
 
 const initialState: TInitialState = {
   city: DEFAULT_CITY,
   offers: defaultOffer,
   locationForMap: defaultLocation,
   favoritesOffer: [],
+  sorting: Sorting.Popular
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -33,5 +35,9 @@ export const reducer = createReducer(initialState, (builder) => {
           offer.isFavorite = !offer.isFavorite;
         }
       });
+    })
+    .addCase(gettingSortValue, (state, action) => {
+      state.sorting = action.payload;
+      sortedOffers(state.offers, state.sorting);
     });
 });

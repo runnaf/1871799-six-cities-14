@@ -83,6 +83,13 @@ export const CityMap: TCity[] = [
   },
 ];
 
+export enum Sorting {
+  Popular = 'Popular',
+  LowToHigh = 'Price: low to high',
+  HighToLow = 'Price: high to low',
+  TopRated = 'Top rated first',
+}
+
 export const TOTAL_PERCENTEGE = 100;
 export const NUMBER_OF_STARS = 5;
 

@@ -1,6 +1,7 @@
+
 import { TProps } from '../components/blocks/data/data-cities-card';
 import { TCardProps } from '../components/blocks/data/data-favirites-cityes';
-import { NUMBER_OF_STARS, TOTAL_PERCENTEGE } from '../const';
+import { NUMBER_OF_STARS, Sorting, TOTAL_PERCENTEGE } from '../const';
 
 function capitalize(str: string) {
   return str[0].toUpperCase() + str.slice(1);
@@ -72,15 +73,17 @@ function transformArray(data: TCardProps) {
   return objectData;
 }
 
-// export function markerPoints(offers: TProps[]): TPointOffer[] {
-//   const markers: TPointOffer[] = [];
+export function sortedOffers(offers: TProps[], sorting: Sorting): TProps[] {
+  if(sorting === Sorting.TopRated) {
+    return offers.sort((best, worst) => worst.rating - best.rating);
+  } else if(sorting === Sorting.HighToLow) {
+    return offers.sort((high, low) => low.price - high.price);
+  } else if (sorting === Sorting.LowToHigh) {
+    return offers.sort((high, low) => high.price - low.price);
+  } else {
+    return offers;
+  }
+}
 
-//   offers.forEach((offer) => markers.push({
-//     id: offer.id,
-//     location: offer.location
-//   }));
-
-//   return markers;
-// }
 
 export { capitalize, addPluralEnging, getDate, getDateTime, conversionToPercentage, transformArray};

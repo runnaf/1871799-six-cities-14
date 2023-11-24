@@ -19,7 +19,7 @@ function App({reviews, nearPlaces}: {reviews:TComment[]; nearPlaces:TCardProps})
             <Route index element={<PageMain />} />
             <Route path={AppRoute.Login} element={<PagesLogin />} />
             <Route path={AppRoute.Favorites} element={
-              <ProtectedRoute status={AuthorizationStatus.Auth} redirectPage={AppRoute.Login}>
+              <ProtectedRoute status={AuthorizationStatus.Auth} redirectPage={AppRoute.Favorites}>
                 <Favorites />
               </ProtectedRoute>
             }
