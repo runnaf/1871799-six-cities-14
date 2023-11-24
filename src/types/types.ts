@@ -21,6 +21,11 @@ export type TPoint = {
   };
 };
 
+export type TPointOffer = {
+  id: number;
+  location: TLocation;
+}
+
 export type TPoints = TPoint[];
 
 export type TIconToMap = {

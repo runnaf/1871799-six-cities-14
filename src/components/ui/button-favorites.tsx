@@ -1,26 +1,24 @@
 import { useState } from 'react';
-import { TCard } from '../blocks/card';
 import { useAppDispatch } from '../../hooks/use-store';
-import { favoritesOfferList } from '../../store/action';
+import { changeOfOffer, favoritesOfferList, removeFavoritesOffer } from '../../store/action';
+import { TProps } from '../blocks/data/data-cities-card';
 
-type TButtonProps = boolean;
-
-
-export function ButtonFavorites({isFavorite, offer}: {isFavorite:TButtonProps; offer:TCard}): JSX.Element {
-  const [isFavoriteCard, setIsFavoriteCard] = useState(isFavorite);
+export function ButtonFavorites({offer, block}: {offer:TProps; block: string}): JSX.Element {
+  const [isOffer, setIsOffer] = useState(offer);
   const dispatch = useAppDispatch();
   const onFavoriteButton = (): void => {
-    setIsFavoriteCard(!isFavoriteCard);
-    // const offersFavorites = useAppSelector((state) => state.favoritesOffer)
-    dispatch(favoritesOfferList(offer));
-    // if (!isFavoriteCard) {
-
-    // }
+    setIsOffer({...isOffer, isFavorite: !isOffer.isFavorite});
+    dispatch(changeOfOffer(isOffer));
+    if (!isOffer.isFavorite) {
+      dispatch(favoritesOfferList({...isOffer, isFavorite: !isOffer.isFavorite}));
+    } else {
+      dispatch(removeFavoritesOffer({...isOffer, isFavorite: !isOffer.isFavorite}));
+    }
   };
 
   return (
-    <button onClick={onFavoriteButton} className={`place-card__bookmark-button ${isFavoriteCard ? 'place-card__bookmark-button--active' : ''} button`} type="button">
-      <svg className="place-card__bookmark-icon" width={18} height={19}>
+    <button onClick={onFavoriteButton} className={`${block}__bookmark-button ${isOffer.isFavorite ? `${block}__bookmark-button--active` : ''} button`} type="button">
+      <svg className={`${block}__bookmark-icon`} width={18} height={19}>
         <use xlinkHref="#icon-bookmark" />
       </svg>
       <span className="visually-hidden">To bookmarks</span>

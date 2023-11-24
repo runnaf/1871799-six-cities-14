@@ -1,22 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { TInitialState } from '../types/state';
 import { DEFAULT_CITY, defaultLocation, defaultOffer } from '../const';
-import { changeLocationMap, favoritesOfferList, filtrationCity, offerList } from './action';
+import { changeLocationMap, changeOfOffer, favoritesOfferList, filtrationCity, offerList, removeFavoritesOffer } from './action';
 
 const initialState: TInitialState = {
   city: DEFAULT_CITY,
   offers: defaultOffer,
   locationForMap: defaultLocation,
-  favoritesOffer: [{
-    previewImage: 'string',
-    isFavorite: true,
-    isPremium: true,
-    price: 25,
-    rating: 25,
-    title: 'string',
-    type: 'string' ,
-    id: 25,
-  }],
+  favoritesOffer: [],
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -31,6 +22,16 @@ export const reducer = createReducer(initialState, (builder) => {
       state.locationForMap = action.payload;
     })
     .addCase(favoritesOfferList, (state, action) => {
-      state.favoritesOffer.push(action.payload);
+      state.favoritesOffer = state.favoritesOffer.concat(action.payload);
+    })
+    .addCase(removeFavoritesOffer, (state, action) => {
+      state.favoritesOffer = state.favoritesOffer.filter((offer) => offer.id !== action.payload.id);
+    })
+    .addCase(changeOfOffer, (state, action) => {
+      state.offers.map((offer) => {
+        if (offer.id === action.payload.id) {
+          offer.isFavorite = !offer.isFavorite;
+        }
+      });
     });
 });

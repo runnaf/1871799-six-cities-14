@@ -284,7 +284,7 @@ export const DataCities: TCardProps = [
       'https://14.react.pages.academy/static/offer/1.jpg'
     ],
     title: 'The house among olive ',
-    isFavorite: true,
+    isFavorite: false,
     isPremium: false,
     rating: 4.4,
     type: 'house',
@@ -667,7 +667,7 @@ export const DataCities: TCardProps = [
       'https://14.react.pages.academy/static/offer/13.jpg'
     ],
     title: 'Nice, cozy, warm big bed apartment',
-    isFavorite: true,
+    isFavorite: false,
     isPremium: true,
     rating: 3.1,
     type: 'hotel',
@@ -997,7 +997,7 @@ export const DataCities: TCardProps = [
       'https://14.react.pages.academy/static/offer/14.jpg'
     ],
     title: 'The Joshua Tree House',
-    isFavorite: true,
+    isFavorite: false,
     isPremium: false,
     rating: 2.6,
     type: 'room',

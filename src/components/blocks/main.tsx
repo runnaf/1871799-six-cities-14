@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { ListLocation, ListPlacesOptions } from '../ui/list-main';
 import { DataMain } from './data/data-main';
 import { DataMainClassName } from './data/data-class-names';
-import { Card, TCard } from './card';
+import { Card } from './card';
 import { addPluralEnging } from '../../utils/common';
 import { useAppSelector } from '../../hooks/use-store';
 import { Map } from './map/map';
+import { TProps } from './data/data-cities-card';
 
 export type TMainBlocks= {
   placesOptions: TMainItem[];
@@ -39,9 +40,9 @@ export function Main(): JSX.Element {
   const count = offersList.length;
 
   const [hoveredOfferId, setHoveredOfferId] = useState<
-    TCard['id'] | null > (null);
+    TProps['id'] | null > (null);
 
-  function handleCardHover(offerId: TCard['id'] | null) {
+  function handleCardHover(offerId: TProps['id'] | null) {
     setHoveredOfferId(offerId);
   }
   return (
@@ -74,7 +75,7 @@ export function Main(): JSX.Element {
             </div>
           </section>
           <div className="cities__right-section">
-            <Map block={'cities'} offer={offersList} specialOfferId={hoveredOfferId} />
+            <Map block={'cities'} offers={offersList} specialOfferId={hoveredOfferId} />
           </div>
         </div>
       </div>

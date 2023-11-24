@@ -5,12 +5,13 @@ import style from './map.module.css';
 import useMap from '../../../hooks/use-map';
 import { TIconToMap } from '../../../types/types';
 import { DEFAULT_ICONT, CURRENT_ICON } from '../../../const';
-import { TCardProps } from '../data/data-cities-card';
+import { TCardProps, TProps } from '../data/data-cities-card';
 
 type MapProps = {
-  block: string;
-  offer: TCardProps;
+  block: 'cities' | 'offer';
+  offers: TCardProps;
   specialOfferId: number | null;
+  specialOffer?: TProps;
 };
 
 
@@ -18,17 +19,20 @@ const defaultCustomIcon = new Icon(DEFAULT_ICONT as TIconToMap);
 
 const currentCustomIcon = new Icon(CURRENT_ICON as TIconToMap);
 
-export function Map({offer, specialOfferId, block}: MapProps): JSX.Element {
+export function Map({offers, specialOfferId, block, specialOffer}: MapProps): JSX.Element {
   const mapRef = useRef(null);
-  const city = offer[0].city.location;
+  const city = offers[0].city.location;
   const map = useMap(mapRef, city);
+
+  if (block === 'offer' && specialOffer && specialOfferId) {
+    offers = offers.concat(specialOffer);
+  }
 
 
   useEffect(() => {
     if (map) {
-      map.setView([city.latitude, city.longitude], city.zoom);
       const markerLayer = layerGroup().addTo(map);
-      offer.forEach((point) => {
+      offers.forEach((point) => {
         const marker = new Marker({
           lat: point.location.latitude,
           lng: point.location.longitude
@@ -47,7 +51,7 @@ export function Map({offer, specialOfferId, block}: MapProps): JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offer, specialOfferId, city]);
+  }, [map, offers, specialOfferId, city]);
 
   useEffect(() => {
     if (map) {

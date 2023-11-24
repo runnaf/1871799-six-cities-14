@@ -1,5 +1,4 @@
-import { TCard } from '../components/blocks/card';
-import { TCardProps } from '../components/blocks/data/data-cities-card';
+import { TCardProps, TProps } from '../components/blocks/data/data-cities-card';
 import { store } from '../store';
 import { TCity } from './types';
 
@@ -9,9 +8,9 @@ export type TAddDispatch = typeof store.dispatch;
 
 export type TInitialState = {
   city: string;
-  offers: TCardProps | [];
+  offers: TCardProps;
   locationForMap: TCity[];
-  favoritesOffer: [] | TCard[];
+  favoritesOffer: TProps[];
 }
 
 export type TStateOffers = {

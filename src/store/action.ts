@@ -1,7 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
-import { TCardProps } from '../components/blocks/data/data-cities-card';
+import { TCardProps, TProps } from '../components/blocks/data/data-cities-card';
 import { TCity } from '../types/types';
-import { TCard } from '../components/blocks/card';
 
 export const filtrationCity = createAction('offer/filtrationCity', (value: string)=>({
   payload: value,
@@ -15,6 +14,14 @@ export const changeLocationMap = createAction('map/changeLocationMap', (value: T
   payload: value,
 }));
 
-export const favoritesOfferList = createAction('favorites/offerList', (value: TCard) => ({
+export const favoritesOfferList = createAction('favorites/offerList', (value: TProps) => ({
+  payload: value,
+}));
+
+export const removeFavoritesOffer = createAction('favorites/removeFavoritesOffer', (value: TProps) => ({
+  payload: value,
+}));
+
+export const changeOfOffer = createAction('offers/changeofferList', (value: TProps)=>({
   payload: value,
 }));

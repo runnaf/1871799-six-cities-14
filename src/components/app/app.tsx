@@ -10,7 +10,7 @@ import { ProtectedRoute } from '../protected-rout/protected-rout';
 import { TCardProps } from '../blocks/data/data-cities-card';
 import { TComment } from '../ui/review-item';
 
-function App({offers, reviews, favoritesCity, nearPlaces}: {offers:TCardProps; reviews:TComment[]; favoritesCity:TCardProps; nearPlaces:TCardProps}) {
+function App({reviews, nearPlaces}: {reviews:TComment[]; nearPlaces:TCardProps}) {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -20,12 +20,12 @@ function App({offers, reviews, favoritesCity, nearPlaces}: {offers:TCardProps; r
             <Route path={AppRoute.Login} element={<PagesLogin />} />
             <Route path={AppRoute.Favorites} element={
               <ProtectedRoute status={AuthorizationStatus.Auth} redirectPage={AppRoute.Login}>
-                <Favorites favorites={favoritesCity} />
+                <Favorites />
               </ProtectedRoute>
             }
             />
             <Route path={`${AppRoute.Offer}/:offerId`} element={
-              <PagesOffer offersData={offers} reviews={reviews} nearPlaces={nearPlaces} />
+              <PagesOffer reviews={reviews} nearPlaces={nearPlaces} />
             }
             />
             <Route path={AppRoute.NotFoundPage} element={<Error />}/>

@@ -1,4 +1,4 @@
-import { TCard } from '../components/blocks/card';
+import { TProps } from '../components/blocks/data/data-cities-card';
 import { TCardProps } from '../components/blocks/data/data-favirites-cityes';
 import { NUMBER_OF_STARS, TOTAL_PERCENTEGE } from '../const';
 
@@ -54,7 +54,7 @@ function conversionToPercentage(rating: number) {
 }
 
 type TAcc = {
-  [key: string]: TCard[];
+  [key: string]: TProps[];
 }
 
 function transformArray(data: TCardProps) {
@@ -71,5 +71,16 @@ function transformArray(data: TCardProps) {
 
   return objectData;
 }
+
+// export function markerPoints(offers: TProps[]): TPointOffer[] {
+//   const markers: TPointOffer[] = [];
+
+//   offers.forEach((offer) => markers.push({
+//     id: offer.id,
+//     location: offer.location
+//   }));
+
+//   return markers;
+// }
 
 export { capitalize, addPluralEnging, getDate, getDateTime, conversionToPercentage, transformArray};

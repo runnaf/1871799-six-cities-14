@@ -1,9 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 import { Navigate, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { NearPlaces } from '../blocks/near-places';
-import { TOfferDataArray } from '../blocks/data/data-offer';
 import { Header } from '../layout/header/header';
 import { Premium } from '../ui/premium';
 import { AppRoute } from '../../const';
@@ -12,17 +11,16 @@ import { ReviewForm } from '../blocks/review-form/review-form';
 import { ReviewList, TReviews } from '../blocks/review-list';
 import { UserStatus } from '../ui/user-status';
 import { Map } from '../blocks/map/map';
-import { TCard } from '../blocks/card';
 import { TCardProps } from '../blocks/data/data-cities-card';
+import { useAppSelector } from '../../hooks/use-store';
+import { ButtonFavorites } from '../ui/button-favorites';
 
 
-export function PagesOffer({ offersData, reviews, nearPlaces } : { offersData: TOfferDataArray; reviews: TReviews; nearPlaces: TCardProps }): JSX.Element {
+export function PagesOffer({reviews, nearPlaces } : { reviews: TReviews; nearPlaces: TCardProps }): JSX.Element {
   const { offerId } = useParams();
+  const offersData = useAppSelector((state)=> state.offers);
   const offerData = offersData.find(({ id }) => id.toString() === offerId);
 
-  const [hoveredOfferId] = useState<
-    TCard['id'] | null > (null);
-  // console.log(hoveredOfferId);
   useEffect(()=>{
     window.scrollTo({
       top: 0,
@@ -61,12 +59,7 @@ export function PagesOffer({ offersData, reviews, nearPlaces } : { offersData: T
                 <h1 className="offer__name">
                   {title}
                 </h1>
-                <button className="offer__bookmark-button button" type="button">
-                  <svg className="offer__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <ButtonFavorites offer = {offerData} block = 'offer' />
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
@@ -122,7 +115,7 @@ export function PagesOffer({ offersData, reviews, nearPlaces } : { offersData: T
               </section>
             </div>
           </div>
-          <Map block="offer" offer={nearPlaces} specialOfferId={hoveredOfferId} />
+          <Map block="offer" offers={nearPlaces} specialOfferId={Number(offerId)} specialOffer={offerData}/>
         </section>
         <div className="container">
           <NearPlaces nearPlaces = {nearPlaces} />
