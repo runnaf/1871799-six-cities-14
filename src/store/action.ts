@@ -11,6 +11,14 @@ export const offerList = createAction('offer/offerList', (value: TCardProps)=>({
   payload: value,
 }));
 
+export const getPopularOffers = createAction('offer/offersPopularSort', (value: TCardProps)=> ({
+  payload: value,
+}));
+
+export const getAllData = createAction('offer/getallData', (value: TCardProps) => ({
+  payload: value,
+}));
+
 export const changeLocationMap = createAction('map/changeLocationMap', (value: TCity[]) => ({
   payload: value,
 }));

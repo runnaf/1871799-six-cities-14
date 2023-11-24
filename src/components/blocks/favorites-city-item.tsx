@@ -1,13 +1,25 @@
 import { Link } from 'react-router-dom';
 import { Card } from './card';
-import { AppRoute } from '../../const';
+import { AppRoute, CityMap } from '../../const';
 import { transformArray } from '../../utils/common';
-import { useAppSelector } from '../../hooks/use-store';
+import { useAppDispatch, useAppSelector } from '../../hooks/use-store';
+import { changeLocationMap, filtrationCity, getPopularOffers, gettingSortValue } from '../../store/action';
+import { TCardProps, TProps } from './data/data-cities-card';
 
 export function FavoritesCityItem(): JSX.Element {
   const favoriteOffers = useAppSelector((state)=>state.favoritesOffer);
   const objectData = transformArray(favoriteOffers);
-
+  const sortingValue = useAppSelector((state) => state.sorting);
+  const allData: TProps[] = useAppSelector((state) => state.allData)
+  const dispatch = useAppDispatch();
+  const redirectToCity = (city: string) => {
+    const checkedCity = CityMap.filter((location) => location.name === city);
+    const offersFilter: TCardProps = allData.filter((item) => item.city.name === city);
+    dispatch(filtrationCity(city));
+    dispatch(getPopularOffers(offersFilter));
+    dispatch(gettingSortValue(sortingValue));
+    dispatch(changeLocationMap(checkedCity));
+  }
 
   return (
     <>
@@ -16,7 +28,7 @@ export function FavoritesCityItem(): JSX.Element {
           <li className="favorites__locations-items" key={city}>
             <div className="favorites__locations locations locations--current">
               <div className="locations__item">
-                <Link className="locations__item-link" to={AppRoute.Root}>
+                <Link className="locations__item-link" to={AppRoute.Root} onClick={()=>redirectToCity(city)}>
                   <span>{city}</span>
                 </Link>
               </div>

@@ -8,8 +8,10 @@ export type TState = ReturnType<typeof store.getState>;
 export type TAddDispatch = typeof store.dispatch;
 
 export type TInitialState = {
+  allData: TCardProps;
   city: string;
   offers: TCardProps;
+  offersPopularSort:TCardProps;
   locationForMap: TCity[];
   favoritesOffer: TProps[];
   sorting: Sorting;
