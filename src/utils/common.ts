@@ -1,4 +1,4 @@
-import { TCard } from '../components/blocks/card';
+import { TProps } from '../components/blocks/data/data-cities-card';
 import { TCardProps } from '../components/blocks/data/data-favirites-cityes';
 import { NUMBER_OF_STARS, TOTAL_PERCENTEGE } from '../const';
 
@@ -9,6 +9,21 @@ function capitalize(str: string) {
 function addPluralEnging(count: number) {
   return count !== 1 ? 's' : '';
 }
+
+// export function getCities (array:TCardProps) {
+//   array.reduce((acc, city) => {
+//     if (acc.map[city.city.name]) // если данный город уже был
+//       return acc; // ничего не делаем, возвращаем уже собранное
+
+//     acc.map[city.city.name] = true; // помечаем город, как обработанный
+//     acc.cities.push(city.city); // добавляем объект в массив городов
+//     return acc; // возвращаем собранное
+//   }, {
+//     map: {}, // здесь будут отмечаться обработанные города
+//     cities: [] // здесь конечный массив уникальных городов
+//   })
+//   .cities; // получаем конечный массив
+// }
 
 function getDate(data:string) {
   const date = new Date(data);
@@ -39,7 +54,7 @@ function conversionToPercentage(rating: number) {
 }
 
 type TAcc = {
-  [key: string]: TCard[];
+  [key: string]: TProps[];
 }
 
 function transformArray(data: TCardProps) {
@@ -57,5 +72,15 @@ function transformArray(data: TCardProps) {
   return objectData;
 }
 
+// export function markerPoints(offers: TProps[]): TPointOffer[] {
+//   const markers: TPointOffer[] = [];
 
-export { capitalize, addPluralEnging, getDate, getDateTime, conversionToPercentage, transformArray };
+//   offers.forEach((offer) => markers.push({
+//     id: offer.id,
+//     location: offer.location
+//   }));
+
+//   return markers;
+// }
+
+export { capitalize, addPluralEnging, getDate, getDateTime, conversionToPercentage, transformArray};

@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 import { Card } from './card';
-import { TCardProps } from './data/data-cities-card';
 import { AppRoute } from '../../const';
 import { transformArray } from '../../utils/common';
+import { useAppSelector } from '../../hooks/use-store';
 
-export function FavoritesCityItem({data}: {data: TCardProps}): JSX.Element {
-  const objectData = transformArray(data);
+export function FavoritesCityItem(): JSX.Element {
+  const favoriteOffers = useAppSelector((state)=>state.favoritesOffer);
+  const objectData = transformArray(favoriteOffers);
+
 
   return (
     <>

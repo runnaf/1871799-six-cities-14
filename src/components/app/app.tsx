@@ -1,19 +1,16 @@
-import { PageMain } from '../pages/page-main';
-
+import { HelmetProvider } from 'react-helmet-async';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import { PagesLogin } from '../pages/pages-login';
 import { Favorites } from '../pages/pages-favorites';
 import { PagesOffer } from '../pages/pages-offer';
 import { Error } from '../pages/error/page-error';
-import { HelmetProvider } from 'react-helmet-async';
+import { PageMain } from '../pages/page-main';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { ProtectedRoute } from '../protected-rout/protected-rout';
-import { DataOffer } from '../blocks/data/data-offer';
-import { DataReviews } from '../blocks/data/data-review';
-import { DataNear } from '../blocks/data/data-near';
-import { DataFavoritesCities } from '../blocks/data/data-favirites-cityes';
+import { TCardProps } from '../blocks/data/data-cities-card';
+import { TComment } from '../ui/review-item';
 
-function App() {
+function App({reviews, nearPlaces}: {reviews:TComment[]; nearPlaces:TCardProps}) {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -23,12 +20,12 @@ function App() {
             <Route path={AppRoute.Login} element={<PagesLogin />} />
             <Route path={AppRoute.Favorites} element={
               <ProtectedRoute status={AuthorizationStatus.Auth} redirectPage={AppRoute.Login}>
-                <Favorites favorites={DataFavoritesCities} />
+                <Favorites />
               </ProtectedRoute>
             }
             />
             <Route path={`${AppRoute.Offer}/:offerId`} element={
-              <PagesOffer offersData={DataOffer} reviews={DataReviews} nearPlaces={DataNear} />
+              <PagesOffer reviews={reviews} nearPlaces={nearPlaces} />
             }
             />
             <Route path={AppRoute.NotFoundPage} element={<Error />}/>

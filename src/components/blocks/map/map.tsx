@@ -3,38 +3,36 @@ import {Icon, Marker, layerGroup} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import style from './map.module.css';
 import useMap from '../../../hooks/use-map';
-import { TLocation} from '../../../types/types';
-import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../../const';
-import { TCardProps } from '../data/data-cities-card';
+import { TIconToMap } from '../../../types/types';
+import { DEFAULT_ICONT, CURRENT_ICON } from '../../../const';
+import { TCardProps, TProps } from '../data/data-cities-card';
 
 type MapProps = {
-  block: string;
-  location: TLocation;
-  offer: TCardProps;
+  block: 'cities' | 'offer';
+  offers: TCardProps;
   specialOfferId: number | null;
+  specialOffer?: TProps;
 };
 
-const defaultCustomIcon = new Icon({
-  iconUrl: URL_MARKER_DEFAULT,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40]
-});
 
-const currentCustomIcon = new Icon({
-  iconUrl: URL_MARKER_CURRENT,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40]
-});
+const defaultCustomIcon = new Icon(DEFAULT_ICONT as TIconToMap);
 
-export function Map({offer, specialOfferId, block, location }: MapProps): JSX.Element {
+const currentCustomIcon = new Icon(CURRENT_ICON as TIconToMap);
 
+export function Map({offers, specialOfferId, block, specialOffer}: MapProps): JSX.Element {
   const mapRef = useRef(null);
-  const map = useMap(mapRef, location);
+  const city = offers[0].city.location;
+  const map = useMap(mapRef, city);
+
+  if (block === 'offer' && specialOffer && specialOfferId) {
+    offers = offers.concat(specialOffer);
+  }
+
 
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
-      offer.forEach((point) => {
+      offers.forEach((point) => {
         const marker = new Marker({
           lat: point.location.latitude,
           lng: point.location.longitude
@@ -53,9 +51,18 @@ export function Map({offer, specialOfferId, block, location }: MapProps): JSX.El
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offer, specialOfferId]);
+  }, [map, offers, specialOfferId, city]);
+
+  useEffect(() => {
+    if (map) {
+      map.setView([city.latitude, city.longitude], city.zoom);
+    }
+  }, [map, city]);
 
   return (
     <section className={`${block}__map map ${style.container}`} ref={mapRef}></section>
   );
+
+
 }
+

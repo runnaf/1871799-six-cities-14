@@ -1,5 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
 import { TClassName, TMainItem } from '../blocks/main';
+import { CityMap } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks/use-store';
+import { changeLocationMap, filtrationCity, offerList } from '../../store/action';
+import { DataCities, TCardProps } from '../blocks/data/data-cities-card';
 
 export type TListLocationProps = {
   classNames: string[];
@@ -14,16 +18,25 @@ export type TListPlacesProps = {
   classNameItems: TClassName;
 }
 
-export function ListLocation(props: TListLocationProps): JSX.Element {
-  const {classNames, itemsList, classNameItems, classNameLinks} = props;
+export function ListLocation(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const activeCity = useAppSelector((state)=> state.city);
+  function changeCity (city:string) {
+    const offersFilter: TCardProps = DataCities.filter((item) => item.city.name === city);
+    const checkedCity = CityMap.filter((location) => location.name === city);
+
+    dispatch(filtrationCity(city));
+    dispatch(offerList(offersFilter));
+    dispatch(changeLocationMap(checkedCity));
+  }
   return (
-    <ul className={classNames.join(' ')}>
+    <ul className={'locations__list tabs__list'}>
       {
-        itemsList.map((item): JSX.Element => (
-          <li className={ classNameItems.join(' ') } key={uuidv4()}>
-            <a className={item.isActive ? classNameLinks.default.join(' ') + classNameLinks.isActive : classNameLinks.default.join(' ')} href="#">
-              <span>{ item.title }</span>
-            </a>
+        CityMap.map((item): JSX.Element => (
+          <li className={ 'locations__item' } key={uuidv4()}>
+            <button className={`locations__item-link tabs__item ${item.name === activeCity && 'tabs__item--active'}`} onClick={()=>changeCity(item.name)} type='button'>
+              <span>{ item.name }</span>
+            </button>
           </li>
         ))
       }
