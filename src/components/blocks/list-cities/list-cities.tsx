@@ -9,12 +9,12 @@ import { sortedOffers } from '../../../utils/common';
 export function ListLocation(): JSX.Element {
   const dispatch = useAppDispatch();
   const activeCity = useAppSelector((state)=> state.city);
-  const sortingValue = useAppSelector((state) => state.sorting)
+  const sortingValue = useAppSelector((state) => state.sorting);
   function changeCity (city:string) {
     const offersFilter: TCardProps = DataCities.filter((item) => item.city.name === city);
     const checkedCity = CityMap.filter((location) => location.name === city);
-    const offerListSorting: TCardProps = sortedOffers(offersFilter, sortingValue)
-    
+    const offerListSorting: TCardProps = sortedOffers(offersFilter, sortingValue);
+
     dispatch(filtrationCity(city));
     dispatch(offerList(offerListSorting));
     dispatch(changeLocationMap(checkedCity));
