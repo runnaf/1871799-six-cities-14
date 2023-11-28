@@ -98,3 +98,6 @@ export const MAX_COMMENT_LENGTH = 300;
 export const DEFAULT_CITY = 'Paris';
 export const defaultOffer = DataCities.filter((item) => item.city.name === DEFAULT_CITY);
 export const defaultLocation = CityMap.filter((item)=> item.name === DEFAULT_CITY);
+
+export const BACKEND_URL = 'https://14.design.pages.academy/six-cities';
+export const REQUEST_TIMEOUT = 5000;
