@@ -53,3 +53,5 @@ export type TOffer = {
 }
 
 export type TOffers = TOffer[];
+
+export type TToken = string;
