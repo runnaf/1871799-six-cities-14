@@ -1,18 +1,17 @@
 import { Link } from 'react-router-dom';
 import { Logo } from '../../ui/logo';
-import { DataHeader } from './header-data';
+import { HeaderData } from './header-data';
 import { AppRoute } from '../../../const';
-import { useAppSelector } from '../../../hooks/use-store';
+import { useAppSelector } from '../../../hooks/hooks';
 
 export function Header(): JSX.Element {
   const favoritesCount = useAppSelector((state)=> state.favoritesOffer.length);
-
   return (
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Logo classNameLinks={DataHeader.classNameLinks} classNameImages={DataHeader.classNameImages} width={DataHeader.width} height={DataHeader.height} />
+            <Logo classNameLinks={HeaderData.classNameLinks} classNameImages={HeaderData.classNameImages} width={HeaderData.width} height={HeaderData.height}/>
           </div>
           <nav className="header__nav">
             <ul className="header__nav-list">

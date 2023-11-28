@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../hooks/use-store';
+import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { gettingSortValue } from '../../../store/action';
 import { Sorting } from '../../../const';
 

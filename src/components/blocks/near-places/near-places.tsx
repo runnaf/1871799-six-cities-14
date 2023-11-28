@@ -1,5 +1,5 @@
-import { Card } from './card';
-import { TCardProps } from './data/data-cities-card';
+import { CardOfOffer } from '../card-of-offer/card-of-offer';
+import { TCardProps } from '../data/data-cities-card';
 
 export function NearPlaces({nearPlaces}: {nearPlaces:TCardProps}): JSX.Element{
   return (
@@ -7,7 +7,7 @@ export function NearPlaces({nearPlaces}: {nearPlaces:TCardProps}): JSX.Element{
       <h2 className="near-places__title">Other places in the neighbourhood</h2>
       <div className="near-places__list places__list">
         {nearPlaces.map((nearItem) => (
-          <Card block={'near-places'} offer = {nearItem} key={nearItem.id} />
+          <CardOfOffer block={'near-places'} offer = {nearItem} key={nearItem.id} />
         ))}
       </div>
     </section>

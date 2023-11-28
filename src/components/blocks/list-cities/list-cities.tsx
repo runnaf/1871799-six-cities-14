@@ -1,5 +1,5 @@
 import { CityMap } from '../../../const';
-import { useAppDispatch, useAppSelector } from '../../../hooks/use-store';
+import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { changeLocationMap, filtrationCity, getPopularOffers, gettingSortValue, offerList } from '../../../store/action';
 import { TCardProps } from '../../blocks/data/data-cities-card';
 import { v4 as uuidv4 } from 'uuid';

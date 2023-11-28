@@ -1,9 +1,9 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { Header } from '../layout/header/header';
+import { Header } from '../../layout/header/header';
 
 
-export function PagesLogin():JSX.Element {
+export function PageLogin():JSX.Element {
   return (
     <div className="page page--gray page--login">
       <Helmet>

@@ -2,21 +2,21 @@ import { Helmet } from 'react-helmet-async';
 import { Navigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { NearPlaces } from '../blocks/near-places';
-import { Header } from '../layout/header/header';
-import { Premium } from '../ui/premium';
-import { AppRoute } from '../../const';
-import { addPluralEnging, capitalize, conversionToPercentage } from '../../utils/common';
-import { ReviewForm } from '../blocks/review-form/review-form';
-import { ReviewList, TReviews } from '../blocks/review-list';
-import { UserStatus } from '../ui/user-status';
-import { Map } from '../blocks/map/map';
-import { TCardProps } from '../blocks/data/data-cities-card';
-import { useAppSelector } from '../../hooks/use-store';
-import { ButtonFavorites } from '../ui/button-favorites';
+import { NearPlaces } from '../../blocks/near-places/near-places';
+import { Header } from '../../layout/header/header';
+import { Premium } from '../../ui/premium';
+import { AppRoute } from '../../../const';
+import { addPluralEnging, capitalize, conversionToPercentage } from '../../../utils/common';
+import { ReviewForm } from '../../blocks/review-form/review-form';
+import { ReviewList, TReviews } from '../../blocks/review-list/review-list';
+import { UserStatus } from '../../ui/user-status';
+import { Map } from '../../blocks/map/map';
+import { useAppSelector } from '../../../hooks/hooks';
+import { ButtonFavorites } from '../../ui/button-favorites';
+import { TOffers } from '../../../types/types';
 
 
-export function PagesOffer({reviews, nearPlaces } : { reviews: TReviews; nearPlaces: TCardProps }): JSX.Element {
+export function PageOffer({reviews, nearPlaces } : { reviews: TReviews; nearPlaces: TOffers }): JSX.Element {
   const { offerId } = useParams();
   const offersData = useAppSelector((state)=> state.offers);
   const offerData = offersData.find(({ id }) => id.toString() === offerId);

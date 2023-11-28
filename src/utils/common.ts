@@ -1,7 +1,5 @@
-
-import { TProps } from '../components/blocks/data/data-cities-card';
-import { TCardProps } from '../components/blocks/data/data-favirites-cityes';
 import { NUMBER_OF_STARS, Sorting, TOTAL_PERCENTEGE } from '../const';
+import { TOffers } from '../types/types';
 
 function capitalize(str: string) {
   return str[0].toUpperCase() + str.slice(1);
@@ -10,21 +8,6 @@ function capitalize(str: string) {
 function addPluralEnging(count: number) {
   return count !== 1 ? 's' : '';
 }
-
-// export function getCities (array:TCardProps) {
-//   array.reduce((acc, city) => {
-//     if (acc.map[city.city.name]) // если данный город уже был
-//       return acc; // ничего не делаем, возвращаем уже собранное
-
-//     acc.map[city.city.name] = true; // помечаем город, как обработанный
-//     acc.cities.push(city.city); // добавляем объект в массив городов
-//     return acc; // возвращаем собранное
-//   }, {
-//     map: {}, // здесь будут отмечаться обработанные города
-//     cities: [] // здесь конечный массив уникальных городов
-//   })
-//   .cities; // получаем конечный массив
-// }
 
 function getDate(data:string) {
   const date = new Date(data);
@@ -55,10 +38,10 @@ function conversionToPercentage(rating: number) {
 }
 
 type TAcc = {
-  [key: string]: TProps[];
+  [key: string]: TOffers;
 }
 
-function transformArray(data: TCardProps) {
+function transformArray(data: TOffers) {
   const objectData = data.reduce(
     (acc:TAcc, object) => {
       const city: string = object.city.name;
@@ -73,7 +56,7 @@ function transformArray(data: TCardProps) {
   return objectData;
 }
 
-export function sortedOffers(offers: TProps[], sorting: Sorting, offersPopular:TProps[]): TProps[] {
+export function sortedOffers(offers: TOffers, sorting: Sorting, offersPopular:TOffers): TOffers {
   if(sorting === Sorting.TopRated) {
     return offers.sort((best, worst) => worst.rating - best.rating);
   } else if(sorting === Sorting.HighToLow) {

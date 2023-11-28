@@ -1,4 +1,4 @@
-import { ReviewItem, TComment } from '../ui/review-item';
+import { ReviewItem, TComment } from '../../ui/review-item';
 
 export type TReviews = TComment[]
 
