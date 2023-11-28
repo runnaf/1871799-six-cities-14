@@ -1,4 +1,4 @@
-import { TOffers } from "../../../types/types";
+import { TOffers } from '../../../types/types';
 
 export const DataCities: TOffers = [
   {

@@ -1,9 +1,9 @@
 import { CityMap } from '../../../const';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { changeLocationMap, filtrationCity, getPopularOffers, gettingSortValue, offerList } from '../../../store/action';
-import { TCardProps } from '../../blocks/data/data-cities-card';
 import { v4 as uuidv4 } from 'uuid';
 import style from './list-cities.module.css';
+import { TOffers } from '../../../types/types';
 
 export function ListLocation(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -11,7 +11,7 @@ export function ListLocation(): JSX.Element {
   const sortingValue = useAppSelector((state) => state.sorting);
   const allData = useAppSelector((state) => state.allData);
   function changeCity (city:string) {
-    const offersFilter: TCardProps = allData.filter((item) => item.city.name === city);
+    const offersFilter: TOffers = allData.filter((item) => item.city.name === city);
     const checkedCity = CityMap.filter((location) => location.name === city);
 
     dispatch(filtrationCity(city));

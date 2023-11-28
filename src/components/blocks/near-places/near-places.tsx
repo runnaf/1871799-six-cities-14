@@ -1,7 +1,7 @@
+import { TOffers } from '../../../types/types';
 import { CardOfOffer } from '../card-of-offer/card-of-offer';
-import { TCardProps } from '../data/data-cities-card';
 
-export function NearPlaces({nearPlaces}: {nearPlaces:TCardProps}): JSX.Element{
+export function NearPlaces({nearPlaces}: {nearPlaces:TOffers}): JSX.Element{
   return (
     <section className="near-places places">
       <h2 className="near-places__title">Other places in the neighbourhood</h2>

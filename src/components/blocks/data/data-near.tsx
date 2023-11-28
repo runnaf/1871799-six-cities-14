@@ -1,6 +1,6 @@
-import { TCardProps } from './data-cities-card';
+import { TOffers } from '../../../types/types';
 
-export const DataNear: TCardProps = [
+export const DataNear: TOffers = [
   {
     city: {
       name: 'Amsterdam',

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import {  CardOfOffer } from '../card-of-offer/card-of-offer';
+import { CardOfOffer } from '../card-of-offer/card-of-offer';
 import { AppRoute, CityMap } from '../../../const';
 import { transformArray } from '../../../utils/common';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
