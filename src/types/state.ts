@@ -1,21 +1,24 @@
-import { TCardProps, TProps } from '../components/blocks/data/data-cities-card';
+import { Sorting } from '../const';
 import { store } from '../store';
-import { TCity } from './types';
+import { TCity, TOffer, TOffers } from './types';
 
 export type TState = ReturnType<typeof store.getState>;
 
 export type TAddDispatch = typeof store.dispatch;
 
 export type TInitialState = {
+  allData: TOffers;
   city: string;
-  offers: TCardProps;
+  offers: TOffers;
+  offersPopularSort:TOffers;
   locationForMap: TCity[];
-  favoritesOffer: TProps[];
+  favoritesOffer: TOffer[];
+  sorting: Sorting;
 }
 
 export type TStateOffers = {
   offers: {
-    offers: TCardProps;
+    offers: TOffers;
   };
 }
 
@@ -26,21 +29,21 @@ export type TStateFilterCity = {
 }
 
 export type TStateSortOffers = {
-  sortOffers: TCardProps;
+  sortOffers: TOffers;
 }
 
 export type TStateFilterOffers = {
-  filterOffers: TCardProps;
+  filterOffers: TOffers;
 }
 
 export type TStateOffersFilter = {
   filterOffers: {
-    filterOffers: TCardProps;
+    filterOffers: TOffers;
   };
 }
 
 export type TStateOffersSort = {
   sortOffers: {
-    sortOffers: TCardProps;
+    sortOffers: TOffers;
   };
 }

@@ -1,13 +1,18 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { TInitialState } from '../types/state';
-import { DEFAULT_CITY, defaultLocation, defaultOffer } from '../const';
-import { changeLocationMap, changeOfOffer, favoritesOfferList, filtrationCity, offerList, removeFavoritesOffer } from './action';
+import { DEFAULT_CITY, Sorting, defaultLocation, defaultOffer } from '../const';
+import { changeLocationMap, changeOfOffer, favoritesOfferList, filtrationCity, getAllData, getPopularOffers, gettingSortValue, offerList, removeFavoritesOffer } from './action';
+import { sortedOffers } from '../utils/common';
+import { DataCities } from '../components/blocks/data/data-cities-card';
 
 const initialState: TInitialState = {
+  allData: DataCities,
   city: DEFAULT_CITY,
   offers: defaultOffer,
+  offersPopularSort: defaultOffer,
   locationForMap: defaultLocation,
   favoritesOffer: [],
+  sorting: Sorting.Popular
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -17,6 +22,12 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(offerList, (state, action) => {
       state.offers = action.payload;
+    })
+    .addCase(getPopularOffers, (state, action) => {
+      state.offersPopularSort = action.payload;
+    })
+    .addCase(getAllData, (state, action)=> {
+      state.allData = action.payload;
     })
     .addCase(changeLocationMap, (state, action) => {
       state.locationForMap = action.payload;
@@ -33,5 +44,9 @@ export const reducer = createReducer(initialState, (builder) => {
           offer.isFavorite = !offer.isFavorite;
         }
       });
+    })
+    .addCase(gettingSortValue, (state, action) => {
+      state.sorting = action.payload;
+      state.offers = sortedOffers(state.offers, state.sorting, state.offersPopularSort);
     });
 });

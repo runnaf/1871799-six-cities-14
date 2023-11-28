@@ -1,6 +1,9 @@
 import {Link} from 'react-router-dom';
 import logo from '../../assets/logo.svg';
-import { AppRoute } from '../../const';
+import { AppRoute, CityMap, DEFAULT_CITY } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { changeLocationMap, filtrationCity, getPopularOffers, gettingSortValue } from '../../store/action';
+import { TOffer, TOffers } from '../../types/types';
 
 export type TLogoProps = {
     classNameLinks: string[];
@@ -10,8 +13,19 @@ export type TLogoProps = {
   };
 
 export function Logo({classNameLinks, classNameImages, width, height}:TLogoProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const allData: TOffer[] = useAppSelector((state) => state.allData);
+  const sortingValue = useAppSelector((state) => state.sorting);
+  const returnToHomePage = () => {
+    const checkedCity = CityMap.filter((location) => location.name === DEFAULT_CITY);
+    const offersFilter: TOffers = allData.filter((item) => item.city.name === DEFAULT_CITY);
+    dispatch(filtrationCity(DEFAULT_CITY));
+    dispatch(getPopularOffers(offersFilter));
+    dispatch(gettingSortValue(sortingValue));
+    dispatch(changeLocationMap(checkedCity));
+  };
   return (
-    <Link className={classNameLinks.join(' ')} to={AppRoute.Root}>
+    <Link className={classNameLinks.join(' ')} to={AppRoute.Root} onClick = {returnToHomePage}>
       <img className={classNameImages.join(' ')} src={logo} alt="6 cities logo" width={width} height={height} />
     </Link>
   );

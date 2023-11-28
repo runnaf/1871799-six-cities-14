@@ -1,4 +1,4 @@
-import { FavoritesCityItem } from './favorites-city-item';
+import { FavoritesCityItem } from '../favorites-city-item/favorites-city-item';
 
 export function FavoritesBlock(): JSX.Element {
   return (

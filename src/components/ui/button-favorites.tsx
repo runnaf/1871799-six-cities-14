@@ -1,12 +1,26 @@
 import { useState } from 'react';
-import { useAppDispatch } from '../../hooks/use-store';
-import { changeOfOffer, favoritesOfferList, removeFavoritesOffer } from '../../store/action';
-import { TProps } from '../blocks/data/data-cities-card';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { changeOfOffer, favoritesOfferList, getAllData, removeFavoritesOffer } from '../../store/action';
+import { TOffer, TOffers } from '../../types/types';
 
-export function ButtonFavorites({offer, block}: {offer:TProps; block: string}): JSX.Element {
+export function ButtonFavorites({offer, block}: {offer:TOffer; block: string}): JSX.Element {
   const [isOffer, setIsOffer] = useState(offer);
   const dispatch = useAppDispatch();
+  const allData = useAppSelector((state)=> state.allData);
   const onFavoriteButton = (): void => {
+    const newAllData = () => {
+      const offers:TOffers = [];
+      allData.map((item)=> {
+        if (item.id === offer.id) {
+          const newItem = {...item, isFavorite: !item.isFavorite};
+          offers.push(newItem);
+        } else {
+          offers.push(item);
+        }
+      });
+      return offers;
+    };
+    dispatch(getAllData(newAllData()));
     setIsOffer({...isOffer, isFavorite: !isOffer.isFavorite});
     dispatch(changeOfOffer(isOffer));
     if (!isOffer.isFavorite) {

@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
-import { Footer } from '../layout/footer/footer';
-import { Header } from '../layout/header/header';
+import { Footer } from '../../layout/footer/footer';
+import { Header } from '../../layout/header/header';
 
 export function PageMainEmpty (): JSX.Element {
   return (

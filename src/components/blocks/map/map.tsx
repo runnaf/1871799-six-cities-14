@@ -3,15 +3,14 @@ import {Icon, Marker, layerGroup} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import style from './map.module.css';
 import useMap from '../../../hooks/use-map';
-import { TIconToMap } from '../../../types/types';
+import { TIconToMap, TOffer, TOffers } from '../../../types/types';
 import { DEFAULT_ICONT, CURRENT_ICON } from '../../../const';
-import { TCardProps, TProps } from '../data/data-cities-card';
 
 type MapProps = {
   block: 'cities' | 'offer';
-  offers: TCardProps;
+  offers: TOffers;
   specialOfferId: number | null;
-  specialOffer?: TProps;
+  specialOffer?: TOffer;
 };
 
 

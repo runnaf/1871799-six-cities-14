@@ -1,18 +1,18 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { Premium } from '../ui/premium';
-import { capitalize, conversionToPercentage } from '../../utils/common';
-import { ButtonFavorites } from '../ui/button-favorites';
-import { TProps } from './data/data-cities-card';
+import { AppRoute } from '../../../const';
+import { Premium } from '../../ui/premium';
+import { capitalize, conversionToPercentage } from '../../../utils/common';
+import { ButtonFavorites } from '../../ui/button-favorites';
+import { TOffer } from '../../../types/types';
 
 type TCardImageSize = 'small' | 'large';
 
 export type TCitiesProps = {
-  offer:TProps;
+  offer:TOffer;
   block: string;
   size?: TCardImageSize;
   cardInfo?: string;
-  onCardHover?: (offerId: TProps['id'] | null) => void;
+  onCardHover?: (offerId: TOffer['id'] | null) => void;
 }
 
 const sizeMap: Record<TCardImageSize, { width: string; height: string}> = {
@@ -20,7 +20,7 @@ const sizeMap: Record<TCardImageSize, { width: string; height: string}> = {
   large: { width: '260', height: '200' },
 };
 
-export function Card({ offer, block, size = 'large', cardInfo = '', onCardHover }: TCitiesProps): JSX.Element {
+export function CardOfOffer({ offer, block, size = 'large', cardInfo = '', onCardHover }: TCitiesProps): JSX.Element {
   const {previewImage, isPremium, price, rating, title, type, id } = offer;
 
   function handleMouseEnter() {
@@ -37,9 +37,9 @@ export function Card({ offer, block, size = 'large', cardInfo = '', onCardHover 
     <article className={`${block}__card place-card`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       {isPremium && <Premium />}
       <div className={`${block}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`${AppRoute.Offer}/${id}`}>
+        <div>
           <img className="place-card__image" src={previewImage} alt={title} {...sizeMap[size]} />
-        </Link>
+        </div>
       </div>
       <div className={`${cardInfo} place-card__info`}>
         <div className="place-card__price-wrapper">

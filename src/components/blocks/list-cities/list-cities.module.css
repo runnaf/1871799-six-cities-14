@@ -1,0 +1,7 @@
+.button {
+    border: 0;
+    background-color: inherit;
+  }
+  .button:focus-visible {
+    outline: 0;
+  }

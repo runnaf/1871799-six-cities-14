@@ -1,43 +1,6 @@
-export type TCardCities = {
-  name: string;
-  location: TLocation;
-}
+import { TOffers } from '../../../types/types';
 
-type TLocation = {
-  latitude: number;
-  longitude: number;
-  zoom: number;
-}
-
-type THost = {
-  id: number;
-  name: string;
-  isPro: boolean;
-  avatarUrl: string;
-}
-
-type TProps = {
-  city: TCardCities;
-  previewImage: string;
-  images: string[];
-  title: string;
-  isFavorite: boolean;
-  isPremium: boolean;
-  rating: number;
-  type: string;
-  bedrooms: number;
-  maxAdults: number;
-  price: number;
-  goods: string[];
-  host: THost;
-  description: string;
-  location: TLocation;
-  id: number;
-}
-
-export type TCardProps = TProps[];
-
-export const DataFavoritesCities: TCardProps = [
+export const DataFavoritesCities: TOffers = [
   {
     city: {
       name: 'Dusseldorf',
