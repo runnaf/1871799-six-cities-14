@@ -1,6 +1,6 @@
 import { CityMap } from '../../../const';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
-import { changeLocationMap, filtrationCity, getPopularOffers, gettingSortValue, offerList } from '../../../store/action';
+import { changeLocationMap, filtrationCity, getOffers, getPopularOffers, gettingSortValue } from '../../../store/action';
 import { v4 as uuidv4 } from 'uuid';
 import style from './list-cities.module.css';
 import { TOffers } from '../../../types/types';
@@ -16,7 +16,7 @@ export function ListLocation(): JSX.Element {
 
     dispatch(filtrationCity(city));
     dispatch(getPopularOffers(offersFilter));
-    dispatch(offerList(offersFilter));
+    dispatch(getOffers(offersFilter));
     dispatch(gettingSortValue(sortingValue));
     dispatch(changeLocationMap(checkedCity));
   }

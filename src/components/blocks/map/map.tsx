@@ -9,7 +9,7 @@ import { DEFAULT_ICONT, CURRENT_ICON } from '../../../const';
 type MapProps = {
   block: 'cities' | 'offer';
   offers: TOffers;
-  specialOfferId: number | null;
+  specialOfferId: string | undefined;
   specialOffer?: TOffer;
 };
 

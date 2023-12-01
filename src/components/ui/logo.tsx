@@ -3,7 +3,7 @@ import logo from '../../assets/logo.svg';
 import { AppRoute, CityMap, DEFAULT_CITY } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { changeLocationMap, filtrationCity, getPopularOffers, gettingSortValue } from '../../store/action';
-import { TOffer, TOffers } from '../../types/types';
+import { TOffers } from '../../types/types';
 
 export type TLogoProps = {
     classNameLinks: string[];
@@ -14,7 +14,7 @@ export type TLogoProps = {
 
 export function Logo({classNameLinks, classNameImages, width, height}:TLogoProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const allData: TOffer[] = useAppSelector((state) => state.allData);
+  const allData: TOffers = useAppSelector((state) => state.allData);
   const sortingValue = useAppSelector((state) => state.sorting);
   const returnToHomePage = () => {
     const checkedCity = CityMap.filter((location) => location.name === DEFAULT_CITY);

@@ -7,6 +7,7 @@ export function SortItem ():JSX.Element {
   const [opened, setOpened] = useState<boolean>(false);
   const activeSorting = useAppSelector((state) => state.sorting);
   const dispatch = useAppDispatch();
+  // const offers = useAppSelector((state)=> state.offers)
 
   function handleToggle() {
     setOpened(!opened);
@@ -15,12 +16,11 @@ export function SortItem ():JSX.Element {
   function handleChangeSorting(item: Sorting) {
     dispatch(gettingSortValue(item));
     setOpened(false);
-    // dispatch(offerList(offersFilter))
   }
 
   return (
     <form className="places__sorting" action="#" method="get">
-      <span className="places__sorting-caption">Sort by</span>
+      <span className="places__sorting-caption">Sort by </span>
       <span className="places__sorting-type" tabIndex={0} onClick={handleToggle}>
         {activeSorting}
         <svg className="places__sorting-arrow" width={7} height={4}>

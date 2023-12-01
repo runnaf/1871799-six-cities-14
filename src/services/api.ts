@@ -1,6 +1,7 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { BACKEND_URL, REQUEST_TIMEOUT } from '../const';
+import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
+import { AppRoute, BACKEND_URL, REQUEST_TIMEOUT, browserHistory } from '../const';
 import { getToken } from './token';
+import { StatusCodes } from 'http-status-codes';
 
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
@@ -8,15 +9,24 @@ export const createAPI = (): AxiosInstance => {
     timeout: REQUEST_TIMEOUT,
   });
 
-  api.interceptors.request.use(
-    (config: AxiosRequestConfig) => {
-      const token = getToken();
+  api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
+    const token = getToken();
 
-      if (token && config.headers) {
-        config.headers['x-token'] = token;
+    if (token && config.headers) {
+      config.headers['x-token'] = token;
+    }
+
+    return config;
+  });
+
+  api.interceptors.response.use(
+    (response) => response,
+    (error: AxiosError<{error: string}>) => {
+      if (error.response?.status === StatusCodes.NOT_FOUND) {
+        browserHistory.push(AppRoute.Root);
       }
 
-      return config;
+      throw error;
     }
   );
 

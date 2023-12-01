@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { Navigate, useParams } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { NearPlaces } from '../../blocks/near-places/near-places';
@@ -8,18 +8,19 @@ import { Premium } from '../../ui/premium';
 import { AppRoute } from '../../../const';
 import { addPluralEnging, capitalize, conversionToPercentage } from '../../../utils/common';
 import { ReviewForm } from '../../blocks/review-form/review-form';
-import { ReviewList, TReviews } from '../../blocks/review-list/review-list';
+import { ReviewList } from '../../blocks/review-list/review-list';
 import { UserStatus } from '../../ui/user-status';
 import { Map } from '../../blocks/map/map';
 import { useAppSelector } from '../../../hooks/hooks';
 import { ButtonFavorites } from '../../ui/button-favorites';
-import { TOffers } from '../../../types/types';
 
 
-export function PageOffer({reviews, nearPlaces } : { reviews: TReviews; nearPlaces: TOffers }): JSX.Element {
-  const { offerId } = useParams();
-  const offersData = useAppSelector((state)=> state.offers);
-  const offerData = offersData.find(({ id }) => id.toString() === offerId);
+export function PageOffer(): JSX.Element {
+  // const { offerId } = useParams<{offerId: string}>();
+  const offer = useAppSelector((state)=> state.offer);
+  const offerId = offer?.id;
+  const nearbyOffers = useAppSelector((state) => state.nearPlaces);
+  const reviews = useAppSelector((state) => state.reviews);
 
   useEffect(()=>{
     window.scrollTo({
@@ -29,11 +30,23 @@ export function PageOffer({reviews, nearPlaces } : { reviews: TReviews; nearPlac
     });
   },[offerId]);
 
-  if (!offerData) {
+  // useEffect(()=>{
+  //   if (offerId) {
+  //     dispatch(fetchOffer(offerId));
+  //     dispatch(fetchNearPlaces(offerId));
+  // dispatch(fetchReviews(offerId));
+  //   }
+
+  //   return () => {
+  //     // dispatch(dropOffer());
+  //   };
+  // }, [offerId, dispatch]);
+
+  if (!offer) {
     return <Navigate to={AppRoute.NotFoundPage}/>;
   }
 
-  const {images, title, isPremium, rating, type, bedrooms, maxAdults, price, goods, host, description} = offerData;
+  const {images, title, isPremium, rating, type, bedrooms, maxAdults, price, goods, host, description} = offer;
 
   return (
     <div className="page">
@@ -59,7 +72,7 @@ export function PageOffer({reviews, nearPlaces } : { reviews: TReviews; nearPlac
                 <h1 className="offer__name">
                   {title}
                 </h1>
-                <ButtonFavorites offer = {offerData} block = 'offer' />
+                <ButtonFavorites offer = {offer} block = 'offer' />
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
@@ -115,10 +128,11 @@ export function PageOffer({reviews, nearPlaces } : { reviews: TReviews; nearPlac
               </section>
             </div>
           </div>
-          <Map block="offer" offers={nearPlaces} specialOfferId={Number(offerId)} specialOffer={offerData}/>
+          <Map block="offer" offers={nearbyOffers} specialOfferId={offerId} specialOffer={offer}/>
         </section>
+
         <div className="container">
-          <NearPlaces nearPlaces = {nearPlaces} />
+          <NearPlaces nearPlaces = {nearbyOffers} />
         </div>
       </main>
     </div>

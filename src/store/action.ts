@@ -1,12 +1,12 @@
 import { createAction } from '@reduxjs/toolkit';
-import { TCity, TOffer, TOffers } from '../types/types';
+import { TCity, TOfferForOffers, TOffers } from '../types/types';
 import { Sorting } from '../const';
 
 export const filtrationCity = createAction('offer/filtrationCity', (value: string)=>({
   payload: value,
 }));
 
-export const offerList = createAction('offer/offerList', (value: TOffers)=>({
+export const getOffers = createAction('offer/offerList', (value: TOffers)=>({
   payload: value,
 }));
 
@@ -22,15 +22,15 @@ export const changeLocationMap = createAction('map/changeLocationMap', (value: T
   payload: value,
 }));
 
-export const favoritesOfferList = createAction('favorites/offerList', (value: TOffer) => ({
+export const favoritesOfferList = createAction('favorites/offerList', (value: TOfferForOffers) => ({
   payload: value,
 }));
 
-export const removeFavoritesOffer = createAction('favorites/removeFavoritesOffer', (value: TOffer) => ({
+export const removeFavoritesOffer = createAction('favorites/removeFavoritesOffer', (value: TOfferForOffers) => ({
   payload: value,
 }));
 
-export const changeOfOffer = createAction('offers/changeofferList', (value: TOffer)=>({
+export const changeOfOffer = createAction('offers/changeofferList', (value: TOfferForOffers)=>({
   payload: value,
 }));
 

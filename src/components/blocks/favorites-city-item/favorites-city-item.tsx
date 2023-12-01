@@ -4,13 +4,13 @@ import { AppRoute, CityMap } from '../../../const';
 import { transformArray } from '../../../utils/common';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { changeLocationMap, filtrationCity, getPopularOffers, gettingSortValue } from '../../../store/action';
-import { TOffer, TOffers } from '../../../types/types';
+import { TOffers } from '../../../types/types';
 
 export function FavoritesCityItem(): JSX.Element {
   const favoriteOffers = useAppSelector((state)=>state.favoritesOffer);
   const objectData = transformArray(favoriteOffers);
   const sortingValue = useAppSelector((state) => state.sorting);
-  const allData: TOffer[] = useAppSelector((state) => state.allData);
+  const allData: TOffers = useAppSelector((state) => state.allData);
   const dispatch = useAppDispatch();
   const redirectToCity = (city: string) => {
     const checkedCity = CityMap.filter((location) => location.name === city);
