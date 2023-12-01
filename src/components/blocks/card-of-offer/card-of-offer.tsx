@@ -38,7 +38,6 @@ export function CardOfOffer({ offer, block, size = 'large', cardInfo = '', onCar
     dispatch(fetchNearPlaces(id));
     dispatch(fetchOffer(id));
     dispatch(fetchReviews(id));
-
   }
 
   const ratingWidth = conversionToPercentage(rating);

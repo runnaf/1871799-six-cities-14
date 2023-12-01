@@ -22,7 +22,7 @@ function App() {
               </ProtectedRoute>
             }
             />
-            <Route path={`${AppRoute.Offer}/:offerIdnearby`} element={<PageOffer />} />
+            <Route path={`${AppRoute.Offer}/:id`} element={<PageOffer />} />
             <Route path={AppRoute.NotFoundPage} element={<PageError />}/>
           </Route>
         </Routes>

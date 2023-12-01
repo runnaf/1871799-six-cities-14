@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { NearPlaces } from '../../blocks/near-places/near-places';
@@ -11,14 +11,17 @@ import { ReviewForm } from '../../blocks/review-form/review-form';
 import { ReviewList } from '../../blocks/review-list/review-list';
 import { UserStatus } from '../../ui/user-status';
 import { Map } from '../../blocks/map/map';
-import { useAppSelector } from '../../../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { ButtonFavorites } from '../../ui/button-favorites';
+import { fetchNearPlaces, fetchOffer, fetchReviews } from '../../../store/api-action';
 
 
 export function PageOffer(): JSX.Element {
-  // const { offerId } = useParams<{offerId: string}>();
+  const dispatch = useAppDispatch();
+  const { offerId } = useParams<{offerId: string}>();
+  console.log(offerId)
   const offer = useAppSelector((state)=> state.offer);
-  const offerId = offer?.id;
+  const id = offer?.id;
   const nearbyOffers = useAppSelector((state) => state.nearPlaces);
   const reviews = useAppSelector((state) => state.reviews);
 
@@ -30,17 +33,17 @@ export function PageOffer(): JSX.Element {
     });
   },[offerId]);
 
-  // useEffect(()=>{
-  //   if (offerId) {
-  //     dispatch(fetchOffer(offerId));
-  //     dispatch(fetchNearPlaces(offerId));
-  // dispatch(fetchReviews(offerId));
-  //   }
+  useEffect(()=>{
+    if (offerId) {
+      dispatch(fetchOffer(offerId));
+      dispatch(fetchNearPlaces(offerId));
+      dispatch(fetchReviews(offerId));
+    }
 
-  //   return () => {
-  //     // dispatch(dropOffer());
-  //   };
-  // }, [offerId, dispatch]);
+    return () => {
+      // dispatch(dropOffer());
+    };
+  }, [offerId, dispatch]);
 
   if (!offer) {
     return <Navigate to={AppRoute.NotFoundPage}/>;
@@ -128,7 +131,7 @@ export function PageOffer(): JSX.Element {
               </section>
             </div>
           </div>
-          <Map block="offer" offers={nearbyOffers} specialOfferId={offerId} specialOffer={offer}/>
+          <Map block="offer" offers={nearbyOffers} specialOfferId={id} specialOffer={offer}/>
         </section>
 
         <div className="container">
