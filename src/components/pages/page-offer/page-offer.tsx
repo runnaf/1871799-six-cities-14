@@ -32,7 +32,7 @@ export function PageOffer(): JSX.Element {
       dispatch(fetchReviews(id));
     }
 
-    return () => {
+    else return () => {
       dispatch(dropOffer());
     };
   }, [id, dispatch]);
@@ -50,7 +50,7 @@ export function PageOffer(): JSX.Element {
     });
   },[id]);
 
-  if (!offer) {
+  if (offer === null) {
     return <Navigate to={AppRoute.NotFoundPage}/>;
   }
 
