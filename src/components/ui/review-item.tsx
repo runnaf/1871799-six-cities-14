@@ -1,34 +1,20 @@
+import { TComment } from '../../types/types';
 import { getDate, getDateTime, conversionToPercentage } from '../../utils/common';
 import { UserStatus } from './user-status';
 
-export type TComment = {
-  comment: string;
-  date: string;
-  rating: number;
-  user: TUser;
-}
-
-type TUser = {
-  avatarUrl: string;
-  id: number;
-  isPro: boolean;
-  name: string;
-}
-
-export function ReviewItem(props:TComment): JSX.Element {
-  const {comment, date, rating, user} = props;
-  const ratingUser = conversionToPercentage(rating);
+export function ReviewItem({comment}:{comment:TComment}): JSX.Element {
+  const ratingUser = conversionToPercentage(comment.rating);
 
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
-          <img className="reviews__avatar user__avatar" src={user.avatarUrl} width={54} height={54} alt="Reviews avatar" />
+          <img className="reviews__avatar user__avatar" src={comment.user.avatarUrl} width={54} height={54} alt="Reviews avatar" />
         </div>
         <span className="reviews__user-name">
-          {user.name}
+          {comment.user.name}
         </span>
-        <UserStatus pro = {user.isPro} />
+        <UserStatus pro = {comment.user.isPro} />
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
@@ -38,9 +24,9 @@ export function ReviewItem(props:TComment): JSX.Element {
           </div>
         </div>
         <p className="reviews__text">
-          {comment}
+          {comment.comment}
         </p>
-        <time className="reviews__time" dateTime={getDateTime(date)}>{getDate(date)}</time>
+        <time className="reviews__time" dateTime={getDateTime(comment.date)}>{getDate(comment.date)}</time>
       </div>
     </li>
   );

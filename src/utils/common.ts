@@ -56,7 +56,7 @@ function transformArray(data: TOffers) {
   return objectData;
 }
 
-export function sortedOffers(offers: TOffers, sorting: Sorting, offersPopular:TOffers): TOffers {
+export function sortedOffers(sorting: Sorting, offersPopular:TOffers, offers:TOffers): TOffers {
   if(sorting === Sorting.TopRated) {
     return offers.sort((best, worst) => worst.rating - best.rating);
   } else if(sorting === Sorting.HighToLow) {

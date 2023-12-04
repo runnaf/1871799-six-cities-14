@@ -3,16 +3,16 @@ import { AppRoute } from '../../../const';
 import { Premium } from '../../ui/premium';
 import { capitalize, conversionToPercentage } from '../../../utils/common';
 import { ButtonFavorites } from '../../ui/button-favorites';
-import { TOffer } from '../../../types/types';
+import { TOffer, TOfferForOffers } from '../../../types/types';
 
 type TCardImageSize = 'small' | 'large';
 
 export type TCitiesProps = {
-  offer:TOffer;
+  offer:TOfferForOffers;
   block: string;
   size?: TCardImageSize;
   cardInfo?: string;
-  onCardHover?: (offerId: TOffer['id'] | null) => void;
+  onCardHover?: (offerId: TOffer['id']) => void;
 }
 
 const sizeMap: Record<TCardImageSize, { width: string; height: string}> = {
@@ -28,7 +28,7 @@ export function CardOfOffer({ offer, block, size = 'large', cardInfo = '', onCar
   }
 
   function handleMouseLeave() {
-    onCardHover?.(null);
+    onCardHover?.('');
   }
 
   const ratingWidth = conversionToPercentage(rating);

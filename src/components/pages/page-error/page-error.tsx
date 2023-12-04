@@ -5,7 +5,8 @@ import { Helmet } from 'react-helmet-async';
 import { AppRoute } from '../../../const';
 import style from './page-error.module.css';
 
-export function Error(): JSX.Element {
+
+export function PageError(): JSX.Element {
   return (
     <section className={`${style.wrapper} page page--gray container` }>
       <Helmet>

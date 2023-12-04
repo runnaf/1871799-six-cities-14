@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { changeOfOffer, favoritesOfferList, getAllData, removeFavoritesOffer } from '../../store/action';
-import { TOffer, TOffers } from '../../types/types';
+import { TOfferForOffers, TOffers } from '../../types/types';
 
-export function ButtonFavorites({offer, block}: {offer:TOffer; block: string}): JSX.Element {
+export function ButtonFavorites({offer, block}: {offer:TOfferForOffers; block: string}): JSX.Element {
   const [isOffer, setIsOffer] = useState(offer);
   const dispatch = useAppDispatch();
   const allData = useAppSelector((state)=> state.allData);
-  const onFavoriteButton = (): void => {
+  const handleFavoriteButton = (): void => {
     const newAllData = () => {
-      const offers:TOffers = [];
+      const offers: TOffers = [];
       allData.map((item)=> {
         if (item.id === offer.id) {
           const newItem = {...item, isFavorite: !item.isFavorite};
@@ -20,9 +20,11 @@ export function ButtonFavorites({offer, block}: {offer:TOffer; block: string}): 
       });
       return offers;
     };
+
     dispatch(getAllData(newAllData()));
     setIsOffer({...isOffer, isFavorite: !isOffer.isFavorite});
     dispatch(changeOfOffer(isOffer));
+
     if (!isOffer.isFavorite) {
       dispatch(favoritesOfferList({...isOffer, isFavorite: !isOffer.isFavorite}));
     } else {
@@ -31,7 +33,7 @@ export function ButtonFavorites({offer, block}: {offer:TOffer; block: string}): 
   };
 
   return (
-    <button onClick={onFavoriteButton} className={`${block}__bookmark-button ${isOffer.isFavorite ? `${block}__bookmark-button--active` : ''} button`} type="button">
+    <button onClick={handleFavoriteButton} className={`${block}__bookmark-button ${isOffer.isFavorite ? `${block}__bookmark-button--active` : ''} button`} type="button">
       <svg className={`${block}__bookmark-icon`} width={18} height={19}>
         <use xlinkHref="#icon-bookmark" />
       </svg>

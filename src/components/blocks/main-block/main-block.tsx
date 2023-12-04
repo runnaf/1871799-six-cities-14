@@ -1,11 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CardOfOffer } from '../card-of-offer/card-of-offer';
 import { addPluralEnging } from '../../../utils/common';
-import { useAppSelector } from '../../../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { Map } from '../map/map';
 import { SortItem } from '../sort-item/sort-item';
-import { ListLocation } from '../list-cities/list-cities';
-import { TOffer } from '../../../types/types';
+import { ListLocation } from '../list-cities/list-location';
+import { TOffer, TOfferForOffers } from '../../../types/types';
+import { fetchOffers } from '../../../store/api-action';
+import { RequestStatus } from '../../../const';
+import { PageError } from '../../pages/page-error/page-error';
+import Loader from '../loader/loader';
 
 export type TMainBlocks= {
   placesOptions: TMainItem[];
@@ -27,21 +31,29 @@ export type TMainItem = {
 
 export type TClassName = {
   default: string[];
-  isActive: string;
+  isActive: string | undefined;
 }
 
 export function MainBlock(): JSX.Element {
+  const dispatch = useAppDispatch();
 
-  const offersList = useAppSelector((state) => state.offers);
+  const fetchingStatus = useAppSelector((state) => state.offersFetchingStatus);
+
+  useEffect(()=>{
+    dispatch(fetchOffers());
+  }, [dispatch]);
 
   const activeCity = useAppSelector((state) => state.city);
+  const offersList = useAppSelector((state) => state.offers);
+  const location = activeCity.location;
+  // console.log(location)
 
   const count = offersList.length;
 
   const [hoveredOfferId, setHoveredOfferId] = useState<
-    TOffer['id'] | null > (null);
+    TOfferForOffers['id'] | undefined > (undefined);
 
-  function handleCardHover(offerId: TOffer['id'] | null) {
+  function handleCardHover(offerId: TOffer['id'] | undefined) {
     setHoveredOfferId(offerId);
   }
   return (
@@ -52,23 +64,29 @@ export function MainBlock(): JSX.Element {
           <ListLocation />
         </section>
       </div>
-      <div className="cities">
-        <div className="cities__places-container container">
-          <section className="cities__places places">
-            <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{count} place{addPluralEnging(count)} to stay in {activeCity}</b>
-            <SortItem />
-            <div className="cities__places-list places__list tabs__content">
-              {offersList.map((item) => (
-                <CardOfOffer block="cities" offer={item} key={item.id} onCardHover={handleCardHover}/>
-              ))}
+      {fetchingStatus === RequestStatus.Error && (
+        <PageError />
+      )}
+      {fetchingStatus === RequestStatus.Pending && <Loader />}
+      {fetchingStatus === RequestStatus.Success && (
+        <div className="cities">
+          <div className="cities__places-container container">
+            <section className="cities__places places">
+              <h2 className="visually-hidden">Places</h2>
+              <b className="places__found">{count} place{addPluralEnging(count)} to stay in {activeCity.name}</b>
+              <SortItem />
+              <div className="cities__places-list places__list tabs__content">
+                {offersList.map((item) => (
+                  <CardOfOffer block="cities" offer={item} key={item.id} onCardHover={handleCardHover}/>
+                ))}
+              </div>
+            </section>
+            <div className="cities__right-section">
+              <Map block={'cities'} offers={offersList} specialOfferId={hoveredOfferId} location = {location} />
             </div>
-          </section>
-          <div className="cities__right-section">
-            <Map block={'cities'} offers={offersList} specialOfferId={hoveredOfferId} />
           </div>
         </div>
-      </div>
+      )}
     </main>
   );
 }

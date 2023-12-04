@@ -1,26 +1,86 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { TInitialState } from '../types/state';
-import { DEFAULT_CITY, Sorting, defaultLocation, defaultOffer } from '../const';
-import { changeLocationMap, changeOfOffer, favoritesOfferList, filtrationCity, getAllData, getPopularOffers, gettingSortValue, offerList, removeFavoritesOffer } from './action';
+import { AuthorizationStatus, CityMap, MAX_NEAR_PLACES_COUNT, RequestStatus, Sorting } from '../const';
+import { changeLocationMap, changeOfOffer, dropOffer, favoritesOfferList, filtrationCity, getAllData, getOffers, getPopularOffers, gettingSortValue, removeFavoritesOffer } from './action';
 import { sortedOffers } from '../utils/common';
-import { DataCities } from '../components/blocks/data/data-cities-card';
+import { fetchNearPlaces, fetchOffer, fetchOffers, fetchReviews, postReviews } from './api-action';
 
 const initialState: TInitialState = {
-  allData: DataCities,
-  city: DEFAULT_CITY,
-  offers: defaultOffer,
-  offersPopularSort: defaultOffer,
-  locationForMap: defaultLocation,
+  allData: [],
+  city: CityMap.Paris,
+  offers: [],
+  offer: null,
+  offersFetchingStatus: RequestStatus.Idle,
+  offerFetchingStatus: RequestStatus.Idle,
+  offersPopularSort: [],
   favoritesOffer: [],
-  sorting: Sorting.Popular
+  favoritesFetchingStatus: RequestStatus.Idle,
+  sorting: Sorting.Popular,
+  reviews: [],
+  reviewsFetchingStatus: RequestStatus.Idle,
+  reviewsSendingStatus: RequestStatus.Idle,
+  authorizationStatus: AuthorizationStatus.Unknown,
+  user: null,
+  loginSendingStatus: RequestStatus.Idle,
+  nearPlaces: [],
 };
 
 export const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(filtrationCity, (state, action) => {
-      state.city = action.payload;
+    .addCase(fetchOffers.pending, (state) => {
+      state.offersFetchingStatus = RequestStatus.Pending;
     })
-    .addCase(offerList, (state, action) => {
+    .addCase(fetchOffers.fulfilled, (state, action) => {
+      state.offersFetchingStatus = RequestStatus.Success;
+      state.allData = action.payload;
+      state.offersPopularSort = action.payload.filter((offer)=> offer.city.name === state.city.name);
+      state.offers = sortedOffers(state.sorting, state.offersPopularSort, action.payload.filter((offer)=> offer.city.name === state.city.name));
+    })
+    .addCase(fetchOffers.rejected, (state) => {
+      state.offersFetchingStatus = RequestStatus.Error;
+    })
+    .addCase(fetchOffer.pending, (state) => {
+      state.offerFetchingStatus = RequestStatus.Pending;
+    })
+    .addCase(fetchOffer.fulfilled, (state, action) => {
+      state.offerFetchingStatus = RequestStatus.Success;
+      state.offer = action.payload;
+    })
+    .addCase(fetchOffer.rejected, (state) => {
+      state.offerFetchingStatus = RequestStatus.Error;
+    })
+    .addCase(fetchNearPlaces.fulfilled, (state, action) => {
+      state.offerFetchingStatus = RequestStatus.Success;
+      state.nearPlaces = action.payload.slice(0, MAX_NEAR_PLACES_COUNT);
+    })
+    .addCase(fetchReviews.pending, (state) => {
+      state.reviewsFetchingStatus = RequestStatus.Pending;
+    })
+    .addCase(fetchReviews.fulfilled, (state, action) => {
+      state.reviewsFetchingStatus = RequestStatus.Success;
+      state.reviews = action.payload;
+    })
+    .addCase(fetchReviews.rejected, (state) => {
+      state.reviewsFetchingStatus = RequestStatus.Error;
+    })
+    .addCase(postReviews.pending, (state) => {
+      state.reviewsSendingStatus = RequestStatus.Pending;
+    })
+    .addCase(postReviews.fulfilled, (state, action) => {
+      state.reviewsSendingStatus = RequestStatus.Success;
+      state.reviews.push(action.payload);
+    })
+    .addCase(postReviews.rejected, (state) => {
+      state.reviewsSendingStatus = RequestStatus.Error;
+    })
+    .addCase(dropOffer, (state) => {
+      state.offer = null;
+      state.nearPlaces = [];
+    })
+    .addCase(filtrationCity, (state, action) => {
+      state.city.name = action.payload;
+    })
+    .addCase(getOffers, (state, action) => {
       state.offers = action.payload;
     })
     .addCase(getPopularOffers, (state, action) => {
@@ -30,7 +90,7 @@ export const reducer = createReducer(initialState, (builder) => {
       state.allData = action.payload;
     })
     .addCase(changeLocationMap, (state, action) => {
-      state.locationForMap = action.payload;
+      state.city = action.payload;
     })
     .addCase(favoritesOfferList, (state, action) => {
       state.favoritesOffer = state.favoritesOffer.concat(action.payload);
@@ -47,6 +107,6 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(gettingSortValue, (state, action) => {
       state.sorting = action.payload;
-      state.offers = sortedOffers(state.offers, state.sorting, state.offersPopularSort);
+      state.offers = sortedOffers(state.sorting, state.offersPopularSort, state.offers);
     });
 });
