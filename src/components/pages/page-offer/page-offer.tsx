@@ -1,11 +1,11 @@
 import { Helmet } from 'react-helmet-async';
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { NearPlaces } from '../../blocks/near-places/near-places';
 import { Header } from '../../layout/header/header';
 import { Premium } from '../../ui/premium';
-import { AppRoute, RequestStatus } from '../../../const';
+import { RequestStatus } from '../../../const';
 import { addPluralEnging, capitalize, conversionToPercentage } from '../../../utils/common';
 import { ReviewForm } from '../../blocks/review-form/review-form';
 import { ReviewList } from '../../blocks/review-list/review-list';
@@ -32,13 +32,12 @@ export function PageOffer(): JSX.Element {
       dispatch(fetchReviews(id));
     }
 
-    else return () => {
+    return () => {
       dispatch(dropOffer());
     };
   }, [id, dispatch]);
 
   const offer = useAppSelector((state)=> state.offer);
-  console.log(offer);
   const nearbyOffers = useAppSelector((state) => state.nearPlaces);
   const reviews = useAppSelector((state) => state.reviews);
 
@@ -50,8 +49,17 @@ export function PageOffer(): JSX.Element {
     });
   },[id]);
 
-  if (offer === null) {
-    return <Navigate to={AppRoute.NotFoundPage}/>;
+  if (!offer) {
+    if (fetchingStatus === RequestStatus.Pending) {
+      return (
+        <div className="page">
+          <Loader />
+        </div>
+      );
+    }
+    return (
+      <PageError />
+    );
   }
 
   const {images, title, isPremium, rating, type, bedrooms, maxAdults, price, goods, host, description} = offer;
@@ -63,10 +71,6 @@ export function PageOffer(): JSX.Element {
       </Helmet>
       <Header />
       <main className="page__main page__main--offer">
-        {fetchingStatus === RequestStatus.Error && (
-          <PageError />
-        )}
-        {fetchingStatus === RequestStatus.Pending && <Loader />}
         {fetchingStatus === RequestStatus.Success && (
           <section className="offer">
             <div className="offer__gallery-container container">
@@ -141,7 +145,7 @@ export function PageOffer(): JSX.Element {
                 </section>
               </div>
             </div>
-            <Map block="offer" offers={nearbyOffers} specialOfferId={id} specialOffer={offer}/>
+            <Map block="offer" offers={nearbyOffers} specialOfferId={id} specialOffer={offer} location={offer.city.location}/>
           </section>
         )}
         <div className="container">

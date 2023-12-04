@@ -3,7 +3,7 @@ import {Icon, Marker, layerGroup} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import style from './map.module.css';
 import useMap from '../../../hooks/use-map';
-import { TIconToMap, TOffer, TOffers } from '../../../types/types';
+import { TIconToMap, TLocation, TOffer, TOffers } from '../../../types/types';
 import { DEFAULT_ICONT, CURRENT_ICON } from '../../../const';
 
 type MapProps = {
@@ -11,6 +11,7 @@ type MapProps = {
   offers: TOffers;
   specialOfferId: string | undefined;
   specialOffer?: TOffer;
+  location: TLocation;
 };
 
 
@@ -18,10 +19,9 @@ const defaultCustomIcon = new Icon(DEFAULT_ICONT as TIconToMap);
 
 const currentCustomIcon = new Icon(CURRENT_ICON as TIconToMap);
 
-export function Map({offers, specialOfferId, block, specialOffer}: MapProps): JSX.Element {
+export function Map({offers, specialOfferId, block, specialOffer, location}: MapProps): JSX.Element {
   const mapRef = useRef(null);
-  const city = offers[0].city.location;
-  const map = useMap(mapRef, city);
+  const map = useMap(mapRef, location);
 
   if (block === 'offer' && specialOffer && specialOfferId) {
     offers = offers.concat(specialOffer);
@@ -50,13 +50,13 @@ export function Map({offers, specialOfferId, block, specialOffer}: MapProps): JS
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, specialOfferId, city]);
+  }, [map, offers, specialOfferId, location]);
 
   useEffect(() => {
     if (map) {
-      map.setView([city.latitude, city.longitude], city.zoom);
+      map.setView([location.latitude, location.longitude], location.zoom);
     }
-  }, [map, city]);
+  }, [map, location]);
 
   return (
     <section className={`${block}__map map ${style.container}`} ref={mapRef}></section>

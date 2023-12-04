@@ -1,4 +1,4 @@
-import './loader.module.css';
+import style from './loader.module.css';
 
 type TSizeLoader = 'small' | 'large';
 
@@ -13,9 +13,8 @@ const sizeLoader: Record<TSizeLoader, { width: string; height: string}> = {
 
 export default function Loader({size = 'large'}:TLoader): JSX.Element {
   return (
-    <div className='loader-container'>
-      <h1>LOADER</h1>
-      <span className="loader" {...sizeLoader[size]}></span>;
+    <div className={style.container}>
+      <span className={style.loader} {...sizeLoader[size]}></span>;
     </div>
   );
 }

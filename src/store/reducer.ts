@@ -1,19 +1,18 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { TInitialState } from '../types/state';
-import { AuthorizationStatus, DEFAULT_CITY, MAX_NEAR_PLACES_COUNT, RequestStatus, Sorting, defaultLocation } from '../const';
+import { AuthorizationStatus, CityMap, MAX_NEAR_PLACES_COUNT, RequestStatus, Sorting } from '../const';
 import { changeLocationMap, changeOfOffer, dropOffer, favoritesOfferList, filtrationCity, getAllData, getOffers, getPopularOffers, gettingSortValue, removeFavoritesOffer } from './action';
 import { sortedOffers } from '../utils/common';
 import { fetchNearPlaces, fetchOffer, fetchOffers, fetchReviews, postReviews } from './api-action';
 
 const initialState: TInitialState = {
   allData: [],
-  city: DEFAULT_CITY,
+  city: CityMap.Paris,
   offers: [],
   offer: null,
   offersFetchingStatus: RequestStatus.Idle,
   offerFetchingStatus: RequestStatus.Idle,
   offersPopularSort: [],
-  locationForMap: defaultLocation,
   favoritesOffer: [],
   favoritesFetchingStatus: RequestStatus.Idle,
   sorting: Sorting.Popular,
@@ -34,8 +33,8 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(fetchOffers.fulfilled, (state, action) => {
       state.offersFetchingStatus = RequestStatus.Success;
       state.allData = action.payload;
-      state.offersPopularSort = action.payload.filter((offer)=> offer.city.name === state.city);
-      state.offers = sortedOffers(state.sorting, state.offersPopularSort, action.payload.filter((offer)=> offer.city.name === state.city));
+      state.offersPopularSort = action.payload.filter((offer)=> offer.city.name === state.city.name);
+      state.offers = sortedOffers(state.sorting, state.offersPopularSort, action.payload.filter((offer)=> offer.city.name === state.city.name));
     })
     .addCase(fetchOffers.rejected, (state) => {
       state.offersFetchingStatus = RequestStatus.Error;
@@ -79,7 +78,7 @@ export const reducer = createReducer(initialState, (builder) => {
       state.nearPlaces = [];
     })
     .addCase(filtrationCity, (state, action) => {
-      state.city = action.payload;
+      state.city.name = action.payload;
     })
     .addCase(getOffers, (state, action) => {
       state.offers = action.payload;
@@ -91,7 +90,7 @@ export const reducer = createReducer(initialState, (builder) => {
       state.allData = action.payload;
     })
     .addCase(changeLocationMap, (state, action) => {
-      state.locationForMap = action.payload;
+      state.city = action.payload;
     })
     .addCase(favoritesOfferList, (state, action) => {
       state.favoritesOffer = state.favoritesOffer.concat(action.payload);

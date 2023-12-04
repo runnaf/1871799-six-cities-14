@@ -16,8 +16,9 @@ export function Logo({classNameLinks, classNameImages, width, height}:TLogoProps
   const dispatch = useAppDispatch();
   const allData: TOffers = useAppSelector((state) => state.allData);
   const sortingValue = useAppSelector((state) => state.sorting);
+
   const returnToHomePage = () => {
-    const checkedCity = CityMap.filter((location) => location.name === DEFAULT_CITY);
+    const checkedCity = CityMap.Paris;
     const offersFilter: TOffers = allData.filter((item) => item.city.name === DEFAULT_CITY);
     dispatch(filtrationCity(DEFAULT_CITY));
     dispatch(getPopularOffers(offersFilter));

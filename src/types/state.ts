@@ -1,6 +1,6 @@
 import { AuthorizationStatus, RequestStatus, Sorting } from '../const';
 import { store } from '../store';
-import { TCardCities, TCity, TLocation, TOffer, TOffers, TReviews, TUser } from './types';
+import { TCardCities, TLocation, TOffer, TOffers, TReviews, TUser } from './types';
 
 export type TState = ReturnType<typeof store.getState>;
 
@@ -8,13 +8,12 @@ export type TAddDispatch = typeof store.dispatch;
 
 export type TInitialState = {
   allData: TOffers;
-  city: string;
+  city: TCardCities;
   offers: TOffers;
   offer: TOffer | null;
   offersFetchingStatus: RequestStatus;
   offerFetchingStatus: RequestStatus;
   offersPopularSort:TOffers;
-  locationForMap: TCity[];
   favoritesOffer: TOffers;
   favoritesFetchingStatus: RequestStatus;
   sorting: Sorting;

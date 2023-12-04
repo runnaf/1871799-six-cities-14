@@ -4,7 +4,7 @@ import { addPluralEnging } from '../../../utils/common';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { Map } from '../map/map';
 import { SortItem } from '../sort-item/sort-item';
-import { ListLocation } from '../list-cities/list-cities';
+import { ListLocation } from '../list-cities/list-location';
 import { TOffer, TOfferForOffers } from '../../../types/types';
 import { fetchOffers } from '../../../store/api-action';
 import { RequestStatus } from '../../../const';
@@ -45,6 +45,8 @@ export function MainBlock(): JSX.Element {
 
   const activeCity = useAppSelector((state) => state.city);
   const offersList = useAppSelector((state) => state.offers);
+  const location = activeCity.location;
+  // console.log(location)
 
   const count = offersList.length;
 
@@ -71,7 +73,7 @@ export function MainBlock(): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{count} place{addPluralEnging(count)} to stay in {activeCity}</b>
+              <b className="places__found">{count} place{addPluralEnging(count)} to stay in {activeCity.name}</b>
               <SortItem />
               <div className="cities__places-list places__list tabs__content">
                 {offersList.map((item) => (
@@ -80,7 +82,7 @@ export function MainBlock(): JSX.Element {
               </div>
             </section>
             <div className="cities__right-section">
-              <Map block={'cities'} offers={offersList} specialOfferId={hoveredOfferId} />
+              <Map block={'cities'} offers={offersList} specialOfferId={hoveredOfferId} location = {location} />
             </div>
           </div>
         </div>

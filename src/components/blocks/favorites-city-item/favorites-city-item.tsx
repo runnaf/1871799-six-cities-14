@@ -13,7 +13,7 @@ export function FavoritesCityItem(): JSX.Element {
   const allData: TOffers = useAppSelector((state) => state.allData);
   const dispatch = useAppDispatch();
   const redirectToCity = (city: string) => {
-    const checkedCity = CityMap.filter((location) => location.name === city);
+    const checkedCity = CityMap.Paris;
     const offersFilter: TOffers = allData.filter((item) => item.city.name === city);
     dispatch(filtrationCity(city));
     dispatch(getPopularOffers(offersFilter));

@@ -18,7 +18,7 @@ export const getAllData = createAction('offer/getallData', (value: TOffers) => (
   payload: value,
 }));
 
-export const changeLocationMap = createAction('map/changeLocationMap', (value: TCity[]) => ({
+export const changeLocationMap = createAction('map/changeLocationMap', (value: TCity) => ({
   payload: value,
 }));
 
