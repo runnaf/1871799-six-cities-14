@@ -14,6 +14,7 @@ const sizeLoader: Record<TSizeLoader, { width: string; height: string}> = {
 export default function Loader({size = 'large'}:TLoader): JSX.Element {
   return (
     <div className='loader-container'>
+      <h1>LOADER</h1>
       <span className="loader" {...sizeLoader[size]}></span>;
     </div>
   );

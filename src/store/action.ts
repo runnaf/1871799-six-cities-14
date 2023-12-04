@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 import { TCity, TOfferForOffers, TOffers } from '../types/types';
-import { Sorting } from '../const';
+import { NameSpace, Sorting } from '../const';
 
 export const filtrationCity = createAction('offer/filtrationCity', (value: string)=>({
   payload: value,
@@ -41,3 +41,5 @@ export const gettingSortValue = createAction('offers/sortingValue', (value: Sort
 export const sortingOffers = createAction('offers/sortingOffers', (value: Sorting) => ({
   payload: value,
 }));
+
+export const dropOffer = createAction(`${NameSpace.Offer}/dropOffer`);

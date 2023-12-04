@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { NearPlaces } from '../../blocks/near-places/near-places';
 import { Header } from '../../layout/header/header';
 import { Premium } from '../../ui/premium';
-import { AppRoute } from '../../../const';
+import { AppRoute, RequestStatus } from '../../../const';
 import { addPluralEnging, capitalize, conversionToPercentage } from '../../../utils/common';
 import { ReviewForm } from '../../blocks/review-form/review-form';
 import { ReviewList } from '../../blocks/review-list/review-list';
@@ -14,14 +14,31 @@ import { Map } from '../../blocks/map/map';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { ButtonFavorites } from '../../ui/button-favorites';
 import { fetchNearPlaces, fetchOffer, fetchReviews } from '../../../store/api-action';
+import Loader from '../../blocks/loader/loader';
+import { PageError } from '../page-error/page-error';
+import { dropOffer } from '../../../store/action';
 
 
 export function PageOffer(): JSX.Element {
+  const { id } = useParams<{id: string}>();
   const dispatch = useAppDispatch();
-  const { offerId } = useParams<{offerId: string}>();
-  console.log(offerId)
+
+  const fetchingStatus = useAppSelector((state) => state.offerFetchingStatus);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchOffer(id));
+      dispatch(fetchNearPlaces(id));
+      dispatch(fetchReviews(id));
+    }
+
+    return () => {
+      dispatch(dropOffer());
+    };
+  }, [id, dispatch]);
+
   const offer = useAppSelector((state)=> state.offer);
-  const id = offer?.id;
+  console.log(offer);
   const nearbyOffers = useAppSelector((state) => state.nearPlaces);
   const reviews = useAppSelector((state) => state.reviews);
 
@@ -31,19 +48,7 @@ export function PageOffer(): JSX.Element {
       left: 0,
       behavior: 'smooth'
     });
-  },[offerId]);
-
-  useEffect(()=>{
-    if (offerId) {
-      dispatch(fetchOffer(offerId));
-      dispatch(fetchNearPlaces(offerId));
-      dispatch(fetchReviews(offerId));
-    }
-
-    return () => {
-      // dispatch(dropOffer());
-    };
-  }, [offerId, dispatch]);
+  },[id]);
 
   if (!offer) {
     return <Navigate to={AppRoute.NotFoundPage}/>;
@@ -58,82 +63,87 @@ export function PageOffer(): JSX.Element {
       </Helmet>
       <Header />
       <main className="page__main page__main--offer">
-        <section className="offer">
-          <div className="offer__gallery-container container">
-            <div className="offer__gallery">
-              {images.slice(0,6).map((image) => (
-                <div className="offer__image-wrapper" key={uuidv4()}>
-                  <img className="offer__image" src={image} alt="Photo studio" />
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="offer__container container">
-            <div className="offer__wrapper">
-              {isPremium && <Premium />}
-              <div className="offer__name-wrapper">
-                <h1 className="offer__name">
-                  {title}
-                </h1>
-                <ButtonFavorites offer = {offer} block = 'offer' />
-              </div>
-              <div className="offer__rating rating">
-                <div className="offer__stars rating__stars">
-                  <span style={{width: conversionToPercentage(rating)}} ></span>
-                  <span className="visually-hidden">Rating</span>
-                </div>
-                <span className="offer__rating-value rating__value">{rating}</span>
-              </div>
-              <ul className="offer__features">
-                <li className="offer__feature offer__feature--entire">
-                  {capitalize(type)}
-                </li>
-                <li className="offer__feature offer__feature--bedrooms">
-                  {bedrooms} Bedroom{addPluralEnging(bedrooms)}
-                </li>
-                <li className="offer__feature offer__feature--adults">
-                  Max {maxAdults} adult{addPluralEnging(maxAdults)}
-                </li>
-              </ul>
-              <div className="offer__price">
-                <b className="offer__price-value">&euro;{price}</b>
-                <span className="offer__price-text">&nbsp;night</span>
-              </div>
-              <div className="offer__inside">
-                <h2 className="offer__inside-title">What&apos;s inside</h2>
-                <ul className="offer__inside-list">
-                  {goods.map((good): JSX.Element => (
-                    <li className="offer__inside-item" key={uuidv4()}>
-                      {good}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="offer__host">
-                <h2 className="offer__host-title">Meet the host</h2>
-                <div className="offer__host-user user">
-                  <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="offer__avatar user__avatar" src={host.avatarUrl} width="74" height="74" alt="Host avatar" />
+        {fetchingStatus === RequestStatus.Error && (
+          <PageError />
+        )}
+        {fetchingStatus === RequestStatus.Pending && <Loader />}
+        {fetchingStatus === RequestStatus.Success && (
+          <section className="offer">
+            <div className="offer__gallery-container container">
+              <div className="offer__gallery">
+                {images.slice(0,6).map((image) => (
+                  <div className="offer__image-wrapper" key={uuidv4()}>
+                    <img className="offer__image" src={image} alt="Photo studio" />
                   </div>
-                  <span className="offer__user-name">
-                    {host.name}
-                  </span>
-                  <UserStatus pro = {host.isPro} />
-                </div>
-                <div className="offer__description">
-                  <p className="offer__text"> {description} </p>
-                </div>
+                ))}
               </div>
-              <section className="offer__reviews reviews">
-                <h2 className="reviews__title">Review{addPluralEnging(reviews.length)} &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                <ReviewList reviews={reviews} />
-                <ReviewForm />
-              </section>
             </div>
-          </div>
-          <Map block="offer" offers={nearbyOffers} specialOfferId={id} specialOffer={offer}/>
-        </section>
-
+            <div className="offer__container container">
+              <div className="offer__wrapper">
+                {isPremium && <Premium />}
+                <div className="offer__name-wrapper">
+                  <h1 className="offer__name">
+                    {title}
+                  </h1>
+                  <ButtonFavorites offer = {offer} block = 'offer' />
+                </div>
+                <div className="offer__rating rating">
+                  <div className="offer__stars rating__stars">
+                    <span style={{width: conversionToPercentage(rating)}} ></span>
+                    <span className="visually-hidden">Rating</span>
+                  </div>
+                  <span className="offer__rating-value rating__value">{rating}</span>
+                </div>
+                <ul className="offer__features">
+                  <li className="offer__feature offer__feature--entire">
+                    {capitalize(type)}
+                  </li>
+                  <li className="offer__feature offer__feature--bedrooms">
+                    {bedrooms} Bedroom{addPluralEnging(bedrooms)}
+                  </li>
+                  <li className="offer__feature offer__feature--adults">
+                    Max {maxAdults} adult{addPluralEnging(maxAdults)}
+                  </li>
+                </ul>
+                <div className="offer__price">
+                  <b className="offer__price-value">&euro;{price}</b>
+                  <span className="offer__price-text">&nbsp;night</span>
+                </div>
+                <div className="offer__inside">
+                  <h2 className="offer__inside-title">What&apos;s inside</h2>
+                  <ul className="offer__inside-list">
+                    {goods.map((good): JSX.Element => (
+                      <li className="offer__inside-item" key={uuidv4()}>
+                        {good}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="offer__host">
+                  <h2 className="offer__host-title">Meet the host</h2>
+                  <div className="offer__host-user user">
+                    <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
+                      <img className="offer__avatar user__avatar" src={host.avatarUrl} width="74" height="74" alt="Host avatar" />
+                    </div>
+                    <span className="offer__user-name">
+                      {host.name}
+                    </span>
+                    <UserStatus pro = {host.isPro} />
+                  </div>
+                  <div className="offer__description">
+                    <p className="offer__text"> {description} </p>
+                  </div>
+                </div>
+                <section className="offer__reviews reviews">
+                  <h2 className="reviews__title">Review{addPluralEnging(reviews.length)} &middot; <span className="reviews__amount">{reviews.length}</span></h2>
+                  <ReviewList reviews={reviews} />
+                  <ReviewForm />
+                </section>
+              </div>
+            </div>
+            <Map block="offer" offers={nearbyOffers} specialOfferId={id} specialOffer={offer}/>
+          </section>
+        )}
         <div className="container">
           <NearPlaces nearPlaces = {nearbyOffers} />
         </div>

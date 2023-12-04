@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { TInitialState } from '../types/state';
 import { AuthorizationStatus, DEFAULT_CITY, MAX_NEAR_PLACES_COUNT, RequestStatus, Sorting, defaultLocation } from '../const';
-import { changeLocationMap, changeOfOffer, favoritesOfferList, filtrationCity, getAllData, getOffers, getPopularOffers, gettingSortValue, removeFavoritesOffer } from './action';
+import { changeLocationMap, changeOfOffer, dropOffer, favoritesOfferList, filtrationCity, getAllData, getOffers, getPopularOffers, gettingSortValue, removeFavoritesOffer } from './action';
 import { sortedOffers } from '../utils/common';
 import { fetchNearPlaces, fetchOffer, fetchOffers, fetchReviews, postReviews } from './api-action';
 
@@ -73,6 +73,10 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(postReviews.rejected, (state) => {
       state.reviewsSendingStatus = RequestStatus.Error;
+    })
+    .addCase(dropOffer, (state) => {
+      state.offer = null;
+      state.nearPlaces = [];
     })
     .addCase(filtrationCity, (state, action) => {
       state.city = action.payload;

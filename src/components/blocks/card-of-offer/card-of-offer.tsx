@@ -4,8 +4,6 @@ import { Premium } from '../../ui/premium';
 import { capitalize, conversionToPercentage } from '../../../utils/common';
 import { ButtonFavorites } from '../../ui/button-favorites';
 import { TOffer, TOfferForOffers } from '../../../types/types';
-import { useAppDispatch } from '../../../hooks/hooks';
-import { fetchNearPlaces, fetchOffer, fetchReviews } from '../../../store/api-action';
 
 type TCardImageSize = 'small' | 'large';
 
@@ -24,7 +22,6 @@ const sizeMap: Record<TCardImageSize, { width: string; height: string}> = {
 
 export function CardOfOffer({ offer, block, size = 'large', cardInfo = '', onCardHover }: TCitiesProps): JSX.Element {
   const {previewImage, isPremium, price, rating, title, type, id } = offer;
-  const dispatch = useAppDispatch();
 
   function handleMouseEnter() {
     onCardHover?.(id);
@@ -32,12 +29,6 @@ export function CardOfOffer({ offer, block, size = 'large', cardInfo = '', onCar
 
   function handleMouseLeave() {
     onCardHover?.('');
-  }
-
-  function handleCheckedOffer() {
-    dispatch(fetchNearPlaces(id));
-    dispatch(fetchOffer(id));
-    dispatch(fetchReviews(id));
   }
 
   const ratingWidth = conversionToPercentage(rating);
@@ -65,7 +56,7 @@ export function CardOfOffer({ offer, block, size = 'large', cardInfo = '', onCar
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.Offer}/${id}`} onClick={handleCheckedOffer}>
+          <Link to={`${AppRoute.Offer}/${id}`}>
             {title}
           </Link>
         </h2>
