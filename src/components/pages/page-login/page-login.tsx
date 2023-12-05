@@ -5,6 +5,8 @@ import { FormEvent, useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { loginAction } from '../../../store/api-action';
 import { AppRoute, AuthorizationStatus } from '../../../const';
+import { Logo } from '../../ui/logo';
+import { HeaderData } from '../../layout/header/header-data';
 
 
 export function PageLogin():JSX.Element {
@@ -37,7 +39,15 @@ export function PageLogin():JSX.Element {
       <Helmet>
         <title>6 Cities: Login or Register</title>
       </Helmet>
-      <Header />
+      <header className="header">
+        <div className="container">
+          <div className="header__wrapper">
+            <div className="header__left">
+              <Logo classNameLinks={HeaderData.classNameLinks} classNameImages={HeaderData.classNameImages} width={HeaderData.width} height={HeaderData.height}/>
+            </div>
+          </div>
+        </div>
+      </header>
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">

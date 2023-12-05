@@ -43,7 +43,7 @@ export const fetchReviews = createAsyncThunk<TReviews, TOffer['id'], ExtraType>(
   `${NameSpace.Reviews}/fetchReviews`,
   async (offerId, {extra: api}) => {
     const {data} = await api.get<TReviews>(`${APIRoute.Reviews}/${offerId}`);
-    return data.slice(0, MAX_VISIBLE_REVIEWS);
+    return data;
   }
 );
 

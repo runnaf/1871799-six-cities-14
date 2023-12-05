@@ -7,6 +7,7 @@ export function ButtonFavorites({offer, block}: {offer:TOfferForOffers; block: s
   const [isOffer, setIsOffer] = useState(offer);
   const dispatch = useAppDispatch();
   const allData = useAppSelector((state)=> state.allData);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus)
   const handleFavoriteButton = (): void => {
     const newAllData = () => {
       const offers: TOffers = [];
@@ -37,7 +38,7 @@ export function ButtonFavorites({offer, block}: {offer:TOfferForOffers; block: s
       <svg className={`${block}__bookmark-icon`} width={18} height={19}>
         <use xlinkHref="#icon-bookmark" />
       </svg>
-      <span className="visually-hidden">To bookmarks</span>
+      <span className="visually-hidden"> Bookmarks </span>
     </button>
   );
 }

@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { NearPlaces } from '../../blocks/near-places/near-places';
 import { Header } from '../../layout/header/header';
 import { Premium } from '../../ui/premium';
-import { AuthorizationStatus, RequestStatus } from '../../../const';
+import { AuthorizationStatus, MAX_NEAR_PLACES_COUNT, MAX_VISIBLE_REVIEWS, RequestStatus } from '../../../const';
 import { addPluralEnging, capitalize, conversionToPercentage } from '../../../utils/common';
 import { ReviewForm } from '../../blocks/review-form/review-form';
 import { ReviewList } from '../../blocks/review-list/review-list';
@@ -38,8 +38,9 @@ export function PageOffer(): JSX.Element {
   }, [id, dispatch]);
 
   const offer = useAppSelector((state)=> state.offer);
-  const nearbyOffers = useAppSelector((state) => state.nearPlaces);
-  const reviews = useAppSelector((state) => state.reviews);
+  const nearbyOffers = useAppSelector((state) => state.nearPlaces.slice(0, MAX_NEAR_PLACES_COUNT));
+  const reviews = useAppSelector((state) => state.reviews.slice(0, MAX_VISIBLE_REVIEWS));
+  const reviewsCount = useAppSelector((state) => state.reviews.length)
   const status = useAppSelector((state) => state.authorizationStatus);
 
   useEffect(()=>{
@@ -140,7 +141,7 @@ export function PageOffer(): JSX.Element {
                   </div>
                 </div>
                 <section className="offer__reviews reviews">
-                  <h2 className="reviews__title">Review{addPluralEnging(reviews.length)} &middot; <span className="reviews__amount">{reviews.length}</span></h2>
+                  <h2 className="reviews__title">Review{addPluralEnging(reviewsCount)} &middot; <span className="reviews__amount">{reviews.length}</span></h2>
                   <ReviewList reviews={reviews} />
                   {status === AuthorizationStatus.Auth && id ? <ReviewForm offerId = {id} /> : ''}
                 </section>
