@@ -1,9 +1,10 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { APIRoute, NameSpace } from '../const';
+import { APIRoute, AuthorizationStatus, NameSpace } from '../const';
 import { TAuth, TComment, TOffer, TOffers, TReviews, TUser } from '../types/types';
 import { dropToken, saveToken } from '../services/token';
 import { TOfferNearPlace } from '../types/state';
+import { requireAuthorization } from './action';
 
 type ExtraType = {
   extra: AxiosInstance;
@@ -73,30 +74,33 @@ export const fetchFavorites = createAsyncThunk<TReviews, undefined, ExtraType>(
   }
 );
 
-export const checkAuth = createAsyncThunk<TAuth, TUser, ExtraType>(
-  `${NameSpace.User}/login`,
-  async (loginData, {extra: api}) => {
-    const {data} = await api.post<TAuth>(APIRoute.Login, loginData);
-    saveToken(data.token);
-
-    return data;
-  }
-);
-
 export const login = createAsyncThunk<TAuth, TUser, ExtraType>(
   `${NameSpace.User}/login`,
-  async (loginData, {extra: api}) => {
+  async (loginData, {dispatch, extra: api}) => {
     const {data} = await api.post<TAuth>(APIRoute.Login, loginData);
     saveToken(data.token);
-
+    dispatch(requireAuthorization(AuthorizationStatus.Auth));
     return data;
   }
 );
 
 export const logout = createAsyncThunk<void, undefined, ExtraType>(
   `${NameSpace.User}/logout`,
-  (_arg, {extra: api}) => {
+  (_arg, {dispatch, extra: api}) => {
     api.delete(APIRoute.Logout);
     dropToken();
+    dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+  }
+);
+
+export const checkAuthAction = createAsyncThunk<void, undefined, ExtraType>(
+  `${NameSpace.User}/checkAuth`,
+  async (_arg, {dispatch, extra: api}) => {
+    try {
+      await api.get(APIRoute.Login);
+      dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    } catch {
+      dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+    }
   }
 );

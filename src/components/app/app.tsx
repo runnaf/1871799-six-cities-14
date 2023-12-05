@@ -5,7 +5,7 @@ import { Favorites } from '../pages/page-favorites/page-favorites';
 import { PageOffer } from '../pages/page-offer/page-offer';
 import { PageError } from '../pages/page-error/page-error';
 import { PageMain } from '../pages/page-main/page-main';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import { ProtectedRoute } from '../protected-rout/protected-rout';
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
             <Route index element={<PageMain />} />
             <Route path={AppRoute.Login} element={<PageLogin />} />
             <Route path={AppRoute.Favorites} element={
-              <ProtectedRoute status={AuthorizationStatus.Auth} redirectPage={AppRoute.Favorites}>
+              <ProtectedRoute redirectPage={AppRoute.Login}>
                 <Favorites />
               </ProtectedRoute>
             }

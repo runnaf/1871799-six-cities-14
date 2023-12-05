@@ -1,9 +1,9 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { TInitialState } from '../types/state';
 import { AuthorizationStatus, CityMap, MAX_NEAR_PLACES_COUNT, RequestStatus, Sorting } from '../const';
-import { changeLocationMap, changeOfOffer, dropOffer, favoritesOfferList, filtrationCity, getAllData, getOffers, getPopularOffers, gettingSortValue, removeFavoritesOffer } from './action';
+import { changeLocationMap, changeOfOffer, dropOffer, favoritesOfferList, filtrationCity, getAllData, getOffers, getPopularOffers, gettingSortValue, loadComments, removeFavoritesOffer, requireAuthorization } from './action';
 import { sortedOffers } from '../utils/common';
-import { fetchNearPlaces, fetchOffer, fetchOffers, fetchReviews, postReviews } from './api-action';
+import { fetchNearPlaces, fetchOffer, fetchOffers, fetchReviews, login, postReviews } from './api-action';
 
 const initialState: TInitialState = {
   allData: [],
@@ -23,10 +23,23 @@ const initialState: TInitialState = {
   user: null,
   loginSendingStatus: RequestStatus.Idle,
   nearPlaces: [],
+  error: null,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
   builder
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(loadComments, (state, action) => {
+      state.reviews = action.payload;
+    })
+    .addCase(login.fulfilled, (state) => {
+      state.authorizationStatus = AuthorizationStatus.Auth;
+    })
+    .addCase(login.rejected, (state) => {
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
+    })
     .addCase(fetchOffers.pending, (state) => {
       state.offersFetchingStatus = RequestStatus.Pending;
     })

@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { NearPlaces } from '../../blocks/near-places/near-places';
 import { Header } from '../../layout/header/header';
 import { Premium } from '../../ui/premium';
-import { RequestStatus } from '../../../const';
+import { AuthorizationStatus, RequestStatus } from '../../../const';
 import { addPluralEnging, capitalize, conversionToPercentage } from '../../../utils/common';
 import { ReviewForm } from '../../blocks/review-form/review-form';
 import { ReviewList } from '../../blocks/review-list/review-list';
@@ -40,6 +40,7 @@ export function PageOffer(): JSX.Element {
   const offer = useAppSelector((state)=> state.offer);
   const nearbyOffers = useAppSelector((state) => state.nearPlaces);
   const reviews = useAppSelector((state) => state.reviews);
+  const status = useAppSelector((state) => state.authorizationStatus);
 
   useEffect(()=>{
     window.scrollTo({
@@ -141,7 +142,7 @@ export function PageOffer(): JSX.Element {
                 <section className="offer__reviews reviews">
                   <h2 className="reviews__title">Review{addPluralEnging(reviews.length)} &middot; <span className="reviews__amount">{reviews.length}</span></h2>
                   <ReviewList reviews={reviews} />
-                  <ReviewForm />
+                  {status === AuthorizationStatus.Auth ? <ReviewForm /> : ''}
                 </section>
               </div>
             </div>
