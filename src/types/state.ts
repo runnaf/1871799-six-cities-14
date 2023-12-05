@@ -24,6 +24,7 @@ export type TInitialState = {
   user: TUser | null;
   loginSendingStatus: RequestStatus;
   nearPlaces: TOfferNearPlace[];
+  error: string | null;
 }
 
 export type TStateOffers = {

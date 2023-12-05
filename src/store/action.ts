@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
-import { TCity, TOfferForOffers, TOffers } from '../types/types';
-import { NameSpace, Sorting } from '../const';
+import { TCity, TOfferForOffers, TOffers, TReviews, TUser } from '../types/types';
+import { AuthorizationStatus, NameSpace, Sorting } from '../const';
 
 export const filtrationCity = createAction('offer/filtrationCity', (value: string)=>({
   payload: value,
@@ -43,3 +43,19 @@ export const sortingOffers = createAction('offers/sortingOffers', (value: Sortin
 }));
 
 export const dropOffer = createAction(`${NameSpace.Offer}/dropOffer`);
+
+export const requireAuthorization = createAction('user/requireAuthorization', (value: AuthorizationStatus) => ({
+  payload: value,
+}));
+
+export const updateUserdata = createAction('user/updateUserData', (value: TUser) => ({
+  payload: value,
+}));
+
+export const loadComments = createAction('data/loadComments', (value: TReviews) => ({
+  payload: value,
+}));
+
+export const changePagePath = createAction('browser/changePagePath', (value: string) => ({
+  payload: value,
+}));

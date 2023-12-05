@@ -1,18 +1,20 @@
 import { Navigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
-
-const currentStatus: AuthorizationStatus = AuthorizationStatus.Auth;
+import { useAppSelector } from '../../hooks/hooks';
 
 export type TProtectedRoute = {
-    status: AuthorizationStatus;
     redirectPage: AppRoute;
     children: JSX.Element;
   }
 
 export function ProtectedRoute(props: TProtectedRoute): JSX.Element {
-  const { status, redirectPage, children } = props;
+  const { redirectPage, children } = props;
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  // const currentPagePath = window.location.pathname;
+  const isAuth = authorizationStatus === AuthorizationStatus.Auth;
+  // const isAccess = currentPagePath === APIRoute.Login ? !isAuth : isAuth;
 
   return (
-    currentStatus === status ? children : <Navigate to={redirectPage} />
+    isAuth ? children : <Navigate to={redirectPage} />
   );
 }

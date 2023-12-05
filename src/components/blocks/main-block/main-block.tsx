@@ -46,7 +46,6 @@ export function MainBlock(): JSX.Element {
   const activeCity = useAppSelector((state) => state.city);
   const offersList = useAppSelector((state) => state.offers);
   const location = activeCity.location;
-  // console.log(location)
 
   const count = offersList.length;
 
