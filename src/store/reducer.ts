@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { TInitialState } from '../types/state';
-import { AuthorizationStatus, CityMap, MAX_NEAR_PLACES_COUNT, RequestStatus, Sorting } from '../const';
+import { AuthorizationStatus, CityMap, MAX_NEAR_PLACES_COUNT, MAX_VISIBLE_REVIEWS, RequestStatus, Sorting } from '../const';
 import { changeLocationMap, changeOfOffer, dropOffer, favoritesOfferList, filtrationCity, getAllData, getOffers, getPopularOffers, gettingSortValue, loadComments, removeFavoritesOffer, requireAuthorization, updateUserdata } from './action';
 import { sortedOffers } from '../utils/common';
 import { fetchNearPlaces, fetchOffer, fetchOffers, fetchReviews, login, logout, postReviews } from './api-action';
@@ -89,7 +89,7 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(postReviews.fulfilled, (state, action) => {
       state.reviewsSendingStatus = RequestStatus.Success;
-      state.reviews.push(action.payload);
+      state.reviews = [...state.reviews, action.payload].sort((newer, older) => Number(new Date(older.date)) - Number(new Date(newer.date))).slice(0, MAX_VISIBLE_REVIEWS);
     })
     .addCase(postReviews.rejected, (state) => {
       state.reviewsSendingStatus = RequestStatus.Error;

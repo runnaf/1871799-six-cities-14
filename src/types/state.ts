@@ -27,6 +27,15 @@ export type TInitialState = {
   error: string | null;
 }
 
+export type TReview = {
+  id: string;
+  user: TUser;
+  rating: number;
+  comment: string;
+  date: string;
+}
+
+
 export type TStateOffers = {
   offers: {
     offers: TOffers;

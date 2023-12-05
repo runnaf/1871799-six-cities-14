@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { APIRoute, AuthorizationStatus, NameSpace } from '../const';
-import { TComment, TLoginData, TOffer, TOffers, TReviews, TUser } from '../types/types';
+import { APIRoute, AuthorizationStatus, MAX_VISIBLE_REVIEWS, NameSpace } from '../const';
+import { TComment, TCommentData, TLoginData, TOffer, TOffers, TReviews, TUser } from '../types/types';
 import { dropToken, saveToken } from '../services/token';
 import { TOfferNearPlace } from '../types/state';
 import { requireAuthorization, updateUserdata } from './action';
@@ -43,22 +43,21 @@ export const fetchReviews = createAsyncThunk<TReviews, TOffer['id'], ExtraType>(
   `${NameSpace.Reviews}/fetchReviews`,
   async (offerId, {extra: api}) => {
     const {data} = await api.get<TReviews>(`${APIRoute.Reviews}/${offerId}`);
-
-    return data;
+    return data.slice(0, MAX_VISIBLE_REVIEWS);
   }
 );
 
 export const postReviews = createAsyncThunk<
   TComment,
-  { reviewData: TComment; offerId: TOffer['id'] },
+  { comment: TCommentData['comment']; offerId: TOffer['id']; rating: TCommentData['rating'] },
   ExtraType
 >(
   `${NameSpace.Reviews}/postReview`,
-  async ({reviewData, offerId}, {extra: api}) => {
-    const {data} = await api.post<TComment>(`${APIRoute.Reviews}/${offerId}`,
-      reviewData
-    );
+  async ({comment, offerId, rating}, {extra: api}) => {
 
+    const {data} = await api.post<TComment>(`${APIRoute.Reviews}/${offerId}`,
+      {comment, rating}
+    );
     return data;
   }
 );

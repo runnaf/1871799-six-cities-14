@@ -1,5 +1,9 @@
 import { ChangeEvent, Fragment, useState } from 'react';
 import { MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH } from '../../../const';
+import { useAppDispatch } from '../../../hooks/hooks';
+import { postReviews } from '../../../store/api-action';
+import { TOffer } from '../../../types/types';
+
 
 const ratingMap = {
   '5': 'perfect',
@@ -9,13 +13,18 @@ const ratingMap = {
   '1': 'terribly'
 };
 
-export function ReviewForm() {
+type TReviewsProps = {
+  offerId: TOffer['id'];
+}
+
+export function ReviewForm({offerId}: TReviewsProps) {
   const [comment, setComment] = useState<string>('');
   const [rating, setRating] = useState<string>('');
   const isValid =
     comment.length >= MIN_COMMENT_LENGTH &&
     comment.length <= MAX_COMMENT_LENGTH &&
     rating !== '';
+  const dispatch = useAppDispatch();
 
   function handleTextareaChange(evt: ChangeEvent<HTMLTextAreaElement>) {
     setComment(evt.target.value);
@@ -25,14 +34,22 @@ export function ReviewForm() {
     setRating(evt.target.value);
   }
 
-  function submitHandler (evt: ChangeEvent<HTMLFormElement>) {
+  function handleSubmit (evt: ChangeEvent<HTMLFormElement>) {
     evt.preventDefault();
+    const ratingComment = Number(rating);
+    dispatch(postReviews(
+      { comment,
+        offerId,
+        rating: +ratingComment }
+    ));
     setRating('');
     setComment('');
+    evt.target.reset();
+
   }
 
   return (
-    <form className="reviews__form form" action="#" method="post" onSubmit={submitHandler}>
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {Object.entries(ratingMap)

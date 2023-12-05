@@ -77,6 +77,13 @@ export type TUser = {
   token: string;
 };
 
+export type TCommentData = {
+  id: string;
+  comment: string;
+  rating: number;
+}
+
+
 export type TComment = {
   id: string;
   comment: string;
