@@ -1,10 +1,10 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { APIRoute, AuthorizationStatus, NameSpace } from '../const';
-import { TAuth, TComment, TOffer, TOffers, TReviews, TUser } from '../types/types';
+import { TComment, TLoginData, TOffer, TOffers, TReviews, TUser } from '../types/types';
 import { dropToken, saveToken } from '../services/token';
 import { TOfferNearPlace } from '../types/state';
-import { requireAuthorization } from './action';
+import { requireAuthorization, updateUserdata } from './action';
 
 type ExtraType = {
   extra: AxiosInstance;
@@ -74,12 +74,22 @@ export const fetchFavorites = createAsyncThunk<TReviews, undefined, ExtraType>(
   }
 );
 
-export const login = createAsyncThunk<TAuth, TUser, ExtraType>(
+export const login = createAsyncThunk<TUser, undefined, {extra: AxiosInstance}>
+(
+  'auth/login',
+  async (_arg, {extra: api}) => {
+    const {data} = await api.get<TUser>('/six-cities/login');
+    return data;
+  },
+);
+
+export const loginAction = createAsyncThunk<TUser, TLoginData, ExtraType>(
   `${NameSpace.User}/login`,
   async (loginData, {dispatch, extra: api}) => {
-    const {data} = await api.post<TAuth>(APIRoute.Login, loginData);
+    const {data} = await api.post<TUser>(APIRoute.Login, loginData);
     saveToken(data.token);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    dispatch(updateUserdata(data));
     return data;
   }
 );

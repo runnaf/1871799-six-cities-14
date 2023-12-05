@@ -10,6 +10,15 @@ export function Header(): JSX.Element {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
 
+  function handleClickSingOut(): void {
+    dispatch(changePagePath(AppRoute.Root));
+    dispatch(logout());
+  }
+
+  function handleClickSingIn(): void {
+    dispatch(changePagePath(AppRoute.Login));
+  }
+
   return (
     <header className="header">
       <div className="container">
@@ -26,21 +35,17 @@ export function Header(): JSX.Element {
                   <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
                     <div className="header__avatar-wrapper user__avatar-wrapper" style={{ backgroundImage: `url(${user ? user.avatarUrl : ''})` }}>
                     </div>
-                    <span className="header__user-name user__name">{user ? user.name : ''}</span>
+                    <span className="header__user-name user__name">{user ? user.email : ''}</span>
                     <span className="header__favorite-count">{favoritesCount}</span>
                   </Link>
                   :
-                  <Link onClick={() => dispatch(changePagePath(AppRoute.Login))} className="header__nav-link header__nav-link--profile" to={AppRoute.Login}>
+                  <Link onClick={handleClickSingIn} className="header__nav-link header__nav-link--profile" to={AppRoute.Login}>
                     <span className="header__user-name user__name">{'Sign in'}</span>
                   </Link>}
               </li>
               {authorizationStatus === AuthorizationStatus.Auth && user !== null ?
                 <li className="header__nav-item">
-                  <Link onClick={() => {
-                    dispatch(changePagePath(AppRoute.Root));
-                    dispatch(logout());
-                  }} className="header__nav-link" to={AppRoute.Root}
-                  >
+                  <Link onClick={handleClickSingOut} className="header__nav-link" to={AppRoute.Login}>
                     <span className="header__signout">Sign out</span>
                   </Link>
                 </li>
