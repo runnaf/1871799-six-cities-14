@@ -134,6 +134,7 @@ export const REQUEST_TIMEOUT = 5000;
 export const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
 export const browserHistory = createBrowserHistory();
 export const MAX_VISIBLE_REVIEWS = 10;
+export const MAX_IMAGE_COUNT = 6;
 
 export const HttpStatus = {
   OK: 200,

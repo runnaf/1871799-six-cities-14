@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { NearPlaces } from '../../blocks/near-places/near-places';
 import MemorizedHeader from '../../layout/header/header';
 import MemorizedPremium from '../../ui/premium';
-import { AuthorizationStatus, MAX_NEAR_PLACES_COUNT, MAX_VISIBLE_REVIEWS, RequestStatus } from '../../../const';
+import { AuthorizationStatus, MAX_IMAGE_COUNT, MAX_NEAR_PLACES_COUNT, MAX_VISIBLE_REVIEWS, RequestStatus } from '../../../const';
 import { addPluralEnging, capitalize, conversionToPercentage } from '../../../utils/common';
 import { ReviewForm } from '../../blocks/review-form/review-form';
 import { ReviewList } from '../../blocks/review-list/review-list';
@@ -40,7 +40,9 @@ export function PageOffer(): JSX.Element {
   const offer = useAppSelector((state)=> state.offer);
   const nearbyOffers = useAppSelector((state) => state.nearPlaces).slice(0, MAX_NEAR_PLACES_COUNT);
   const reviewsCount = useAppSelector((state) => state.reviews).length;
-  const reviews = useAppSelector((state) => state.reviews).slice(0, MAX_VISIBLE_REVIEWS);
+  const reviews = useAppSelector((state) => state.reviews);
+  const sortedReviews = reviews.toSorted((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  const reviewList = sortedReviews.slice(0, MAX_VISIBLE_REVIEWS);
   const status = useAppSelector((state) => state.authorizationStatus);
 
   useEffect(()=>{
@@ -77,7 +79,7 @@ export function PageOffer(): JSX.Element {
           <section className="offer">
             <div className="offer__gallery-container container">
               <div className="offer__gallery">
-                {images.slice(0,6).map((image) => (
+                {images.slice(0, MAX_IMAGE_COUNT).map((image) => (
                   <div className="offer__image-wrapper" key={uuidv4()}>
                     <img className="offer__image" src={image} alt="Photo studio" />
                   </div>
@@ -142,7 +144,7 @@ export function PageOffer(): JSX.Element {
                 </div>
                 <section className="offer__reviews reviews">
                   <h2 className="reviews__title">Review{addPluralEnging(reviewsCount)} &middot; <span className="reviews__amount">{reviewsCount}</span></h2>
-                  <ReviewList reviews={reviews} />
+                  <ReviewList reviews={reviewList} />
                   {status === AuthorizationStatus.Auth && id ? <ReviewForm offerId = {id} /> : ''}
                 </section>
               </div>

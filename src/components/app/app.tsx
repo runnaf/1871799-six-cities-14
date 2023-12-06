@@ -9,13 +9,14 @@ import { AppRoute } from '../../const';
 import { ProtectedRoute } from '../protected-rout/protected-rout';
 import { useAppDispatch } from '../../hooks/hooks';
 import { useEffect } from 'react';
-import { login } from '../../store/api-action';
+import { fetchFavorites, login } from '../../store/api-action';
 
 function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(login());
+    dispatch(fetchFavorites());
   }, [dispatch]);
 
   return (

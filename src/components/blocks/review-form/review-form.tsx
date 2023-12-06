@@ -65,6 +65,7 @@ export function ReviewForm({ offerId }: TReviewsProps) {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
+        disabled={isSending}
       />
       <div className="reviews__button-wrapper">
         {isSending}
