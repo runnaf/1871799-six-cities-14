@@ -1,6 +1,5 @@
 import { TComment } from '../../types/types';
 import { getDate, getDateTime, conversionToPercentage } from '../../utils/common';
-import { UserStatus } from './user-status';
 
 export function ReviewItem({comment}:{comment:TComment}): JSX.Element {
   const ratingUser = conversionToPercentage(comment.rating);
@@ -14,7 +13,6 @@ export function ReviewItem({comment}:{comment:TComment}): JSX.Element {
         <span className="reviews__user-name">
           {comment.user.name}
         </span>
-        <UserStatus pro = {comment.user.isPro} />
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">

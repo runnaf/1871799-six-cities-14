@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { NearPlaces } from '../../blocks/near-places/near-places';
-import { Header } from '../../layout/header/header';
-import { Premium } from '../../ui/premium';
-import { AuthorizationStatus, RequestStatus } from '../../../const';
+import MemorizedHeader from '../../layout/header/header';
+import MemorizedPremium from '../../ui/premium';
+import { AuthorizationStatus, MAX_IMAGE_COUNT, MAX_NEAR_PLACES_COUNT, MAX_VISIBLE_REVIEWS, RequestStatus } from '../../../const';
 import { addPluralEnging, capitalize, conversionToPercentage } from '../../../utils/common';
 import { ReviewForm } from '../../blocks/review-form/review-form';
 import { ReviewList } from '../../blocks/review-list/review-list';
@@ -38,8 +38,11 @@ export function PageOffer(): JSX.Element {
   }, [id, dispatch]);
 
   const offer = useAppSelector((state)=> state.offer);
-  const nearbyOffers = useAppSelector((state) => state.nearPlaces);
+  const nearbyOffers = useAppSelector((state) => state.nearPlaces).slice(0, MAX_NEAR_PLACES_COUNT);
+  const reviewsCount = useAppSelector((state) => state.reviews).length;
   const reviews = useAppSelector((state) => state.reviews);
+  const sortedReviews = reviews.toSorted((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  const reviewList = sortedReviews.slice(0, MAX_VISIBLE_REVIEWS);
   const status = useAppSelector((state) => state.authorizationStatus);
 
   useEffect(()=>{
@@ -70,13 +73,13 @@ export function PageOffer(): JSX.Element {
       <Helmet>
         <title>6 Cities: Offer Page</title>
       </Helmet>
-      <Header />
+      <MemorizedHeader />
       <main className="page__main page__main--offer">
         {fetchingStatus === RequestStatus.Success && (
           <section className="offer">
             <div className="offer__gallery-container container">
               <div className="offer__gallery">
-                {images.slice(0,6).map((image) => (
+                {images.slice(0, MAX_IMAGE_COUNT).map((image) => (
                   <div className="offer__image-wrapper" key={uuidv4()}>
                     <img className="offer__image" src={image} alt="Photo studio" />
                   </div>
@@ -85,7 +88,7 @@ export function PageOffer(): JSX.Element {
             </div>
             <div className="offer__container container">
               <div className="offer__wrapper">
-                {isPremium && <Premium />}
+                {isPremium && <MemorizedPremium block = 'offer__mark'/>}
                 <div className="offer__name-wrapper">
                   <h1 className="offer__name">
                     {title}
@@ -140,9 +143,9 @@ export function PageOffer(): JSX.Element {
                   </div>
                 </div>
                 <section className="offer__reviews reviews">
-                  <h2 className="reviews__title">Review{addPluralEnging(reviews.length)} &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                  <ReviewList reviews={reviews} />
-                  {status === AuthorizationStatus.Auth ? <ReviewForm /> : ''}
+                  <h2 className="reviews__title">Review{addPluralEnging(reviewsCount)} &middot; <span className="reviews__amount">{reviewsCount}</span></h2>
+                  <ReviewList reviews={reviewList} />
+                  {status === AuthorizationStatus.Auth && id ? <ReviewForm offerId = {id} /> : ''}
                 </section>
               </div>
             </div>

@@ -1,10 +1,10 @@
-import { AxiosInstance } from 'axios';
+import { AxiosError, AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { APIRoute, AuthorizationStatus, NameSpace } from '../const';
-import { TComment, TLoginData, TOffer, TOffers, TReviews, TUser } from '../types/types';
+import { APIRoute, AuthorizationStatus, FavoriteStatus, HttpStatus, NameSpace } from '../const';
+import { TComment, TCommentData, TLoginData, TOffer, TOfferForOffers, TOffers, TReviews, TUser } from '../types/types';
 import { dropToken, saveToken } from '../services/token';
-import { TOfferNearPlace } from '../types/state';
-import { requireAuthorization, updateUserdata } from './action';
+import { TFavoriteOffer, TOfferNearPlace } from '../types/state';
+import { addNearbyOfferToBookmark, addOfferToBookmark, addOffersToBookmark, deleteNearbyOfferFromBookmark, deleteOfferFromBookmark, deleteOffersFromBookmark, requireAuthorization, updateUserdata } from './action';
 
 type ExtraType = {
   extra: AxiosInstance;
@@ -43,54 +43,85 @@ export const fetchReviews = createAsyncThunk<TReviews, TOffer['id'], ExtraType>(
   `${NameSpace.Reviews}/fetchReviews`,
   async (offerId, {extra: api}) => {
     const {data} = await api.get<TReviews>(`${APIRoute.Reviews}/${offerId}`);
-
     return data;
   }
 );
 
 export const postReviews = createAsyncThunk<
   TComment,
-  { reviewData: TComment; offerId: TOffer['id'] },
+  { comment: TCommentData['comment']; offerId: TOffer['id']; rating: TCommentData['rating'] },
   ExtraType
 >(
   `${NameSpace.Reviews}/postReview`,
-  async ({reviewData, offerId}, {extra: api}) => {
+  async ({comment, offerId, rating}, {extra: api}) => {
+
     const {data} = await api.post<TComment>(`${APIRoute.Reviews}/${offerId}`,
-      reviewData
+      {comment, rating}
     );
-
     return data;
   }
 );
 
-export const fetchFavorites = createAsyncThunk<TReviews, undefined, ExtraType>(
+export const fetchFavorites = createAsyncThunk<TFavoriteOffer[], undefined, ExtraType>(
   `${NameSpace.Favorites}/fetchFavorites`,
-  async (offerId, {extra: api}) => {
-    const {data} = await api.get<TReviews>(
-      `${APIRoute.Offers}/${offerId}${APIRoute.NearPlaces}`
-    );
+  async (_arg, {extra: api}) => {
+    const {data} = await api.get<TFavoriteOffer[]>(APIRoute.Favorite);
 
     return data;
   }
 );
 
-export const login = createAsyncThunk<TUser, undefined, {extra: AxiosInstance}>
+export const addFavorite = createAsyncThunk<TOfferForOffers, TOffer['id'], ExtraType>(
+  'favorites/add',
+  async (offerId, { extra: api, dispatch }) => {
+    const { data } = await api.post<TOfferForOffers>(`${APIRoute.Favorite}/${offerId}/${FavoriteStatus.Added}`);
+    dispatch(addOffersToBookmark(offerId));
+    dispatch(addNearbyOfferToBookmark(offerId));
+    dispatch(addOfferToBookmark(offerId));
+    return data;
+  }
+);
+
+export const deleteFavorite = createAsyncThunk<TOfferForOffers, TOffer['id'], ExtraType>(
+  'favorites/delete',
+  async (offerId, { extra: api, dispatch}) => {
+    const { data } = await api.post<TOfferForOffers>(`${APIRoute.Favorite}/${offerId}/${FavoriteStatus.Deleted}`);
+    dispatch(deleteOffersFromBookmark(offerId));
+    dispatch(deleteNearbyOfferFromBookmark(offerId));
+    dispatch(deleteOfferFromBookmark(offerId));
+
+    return data;
+  });
+
+export const login = createAsyncThunk<TUser, undefined, ExtraType>
 (
   'auth/login',
   async (_arg, {extra: api}) => {
-    const {data} = await api.get<TUser>('/six-cities/login');
+    const {data} = await api.get<TUser>(APIRoute.Login);
     return data;
   },
 );
 
 export const loginAction = createAsyncThunk<TUser, TLoginData, ExtraType>(
   `${NameSpace.User}/login`,
-  async (loginData, {dispatch, extra: api}) => {
-    const {data} = await api.post<TUser>(APIRoute.Login, loginData);
-    saveToken(data.token);
-    dispatch(requireAuthorization(AuthorizationStatus.Auth));
-    dispatch(updateUserdata(data));
-    return data;
+  async (loginData, {dispatch, extra: api, rejectWithValue}) => {
+    try {
+      const {data} = await api.post<TUser>(APIRoute.Login, loginData);
+      saveToken(data.token);
+      dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      dispatch(updateUserdata(data));
+      return data;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        if (error.response && error.response.status === HttpStatus.BAD_REQUEST) {
+          return rejectWithValue('Bad Request: Some data is missing or invalid.');
+        } else {
+          return rejectWithValue('Error during login.');
+        }
+      } else {
+        return rejectWithValue('Unknown error during login.');
+      }
+    }
   }
 );
 

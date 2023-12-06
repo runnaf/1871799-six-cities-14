@@ -1,43 +1,34 @@
-import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { changeOfOffer, favoritesOfferList, getAllData, removeFavoritesOffer } from '../../store/action';
-import { TOfferForOffers, TOffers } from '../../types/types';
+import { TOfferForOffers } from '../../types/types';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { addFavorite, deleteFavorite } from '../../store/api-action';
 
 export function ButtonFavorites({offer, block}: {offer:TOfferForOffers; block: string}): JSX.Element {
-  const [isOffer, setIsOffer] = useState(offer);
+  const isActive = offer.isFavorite;
+  const id = offer.id;
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const allData = useAppSelector((state)=> state.allData);
+  const isAuthorized = useAppSelector((state)=> state.authorizationStatus);
   const handleFavoriteButton = (): void => {
-    const newAllData = () => {
-      const offers: TOffers = [];
-      allData.map((item)=> {
-        if (item.id === offer.id) {
-          const newItem = {...item, isFavorite: !item.isFavorite};
-          offers.push(newItem);
-        } else {
-          offers.push(item);
-        }
-      });
-      return offers;
-    };
-
-    dispatch(getAllData(newAllData()));
-    setIsOffer({...isOffer, isFavorite: !isOffer.isFavorite});
-    dispatch(changeOfOffer(isOffer));
-
-    if (!isOffer.isFavorite) {
-      dispatch(favoritesOfferList({...isOffer, isFavorite: !isOffer.isFavorite}));
+    if (isAuthorized === AuthorizationStatus.NoAuth) {
+      navigate(AppRoute.Login);
+      return;
+    }
+    if(isActive) {
+      dispatch(deleteFavorite(id));
     } else {
-      dispatch(removeFavoritesOffer({...isOffer, isFavorite: !isOffer.isFavorite}));
+      dispatch(addFavorite(id)
+      );
     }
   };
 
   return (
-    <button onClick={handleFavoriteButton} className={`${block}__bookmark-button ${isOffer.isFavorite ? `${block}__bookmark-button--active` : ''} button`} type="button">
+    <button onClick={handleFavoriteButton} className={`${block}__bookmark-button ${offer.isFavorite ? `${block}__bookmark-button--active` : ''} button`} type="button">
       <svg className={`${block}__bookmark-icon`} width={18} height={19}>
         <use xlinkHref="#icon-bookmark" />
       </svg>
-      <span className="visually-hidden">To bookmarks</span>
+      <span className="visually-hidden"> Bookmarks </span>
     </button>
   );
 }

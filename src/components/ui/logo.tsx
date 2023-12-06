@@ -2,8 +2,9 @@ import {Link} from 'react-router-dom';
 import logo from '../../assets/logo.svg';
 import { AppRoute, CityMap, DEFAULT_CITY } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { changeLocationMap, filtrationCity, getPopularOffers, gettingSortValue } from '../../store/action';
+import { changeLocation, filtrationCity, getPopularOffers, gettingSortValue } from '../../store/action';
 import { TOffers } from '../../types/types';
+import { memo } from 'react';
 
 export type TLogoProps = {
     classNameLinks: string[];
@@ -23,7 +24,7 @@ export function Logo({classNameLinks, classNameImages, width, height}:TLogoProps
     dispatch(filtrationCity(DEFAULT_CITY));
     dispatch(getPopularOffers(offersFilter));
     dispatch(gettingSortValue(sortingValue));
-    dispatch(changeLocationMap(checkedCity));
+    dispatch(changeLocation(checkedCity));
   };
   return (
     <Link className={classNameLinks.join(' ')} to={AppRoute.Root} onClick = {returnToHomePage}>
@@ -31,3 +32,6 @@ export function Logo({classNameLinks, classNameImages, width, height}:TLogoProps
     </Link>
   );
 }
+
+const MemorizedLogo = memo(Logo);
+export default MemorizedLogo;

@@ -25,7 +25,34 @@ export type TInitialState = {
   loginSendingStatus: RequestStatus;
   nearPlaces: TOfferNearPlace[];
   error: string | null;
+  favoritesPageStatus: boolean;
+  favoritesPage: TFavoriteOffer[];
+  favoritesPageError: boolean;
+  addFavoriteStatus: boolean;
+  addFavoriteError: boolean;
 }
+
+export type TFavoriteOffer = {
+  id: string;
+  title: string;
+  type: string;
+  price: number;
+  city: TCardCities;
+  location: TLocation;
+  isFavorite: boolean;
+  isPremium: boolean;
+  rating: number;
+  previewImage: string;
+}
+
+export type TReview = {
+  id: string;
+  user: TUser;
+  rating: number;
+  comment: string;
+  date: string;
+}
+
 
 export type TStateOffers = {
   offers: {

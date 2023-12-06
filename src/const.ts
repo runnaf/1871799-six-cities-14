@@ -7,7 +7,7 @@ export enum AppRoute {
   Favorites = '/favorites',
   Login = '/login',
   NotFoundPage = '*',
-  Offer = '/offers',
+  Offer = '/offer',
 }
 
 export enum APIRoute {
@@ -16,6 +16,7 @@ export enum APIRoute {
   Logout = '/logout',
   Reviews = '/comments',
   NearPlaces = '/nearby',
+  Favorite = '/favorite',
 }
 
 export enum AuthorizationStatus {
@@ -50,11 +51,19 @@ export const CURRENT_ICON = {
 };
 
 export const CityMap = {
-  Amsterdam : {
-    name: 'Amsterdam',
+  Paris : {
+    name: 'Paris',
     location: {
-      latitude: 52.37454,
-      longitude: 4.897976,
+      latitude: 48.85661,
+      longitude: 2.351499,
+      zoom: 13
+    }
+  },
+  Cologne : {
+    name: 'Cologne',
+    location: {
+      latitude: 50.938361,
+      longitude: 6.959974,
       zoom: 13
     }
   },
@@ -66,11 +75,11 @@ export const CityMap = {
       zoom: 13
     }
   },
-  Paris : {
-    name: 'Paris',
+  Amsterdam : {
+    name: 'Amsterdam',
     location: {
-      latitude: 48.85661,
-      longitude: 2.351499,
+      latitude: 52.37454,
+      longitude: 4.897976,
       zoom: 13
     }
   },
@@ -79,14 +88,6 @@ export const CityMap = {
     location: {
       latitude: 53.550341,
       longitude: 10.000654,
-      zoom: 13
-    }
-  },
-  Cologne : {
-    name: 'Cologne',
-    location: {
-      latitude: 50.938361,
-      longitude: 6.959974,
       zoom: 13
     }
   },
@@ -114,6 +115,11 @@ export enum RequestStatus {
   Error = 'ERROR',
 }
 
+export const enum FavoriteStatus {
+  Added = 1,
+  Deleted = 0
+}
+
 export const TOTAL_PERCENTEGE = 100;
 export const NUMBER_OF_STARS = 5;
 
@@ -127,3 +133,14 @@ export const BACKEND_URL = 'https://14.design.pages.academy/six-cities';
 export const REQUEST_TIMEOUT = 5000;
 export const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
 export const browserHistory = createBrowserHistory();
+export const MAX_VISIBLE_REVIEWS = 10;
+export const MAX_IMAGE_COUNT = 6;
+
+export const HttpStatus = {
+  OK: 200,
+  CREATED: 201,
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
+  NOT_FOUND: 404,
+};

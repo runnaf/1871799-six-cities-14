@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../const';
-import { Premium } from '../../ui/premium';
+import MemorizedPremium from '../../ui/premium';
 import { capitalize, conversionToPercentage } from '../../../utils/common';
 import { ButtonFavorites } from '../../ui/button-favorites';
 import { TOffer, TOfferForOffers } from '../../../types/types';
+import { memo } from 'react';
 
 type TCardImageSize = 'small' | 'large';
 
@@ -35,7 +36,7 @@ export function CardOfOffer({ offer, block, size = 'large', cardInfo = '', onCar
 
   return (
     <article className={`${block}__card place-card`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      {isPremium && <Premium />}
+      {isPremium && <MemorizedPremium block= 'place-card__mark' />}
       <div className={`${block}__image-wrapper place-card__image-wrapper`}>
         <div>
           <img className="place-card__image" src={previewImage} alt={title} {...sizeMap[size]} />
@@ -65,3 +66,6 @@ export function CardOfOffer({ offer, block, size = 'large', cardInfo = '', onCar
     </article>
   );
 }
+
+const MemorizedCard = memo(CardOfOffer);
+export default MemorizedCard;
