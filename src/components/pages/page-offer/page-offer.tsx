@@ -86,7 +86,7 @@ export function PageOffer(): JSX.Element {
             </div>
             <div className="offer__container container">
               <div className="offer__wrapper">
-                {isPremium && <MemorizedPremium />}
+                {isPremium && <MemorizedPremium block = 'offer__mark'/>}
                 <div className="offer__name-wrapper">
                   <h1 className="offer__name">
                     {title}

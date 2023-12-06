@@ -1,8 +1,8 @@
 import { memo } from 'react';
 
-export function Premium (): JSX.Element {
+export function Premium ({block} : {block: string}): JSX.Element {
   return (
-    <div className='place-card__mark'>
+    <div className={block}>
       <span>Premium</span>
     </div>
   );

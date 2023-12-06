@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { TInitialState } from '../types/state';
 import { AuthorizationStatus, CityMap, RequestStatus, Sorting } from '../const';
-import { addNearbyOfferToBookmark, addOfferToBookmark, addOffersToBookmark, changeLocation, changeOfOffer, deleteNearbyOfferFromBookmark, deleteOfferFromBookmark, deleteOffersFromBookmark, dropOffer, dropSendingStatus, favoritesOfferList, filtrationCity, getAllData, getOffers, getPopularOffers, gettingSortValue, loadComments, removeFavoritesOffer, requireAuthorization, updateUserdata } from './action';
+import { addNearbyOfferToBookmark, addOfferToBookmark, addOffersToBookmark, changeLocation, changeOfOffer, deleteNearbyOfferFromBookmark, deleteOfferFromBookmark, deleteOffersFromBookmark, dropOffer, dropReviewSendingStatus, dropSendingStatus, favoritesOfferList, filtrationCity, getAllData, getOffers, getPopularOffers, gettingSortValue, loadComments, removeFavoritesOffer, requireAuthorization, updateUserdata } from './action';
 import { sortedOffers } from '../utils/common';
 import { addFavorite, deleteFavorite, fetchFavorites, fetchNearPlaces, fetchOffer, fetchOffers, fetchReviews, login, logout, postReviews } from './api-action';
 
@@ -105,6 +105,9 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(dropOffer, (state) => {
       state.offer = null;
       state.nearPlaces = [];
+    })
+    .addCase(dropReviewSendingStatus, (state) => {
+      state.reviewsSendingStatus = RequestStatus.Idle;
     })
     .addCase(filtrationCity, (state, action) => {
       state.city.name = action.payload;

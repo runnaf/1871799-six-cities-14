@@ -44,6 +44,8 @@ export const sortingOffers = createAction('offers/sortingOffers', (value: Sortin
 
 export const dropOffer = createAction(`${NameSpace.Offer}/dropOffer`);
 
+export const dropReviewSendingStatus = createAction(`${NameSpace.Reviews}/dropReviewSendingStatus`);
+
 export const dropSendingStatus = createAction(`${NameSpace.User}/dropSendingStatus`);
 
 export const requireAuthorization = createAction('user/requireAuthorization', (value: AuthorizationStatus) => ({

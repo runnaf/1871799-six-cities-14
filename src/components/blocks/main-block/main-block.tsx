@@ -10,7 +10,7 @@ import { fetchOffers } from '../../../store/api-action';
 import { RequestStatus } from '../../../const';
 import { PageError } from '../../pages/page-error/page-error';
 import Loader from '../loader/loader';
-import { PageMainEmpty } from '../../pages/page-main-empty/page-main-empty';
+import { MainEmpty } from '../main-empty/main-empty';
 
 export type TMainBlocks= {
   placesOptions: TMainItem[];
@@ -57,7 +57,7 @@ export function MainBlock(): JSX.Element {
     setHoveredOfferId(offerId);
   },[]);
   return (
-    <main className="page__main page__main--index">
+    <main className={`page__main page__main--index ${!offersList.length && 'page__main--index-empty'}`}>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
@@ -71,7 +71,7 @@ export function MainBlock(): JSX.Element {
       {fetchingStatus === RequestStatus.Success && (
         <div className="cities">
           {offersList.length === 0 ?
-            <PageMainEmpty />
+            <MainEmpty />
             :
             <div className="cities__places-container container">
               <section className="cities__places places">

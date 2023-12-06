@@ -36,7 +36,7 @@ export function CardOfOffer({ offer, block, size = 'large', cardInfo = '', onCar
 
   return (
     <article className={`${block}__card place-card`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      {isPremium && <MemorizedPremium />}
+      {isPremium && <MemorizedPremium block= 'place-card__mark' />}
       <div className={`${block}__image-wrapper place-card__image-wrapper`}>
         <div>
           <img className="place-card__image" src={previewImage} alt={title} {...sizeMap[size]} />

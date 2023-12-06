@@ -31,11 +31,10 @@ export function PageLogin() {
   const isPasswordValid = PASSWORD_PATTERN.test(password);
   const isValid = isEmailValid && isPasswordValid;
 
-
   const randomCity = useMemo(() => getRandomArrayElement(Object.values(CityMap)),[]);
 
   useEffect(
-    () => () => {
+    () => {
       setIsEmailFilled(false);
       setIsPasswordFilled(false);
       dispatch(dropSendingStatus());
@@ -48,15 +47,16 @@ export function PageLogin() {
     if(!isValid) {
       return;
     }
-
     const form = e.currentTarget;
-
     const formData = new FormData(form);
     const data = Object.fromEntries(formData) as TLoginData;
-
     dispatch(loginAction(data)).then(() => dispatch(fetchFavorites()));
-
+    if (sendingStatus === RequestStatus.Success) {
+      setEmail('');
+      setPassword('');
+    }
   };
+
   if (authorizationStatus === AuthorizationStatus.Auth) {
     return <Navigate to={AppRoute.Root} />;
   }
