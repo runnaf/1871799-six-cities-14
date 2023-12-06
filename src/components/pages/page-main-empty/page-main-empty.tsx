@@ -1,11 +1,8 @@
 import { Helmet } from 'react-helmet-async';
-import { Footer } from '../../layout/footer/footer';
-import { Header } from '../../layout/header/header';
 
 export function PageMainEmpty (): JSX.Element {
   return (
     <div className="page page--favorites-empty">
-      <Header />
       <Helmet>
         <title>6 Cities</title>
       </Helmet>
@@ -20,7 +17,6 @@ export function PageMainEmpty (): JSX.Element {
           </section>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }
