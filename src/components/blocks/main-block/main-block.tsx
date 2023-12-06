@@ -55,7 +55,7 @@ export function MainBlock(): JSX.Element {
 
   const handleCardHover = useCallback((offerId: TOffer['id'] | undefined) => {
     setHoveredOfferId(offerId);
-  },[])
+  },[]);
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -72,24 +72,23 @@ export function MainBlock(): JSX.Element {
         <div className="cities">
           {offersList.length === 0 ?
             <PageMainEmpty />
-              :
-              <div className="cities__places-container container">
-                <section className="cities__places places">
-                  <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{count} place{addPluralEnging(count)} to stay in {activeCity.name}</b>
-                  <SortItem />
-                  <div className="cities__places-list places__list tabs__content">
-                    {offersList.map((item) => (
-                      <MemorizedCard block="cities" offer={item} key={item.id} onCardHover={handleCardHover}/>
-                    ))}
-                  </div>
-                </section>
-                <div className="cities__right-section">
-                  <Map block={'cities'} offers={offersList} specialOfferId={hoveredOfferId} location = {location} />
+            :
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{count} place{addPluralEnging(count)} to stay in {activeCity.name}</b>
+                <SortItem />
+                <div className="cities__places-list places__list tabs__content">
+                  {offersList.map((item) => (
+                    <MemorizedCard block="cities" offer={item} key={item.id} onCardHover={handleCardHover}/>
+                  ))}
                 </div>
+              </section>
+              <div className="cities__right-section">
+                <Map block={'cities'} offers={offersList} specialOfferId={hoveredOfferId} location = {location} />
               </div>
-            }  
-          </div>
+            </div>}
+        </div>
       )}
     </main>
   );

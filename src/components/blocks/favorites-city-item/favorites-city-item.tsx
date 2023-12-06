@@ -30,7 +30,7 @@ export function FavoritesCityItem(): JSX.Element {
     dispatch(getPopularOffers(offersFilter));
     dispatch(gettingSortValue(sortingValue));
     dispatch(changeLocation(checkedCity));
-  },[dispatch]);
+  },[dispatch, allData, sortingValue]);
 
   return (
     <>

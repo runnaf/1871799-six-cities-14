@@ -14,11 +14,11 @@ export function Header(): JSX.Element {
   const handleClickSingOut = useCallback((): void => {
     dispatch(changePagePath(AppRoute.Root));
     dispatch(logout());
-  }, [dispatch])
+  }, [dispatch]);
 
   const handleClickSingIn = useCallback((): void => {
     dispatch(changePagePath(AppRoute.Login));
-  }, [dispatch])
+  }, [dispatch]);
 
   return (
     <header className="header">

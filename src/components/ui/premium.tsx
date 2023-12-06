@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo } from 'react';
 
 export function Premium (): JSX.Element {
   return (

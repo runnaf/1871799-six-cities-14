@@ -91,7 +91,6 @@ export const CityMap = {
       zoom: 13
     }
   },
-  
   Dusseldorf : {
     name: 'Dusseldorf',
     location: {
