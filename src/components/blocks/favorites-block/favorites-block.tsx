@@ -1,4 +1,5 @@
-import { FavoritesCityItem } from '../favorites-city-item/favorites-city-item';
+import { memo } from 'react';
+import MemorizedFavoritesCityItem from '../favorites-city-item/favorites-city-item';
 
 export function FavoritesBlock(): JSX.Element {
   return (
@@ -7,10 +8,13 @@ export function FavoritesBlock(): JSX.Element {
         <section className="favorites">
           <h1 className="favorites__title">Saved listing</h1>
           <ul className="favorites__list">
-            <FavoritesCityItem />
+            <MemorizedFavoritesCityItem />
           </ul>
         </section>
       </div>
     </main>
   );
 }
+
+const MemorizedFavoritesBlock = memo(FavoritesBlock);
+export default MemorizedFavoritesBlock;

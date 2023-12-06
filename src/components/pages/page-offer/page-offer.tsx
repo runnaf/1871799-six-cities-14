@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { NearPlaces } from '../../blocks/near-places/near-places';
-import { Header } from '../../layout/header/header';
-import { Premium } from '../../ui/premium';
+import MemorizedHeader from '../../layout/header/header';
+import MemorizedPremium from '../../ui/premium';
 import { AuthorizationStatus, MAX_NEAR_PLACES_COUNT, MAX_VISIBLE_REVIEWS, RequestStatus } from '../../../const';
 import { addPluralEnging, capitalize, conversionToPercentage } from '../../../utils/common';
 import { ReviewForm } from '../../blocks/review-form/review-form';
@@ -71,7 +71,7 @@ export function PageOffer(): JSX.Element {
       <Helmet>
         <title>6 Cities: Offer Page</title>
       </Helmet>
-      <Header />
+      <MemorizedHeader />
       <main className="page__main page__main--offer">
         {fetchingStatus === RequestStatus.Success && (
           <section className="offer">
@@ -86,7 +86,7 @@ export function PageOffer(): JSX.Element {
             </div>
             <div className="offer__container container">
               <div className="offer__wrapper">
-                {isPremium && <Premium />}
+                {isPremium && <MemorizedPremium />}
                 <div className="offer__name-wrapper">
                   <h1 className="offer__name">
                     {title}

@@ -4,6 +4,7 @@ import { changeLocation, filtrationCity, getOffers, getPopularOffers, gettingSor
 import { v4 as uuidv4 } from 'uuid';
 import style from './list-location.module.css';
 import { TOffers } from '../../../types/types';
+import { memo } from 'react';
 
 export function ListLocation(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -33,3 +34,6 @@ export function ListLocation(): JSX.Element {
     </ul>
   );
 }
+
+const MemorizedListLocation = memo(ListLocation);
+export default MemorizedListLocation;

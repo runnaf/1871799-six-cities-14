@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-import { CardOfOffer } from '../card-of-offer/card-of-offer';
+import MemorizedCard from '../card-of-offer/card-of-offer';
 import { AppRoute, CityMap } from '../../../const';
 import { transformArray } from '../../../utils/common';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { changeLocation, filtrationCity, getPopularOffers, gettingSortValue } from '../../../store/action';
 import { TOffers } from '../../../types/types';
-import { useEffect } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import { fetchFavorites } from '../../../store/api-action';
 
 export function FavoritesCityItem(): JSX.Element {
@@ -23,14 +23,14 @@ export function FavoritesCityItem(): JSX.Element {
   const sortingValue = useAppSelector((state) => state.sorting);
   const allData: TOffers = useAppSelector((state) => state.allData);
 
-  const redirectToCity = (city: string) => {
+  const redirectToCity = useCallback((city: string) => {
     const checkedCity = CityMap.Paris;
     const offersFilter: TOffers = allData.filter((item) => item.city.name === city);
     dispatch(filtrationCity(city));
     dispatch(getPopularOffers(offersFilter));
     dispatch(gettingSortValue(sortingValue));
     dispatch(changeLocation(checkedCity));
-  };
+  },[dispatch]);
 
   return (
     <>
@@ -46,7 +46,7 @@ export function FavoritesCityItem(): JSX.Element {
             </div>
             <div className="favorites__places">
               {array.map((item): JSX.Element => (
-                <CardOfOffer size='small' offer={item} cardInfo={'favorites__card-info'} block={'favorites'} key={item.id} />
+                <MemorizedCard size='small' offer={item} cardInfo={'favorites__card-info'} block={'favorites'} key={item.id} />
               ))}
             </div>
           </li>
@@ -54,3 +54,6 @@ export function FavoritesCityItem(): JSX.Element {
     </>
   );
 }
+
+const MemorizedFavoritesCityItem = memo(FavoritesCityItem);
+export default MemorizedFavoritesCityItem;

@@ -4,6 +4,7 @@ import { AppRoute, CityMap, DEFAULT_CITY } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { changeLocation, filtrationCity, getPopularOffers, gettingSortValue } from '../../store/action';
 import { TOffers } from '../../types/types';
+import { memo } from 'react';
 
 export type TLogoProps = {
     classNameLinks: string[];
@@ -31,3 +32,6 @@ export function Logo({classNameLinks, classNameImages, width, height}:TLogoProps
     </Link>
   );
 }
+
+const MemorizedLogo = memo(Logo);
+export default MemorizedLogo;

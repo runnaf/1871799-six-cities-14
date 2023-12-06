@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { HeaderData } from '../../layout/header/header-data';
-import { Logo } from '../../ui/logo';
+import MemorizedLogo from '../../ui/logo';
 import { Helmet } from 'react-helmet-async';
 import { AppRoute } from '../../../const';
 import style from './page-error.module.css';
@@ -13,7 +13,7 @@ export function PageError(): JSX.Element {
         <title>6 Cities: Page not found</title>
       </Helmet>
       <div className='header__wrapper'>
-        <Logo classNameLinks={HeaderData.classNameLinks} classNameImages={HeaderData.classNameImages} width={HeaderData.width} height={HeaderData.height}/>
+        <MemorizedLogo classNameLinks={HeaderData.classNameLinks} classNameImages={HeaderData.classNameImages} width={HeaderData.width} height={HeaderData.height}/>
       </div>
       <div className={style.container}>
         <h2 className={style.title}>Page Not Found :(</h2>

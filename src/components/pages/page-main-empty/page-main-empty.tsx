@@ -1,22 +1,22 @@
 import { Helmet } from 'react-helmet-async';
+import { useAppSelector } from '../../../hooks/hooks';
 
 export function PageMainEmpty (): JSX.Element {
+  const activeCity = useAppSelector((state) => state.city.name)
   return (
     <div className="page page--favorites-empty">
       <Helmet>
         <title>6 Cities</title>
       </Helmet>
-      <main className="page__main page__main--favorites page__main--favorites-empty">
-        <div className="page__favorites-container container">
-          <section className="favorites favorites--empty">
-            <h1 className="visually-hidden">Favorites (empty)</h1>
-            <div className="favorites__status-wrapper">
-              <b className="favorites__status">Nothing yet saved.</b>
-              <p className="favorites__status-description">Save properties to narrow down search or plan your future trips.</p>
-            </div>
-          </section>
+      <div className="cities__places-container cities__places-container--empty container">
+      <section className="cities__no-places">
+        <div className="cities__status-wrapper tabs__content">
+          <b className="cities__status">No places to stay available</b>
+          <p className="cities__status-description">We could not find any property available at the moment in {activeCity}</p>
         </div>
-      </main>
+      </section>
+      <div className="cities__right-section"></div>
+    </div>
     </div>
   );
 }
