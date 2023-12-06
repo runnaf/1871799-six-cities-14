@@ -38,9 +38,9 @@ export function PageOffer(): JSX.Element {
   }, [id, dispatch]);
 
   const offer = useAppSelector((state)=> state.offer);
-  const nearbyOffers = useAppSelector((state) => state.nearPlaces.slice(0, MAX_NEAR_PLACES_COUNT));
-  const reviewsCount = useAppSelector((state) => state.reviews.length);
-  const reviews = useAppSelector((state) => state.reviews.slice(0, MAX_VISIBLE_REVIEWS));
+  const nearbyOffers = useAppSelector((state) => state.nearPlaces).slice(0, MAX_NEAR_PLACES_COUNT);
+  const reviewsCount = useAppSelector((state) => state.reviews).length;
+  const reviews = useAppSelector((state) => state.reviews).slice(0, MAX_VISIBLE_REVIEWS);
   const status = useAppSelector((state) => state.authorizationStatus);
 
   useEffect(()=>{
