@@ -1,9 +1,9 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { TInitialState } from '../types/state';
 import { AuthorizationStatus, CityMap, RequestStatus, Sorting } from '../const';
-import { changeLocationMap, changeOfOffer, dropOffer, favoritesOfferList, filtrationCity, getAllData, getOffers, getPopularOffers, gettingSortValue, loadComments, removeFavoritesOffer, requireAuthorization, updateUserdata } from './action';
+import { addNearbyOfferToBookmark, addOfferToBookmark, addOffersToBookmark, changeLocation, changeOfOffer, deleteNearbyOfferFromBookmark, deleteOfferFromBookmark, deleteOffersFromBookmark, dropOffer, dropSendingStatus, favoritesOfferList, filtrationCity, getAllData, getOffers, getPopularOffers, gettingSortValue, loadComments, removeFavoritesOffer, requireAuthorization, updateUserdata } from './action';
 import { sortedOffers } from '../utils/common';
-import { fetchNearPlaces, fetchOffer, fetchOffers, fetchReviews, login, logout, postReviews } from './api-action';
+import { addFavorite, deleteFavorite, fetchFavorites, fetchNearPlaces, fetchOffer, fetchOffers, fetchReviews, login, logout, postReviews } from './api-action';
 
 const initialState: TInitialState = {
   allData: [],
@@ -24,6 +24,11 @@ const initialState: TInitialState = {
   loginSendingStatus: RequestStatus.Idle,
   nearPlaces: [],
   error: null,
+  favoritesPageStatus: false,
+  favoritesPage: [],
+  favoritesPageError: false,
+  addFavoriteStatus: false,
+  addFavoriteError: false,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -36,6 +41,9 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadComments, (state, action) => {
       state.reviews = action.payload;
+    })
+    .addCase(dropSendingStatus, (state) => {
+      state.loginSendingStatus = RequestStatus.Idle;
     })
     .addCase(login.fulfilled, (state, action) => {
       state.authorizationStatus = AuthorizationStatus.Auth;
@@ -110,7 +118,7 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(getAllData, (state, action)=> {
       state.allData = action.payload;
     })
-    .addCase(changeLocationMap, (state, action) => {
+    .addCase(changeLocation, (state, action) => {
       state.city = action.payload;
     })
     .addCase(favoritesOfferList, (state, action) => {
@@ -118,6 +126,11 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(removeFavoritesOffer, (state, action) => {
       state.favoritesOffer = state.favoritesOffer.filter((offer) => offer.id !== action.payload.id);
+    })
+    .addCase(deleteFavorite.fulfilled, (state, action) => {
+      state.favoritesPage = state.favoritesPage.filter(
+        (offer) => offer.id !== action.payload.id
+      );
     })
     .addCase(changeOfOffer, (state, action) => {
       state.offers.map((offer) => {
@@ -129,5 +142,67 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(gettingSortValue, (state, action) => {
       state.sorting = action.payload;
       state.offers = sortedOffers(state.sorting, state.offersPopularSort, state.offers);
+    })
+    .addCase(fetchFavorites.pending, (state) => {
+      state.favoritesPageStatus = true;
+    })
+    .addCase(fetchFavorites.rejected, (state) => {
+      state.favoritesPageStatus = false;
+      state.favoritesPageError = true;
+    })
+    .addCase(fetchFavorites.fulfilled, (state, action) => {
+      state.favoritesPageStatus = false;
+      state.favoritesPage = action.payload;
+    })
+    .addCase(addFavorite.pending, (state) => {
+      state.addFavoriteStatus = true;
+    })
+    .addCase(addFavorite.rejected, (state) => {
+      state.addFavoriteStatus = false;
+      state.addFavoriteError = true;
+    })
+    .addCase(addFavorite.fulfilled, (state, action) => {
+      state.addFavoriteStatus = false;
+      if (action.payload.isFavorite) {
+        state.favoritesPage = [...state.favoritesPage, action.payload];
+      } else {
+        state.favoritesPage = state.favoritesPage.filter((card) => card.id !== action.payload.id);
+      }
+    })
+    .addCase(addOfferToBookmark, (state, action) => {
+      const offer = state.offer;
+      if (offer && offer.id === action.payload) {
+        offer.isFavorite = true;
+      }
+    })
+    .addCase(deleteOfferFromBookmark, (state, action) => {
+      const offer = state.offer;
+      if (offer && offer.id === action.payload) {
+        offer.isFavorite = false;
+      }
+    })
+    .addCase(addOffersToBookmark, (state, action) => {
+      const offer = state.offers.find(({ id }) => id === action.payload);
+      if (offer) {
+        offer.isFavorite = true;
+      }
+    })
+    .addCase(deleteOffersFromBookmark, (state, action) => {
+      const offer = state.offers.find(({ id }) => id === action.payload);
+      if (offer) {
+        offer.isFavorite = false;
+      }
+    })
+    .addCase(addNearbyOfferToBookmark, (state, action) => {
+      const offer = state.nearPlaces.find(({ id }) => id === action.payload);
+      if (offer) {
+        offer.isFavorite = true;
+      }
+    })
+    .addCase(deleteNearbyOfferFromBookmark, (state, action) => {
+      const offer = state.nearPlaces.find(({ id }) => id === action.payload);
+      if (offer) {
+        offer.isFavorite = false;
+      }
     });
 });

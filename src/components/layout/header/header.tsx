@@ -5,7 +5,7 @@ import { changePagePath } from '../../../store/action';
 import { logout } from '../../../store/api-action';
 
 export function Header(): JSX.Element {
-  const favoritesCount = useAppSelector((state)=> state.favoritesOffer.length);
+  const favoritesCount = useAppSelector((state)=> state.favoritesPage.length);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);

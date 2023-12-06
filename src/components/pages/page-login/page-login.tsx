@@ -1,74 +1,135 @@
+import React, { useState, FormEvent, useMemo, useEffect } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Link, useNavigate } from 'react-router-dom';
+
+import styles from './login.module.css';
 import { Header } from '../../layout/header/header';
-import { FormEvent, useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
-import { loginAction } from '../../../store/api-action';
-import { AppRoute, AuthorizationStatus } from '../../../const';
-import { Logo } from '../../ui/logo';
-import { HeaderData } from '../../layout/header/header-data';
+import { changeLocation, dropSendingStatus } from '../../../store/action';
+import { AppRoute, AuthorizationStatus, CityMap, RequestStatus } from '../../../const';
+import { getRandomArrayElement } from '../../../utils/common';
+import { fetchFavorites, loginAction } from '../../../store/api-action';
+import { TLoginData } from '../../../types/types';
 
+const EMAIL_PATTERN = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.([0-9]{1,3}|[a-zA-Z]{2})\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const EMAIL_ERROR_TEXT = 'Please enter a correct email address.';
+const PASSWORD_PATTERN = /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/;
+const PASSWORD_ERROR_TEXT = 'Password must contain at least one letter and one digit. Please enter a correct password!';
 
-export function PageLogin():JSX.Element {
-  const emailRef = useRef<HTMLInputElement | null>(null);
-  const passwordRef = useRef<HTMLInputElement | null>(null);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+export function PageLogin() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const authorizationStatus = useAppSelector((state)=>state.authorizationStatus);
+  const sendingStatus = useAppSelector((state)=>state.loginSendingStatus);
 
-  useEffect(() => {
-    if (authorizationStatus === AuthorizationStatus.Auth) {
-      navigate(AppRoute.Root);
-    }
-  }, [authorizationStatus, navigate]);
+  const [email, setEmail] = useState<string>('');
+  const [isEmailFilled, setIsEmailFilled] = useState(false);
+  const [password, setPassword] = useState<string>('');
+  const [isPasswordFilled, setIsPasswordFilled] = useState(false);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const isEmailValid = EMAIL_PATTERN.test(email);
+  const isPasswordValid = PASSWORD_PATTERN.test(password);
+  const isValid = isEmailValid && isPasswordValid;
+
+
+  const randomCity = useMemo(() => getRandomArrayElement(Object.values(CityMap)),[]);
+
+  useEffect(
+    () => () => {
+      setIsEmailFilled(false);
+      setIsPasswordFilled(false);
+      dispatch(dropSendingStatus());
+    },
+    [dispatch]
+  );
+
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (emailRef.current !== null && passwordRef.current !== null) {
-      dispatch(loginAction({
-        email: emailRef.current.value,
-        password: passwordRef.current.value
-      }));
-      emailRef.current.value = '';
-      passwordRef.current.value = '';
+    if(!isValid) {
+      return;
     }
+
+    const form = e.currentTarget;
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData) as TLoginData;
+
+    dispatch(loginAction(data)).then(() => dispatch(fetchFavorites()));
+
   };
+  if (authorizationStatus === AuthorizationStatus.Auth) {
+    return <Navigate to={AppRoute.Root} />;
+  }
+
+  function handleAnchorClick (evt: React.MouseEvent<HTMLAnchorElement>) {
+    evt.preventDefault();
+    dispatch(changeLocation(randomCity));
+    navigate(AppRoute.Root);
+  }
+
   return (
     <div className="page page--gray page--login">
       <Helmet>
-        <title>6 Cities: Login or Register</title>
+        <title>6 cities | Login</title>
       </Helmet>
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Logo classNameLinks={HeaderData.classNameLinks} classNameImages={HeaderData.classNameImages} width={HeaderData.width} height={HeaderData.height}/>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header />
+
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
+            {sendingStatus === RequestStatus.Error && (
+              <p className={styles.message}>Failed to submit. Please try again!</p>
+            )}
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" onSubmit={handleSubmit} action="#" method="post">
+
+            <form className="login__form form" onSubmit={handleFormSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
-                <input className="login__input form__input" ref={emailRef} type="email" name="email" placeholder="Email" required />
+                <input
+                  className="login__input form__input"
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  onBlur={() => setIsEmailFilled(true)}
+                />
+                {isEmailFilled && !isEmailValid && (
+                  <div className={styles.message}>{EMAIL_ERROR_TEXT}</div>
+                )}
               </div>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
-                <input className="login__input form__input" ref={passwordRef} type="password" name="password" placeholder="Password" required />
+                <input
+                  className="login__input form__input"
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  onBlur={() => setIsPasswordFilled(true)}
+                />
               </div>
-              <button className="login__submit form__submit button" type="submit">Sign in</button>
+              {isPasswordFilled && !isPasswordValid && (
+                <div className={styles.message}>{PASSWORD_ERROR_TEXT}</div>
+              )}
+              <button
+                className="login__submit form__submit button"
+                type="submit"
+                disabled={!isValid || sendingStatus === RequestStatus.Pending}
+              >
+                {sendingStatus === RequestStatus.Pending ? 'sending...' : 'Sign in'}
+
+              </button>
             </form>
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to="/">
-                <span>Amsterdam</span>
-              </Link>
+              <a className="locations__item-link" href="#" onClick={handleAnchorClick}>
+                <span>{randomCity.name}</span>
+              </a>
             </div>
           </section>
         </div>

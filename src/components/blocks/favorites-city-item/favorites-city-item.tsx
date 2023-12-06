@@ -3,22 +3,33 @@ import { CardOfOffer } from '../card-of-offer/card-of-offer';
 import { AppRoute, CityMap } from '../../../const';
 import { transformArray } from '../../../utils/common';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
-import { changeLocationMap, filtrationCity, getPopularOffers, gettingSortValue } from '../../../store/action';
+import { changeLocation, filtrationCity, getPopularOffers, gettingSortValue } from '../../../store/action';
 import { TOffers } from '../../../types/types';
+import { useEffect } from 'react';
+import { fetchFavorites } from '../../../store/api-action';
 
 export function FavoritesCityItem(): JSX.Element {
-  const favoriteOffers = useAppSelector((state)=>state.favoritesOffer);
+  const userId = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchFavorites());
+    }
+
+  },[userId, dispatch]);
+
+  const favoriteOffers = useAppSelector((state)=>state.favoritesPage);
   const objectData = transformArray(favoriteOffers);
   const sortingValue = useAppSelector((state) => state.sorting);
   const allData: TOffers = useAppSelector((state) => state.allData);
-  const dispatch = useAppDispatch();
+
   const redirectToCity = (city: string) => {
     const checkedCity = CityMap.Paris;
     const offersFilter: TOffers = allData.filter((item) => item.city.name === city);
     dispatch(filtrationCity(city));
     dispatch(getPopularOffers(offersFilter));
     dispatch(gettingSortValue(sortingValue));
-    dispatch(changeLocationMap(checkedCity));
+    dispatch(changeLocation(checkedCity));
   };
 
   return (

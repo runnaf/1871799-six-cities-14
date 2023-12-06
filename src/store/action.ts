@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { TCity, TOfferForOffers, TOffers, TReviews, TUser } from '../types/types';
+import { TCity, TOffer, TOfferForOffers, TOffers, TReviews, TUser } from '../types/types';
 import { AuthorizationStatus, NameSpace, Sorting } from '../const';
 
 export const filtrationCity = createAction('offer/filtrationCity', (value: string)=>({
@@ -18,7 +18,7 @@ export const getAllData = createAction('offer/getallData', (value: TOffers) => (
   payload: value,
 }));
 
-export const changeLocationMap = createAction('map/changeLocationMap', (value: TCity) => ({
+export const changeLocation = createAction('map/changeLocation', (value: TCity) => ({
   payload: value,
 }));
 
@@ -44,6 +44,8 @@ export const sortingOffers = createAction('offers/sortingOffers', (value: Sortin
 
 export const dropOffer = createAction(`${NameSpace.Offer}/dropOffer`);
 
+export const dropSendingStatus = createAction(`${NameSpace.User}/dropSendingStatus`);
+
 export const requireAuthorization = createAction('user/requireAuthorization', (value: AuthorizationStatus) => ({
   payload: value,
 }));
@@ -57,5 +59,28 @@ export const loadComments = createAction('data/loadComments', (value: TReviews) 
 }));
 
 export const changePagePath = createAction('browser/changePagePath', (value: string) => ({
+  payload: value,
+}));
+
+export const addOfferToBookmark = createAction('offer/addOfferToBookmark', (value: TOffer['id']) => ({
+  payload: value,
+}));
+
+export const deleteOfferFromBookmark = createAction('offer/deleteOfferToBookmark', (value: TOffer['id']) => ({
+  payload: value,
+}));
+
+export const addOffersToBookmark = createAction('offers/addOffersToBookmark', (value: TOffer['id']) => ({
+  payload: value,
+}));
+
+export const deleteOffersFromBookmark = createAction('offers/deleteOffersFromBookmark', (value: TOffer['id']) => ({
+  payload: value,
+}));
+export const addNearbyOfferToBookmark = createAction('offersNearby/addNearbyOfferToBookmark', (value: TOffer['id']) => ({
+  payload: value,
+}));
+
+export const deleteNearbyOfferFromBookmark = createAction('offersNearby/deleteNearbyOfferFromBookmark', (value: TOffer['id']) => ({
   payload: value,
 }));

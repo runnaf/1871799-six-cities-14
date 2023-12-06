@@ -68,5 +68,9 @@ export function sortedOffers(sorting: Sorting, offersPopular:TOffers, offers:TOf
   }
 }
 
+export function getRandomArrayElement<T>(items: T[]): T {
+  return items[Math.floor(Math.random() * items.length)];
+}
+
 
 export { capitalize, addPluralEnging, getDate, getDateTime, conversionToPercentage, transformArray};

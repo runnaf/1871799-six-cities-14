@@ -16,6 +16,7 @@ export enum APIRoute {
   Logout = '/logout',
   Reviews = '/comments',
   NearPlaces = '/nearby',
+  Favorite = '/favorite',
 }
 
 export enum AuthorizationStatus {
@@ -114,6 +115,11 @@ export enum RequestStatus {
   Error = 'ERROR',
 }
 
+export const enum FavoriteStatus {
+  Added = 1,
+  Deleted = 0
+}
+
 export const TOTAL_PERCENTEGE = 100;
 export const NUMBER_OF_STARS = 5;
 
@@ -128,3 +134,12 @@ export const REQUEST_TIMEOUT = 5000;
 export const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
 export const browserHistory = createBrowserHistory();
 export const MAX_VISIBLE_REVIEWS = 10;
+
+export const HttpStatus = {
+  OK: 200,
+  CREATED: 201,
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
+  NOT_FOUND: 404,
+};

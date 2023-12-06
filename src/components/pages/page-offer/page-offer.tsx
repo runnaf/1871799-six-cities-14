@@ -39,8 +39,8 @@ export function PageOffer(): JSX.Element {
 
   const offer = useAppSelector((state)=> state.offer);
   const nearbyOffers = useAppSelector((state) => state.nearPlaces.slice(0, MAX_NEAR_PLACES_COUNT));
+  const reviewsCount = useAppSelector((state) => state.reviews.length);
   const reviews = useAppSelector((state) => state.reviews.slice(0, MAX_VISIBLE_REVIEWS));
-  const reviewsCount = useAppSelector((state) => state.reviews.length)
   const status = useAppSelector((state) => state.authorizationStatus);
 
   useEffect(()=>{
@@ -141,7 +141,7 @@ export function PageOffer(): JSX.Element {
                   </div>
                 </div>
                 <section className="offer__reviews reviews">
-                  <h2 className="reviews__title">Review{addPluralEnging(reviewsCount)} &middot; <span className="reviews__amount">{reviews.length}</span></h2>
+                  <h2 className="reviews__title">Review{addPluralEnging(reviewsCount)} &middot; <span className="reviews__amount">{reviewsCount}</span></h2>
                   <ReviewList reviews={reviews} />
                   {status === AuthorizationStatus.Auth && id ? <ReviewForm offerId = {id} /> : ''}
                 </section>
