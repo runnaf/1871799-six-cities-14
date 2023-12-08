@@ -150,7 +150,7 @@ export const reducer = createReducer(initialState, (builder) => {
       state.favoritesPageStatus = RequestStatus.Pending;
     })
     .addCase(fetchFavorites.rejected, (state) => {
-      state.favoritesFetchingStatus = RequestStatus.Error;        
+      state.favoritesFetchingStatus = RequestStatus.Error;
     })
     .addCase(fetchFavorites.fulfilled, (state, action) => {
       state.favoritesPageStatus = RequestStatus.Success;

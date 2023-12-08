@@ -15,7 +15,7 @@ function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(login()); 
+    dispatch(login());
   }, [dispatch]);
 
   return (

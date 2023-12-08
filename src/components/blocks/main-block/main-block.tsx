@@ -46,7 +46,7 @@ export function MainBlock(): JSX.Element {
     if (authStatus === AuthorizationStatus.Auth) {
       dispatch(fetchFavorites());
     }
-  }, [dispatch]);
+  }, [dispatch, authStatus]);
 
   const activeCity = useAppSelector((state) => state.city);
   const offersList = useAppSelector((state) => state.offers);

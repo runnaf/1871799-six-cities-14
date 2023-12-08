@@ -8,8 +8,8 @@ export const getToken = (): TToken => {
 
 export function saveToken(token: TToken) {
   localStorage.setItem(AUTH_TOKEN_KEY_NAME, token);
-};
+}
 
 export function dropToken() {
   localStorage.removeItem(AUTH_TOKEN_KEY_NAME);
-};
+}
