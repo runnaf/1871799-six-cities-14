@@ -11,6 +11,7 @@ export function Header(): JSX.Element {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
 
+
   const handleClickSingOut = useCallback((): void => {
     dispatch(changePagePath(AppRoute.Root));
     dispatch(logout());

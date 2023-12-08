@@ -25,7 +25,7 @@ export type TInitialState = {
   loginSendingStatus: RequestStatus;
   nearPlaces: TOfferNearPlace[];
   error: string | null;
-  favoritesPageStatus: boolean;
+  favoritesPageStatus: RequestStatus;
   favoritesPage: TFavoriteOffer[];
   favoritesPageError: boolean;
   addFavoriteStatus: boolean;
