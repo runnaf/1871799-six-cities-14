@@ -15,7 +15,7 @@ export function Header(): JSX.Element {
   const handleClickSingOut = (): void => {
     dispatch(changePagePath(AppRoute.Root));
     if (authorizationStatus === AuthorizationStatus.Auth) {
-    dispatch(logout());
+      dispatch(logout());
     }
   };
 

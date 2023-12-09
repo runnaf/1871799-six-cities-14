@@ -13,7 +13,7 @@ import { login } from '../../store/api-action';
 
 function App() {
   const dispatch = useAppDispatch();
-  const statusAuth = useAppSelector((state)=> state.authorizationStatus)
+  const statusAuth = useAppSelector((state)=> state.authorizationStatus);
 
   useEffect(() => {
     if (statusAuth === AuthorizationStatus.Auth) {
