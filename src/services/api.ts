@@ -1,4 +1,3 @@
-import { toast } from 'react-toastify';
 import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 import { AppRoute, BACKEND_URL, REQUEST_TIMEOUT, browserHistory } from '../const';
 import { getToken } from './token';
@@ -29,7 +28,7 @@ export const createAPI = (): AxiosInstance => {
       }
 
       if (error.response?.status === StatusCodes.UNAUTHORIZED) {
-        toast.warn(error.response.data.error);
+        return ;
       }
 
       throw error;
