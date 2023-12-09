@@ -32,6 +32,12 @@ export type TInitialState = {
   addFavoriteError: boolean;
 }
 
+export type TUserData = {
+  authorizationStatus: AuthorizationStatus;
+  user: TUser | null;
+  sendingStatus: RequestStatus;
+};
+
 export type TFavoriteOffer = {
   id: string;
   title: string;

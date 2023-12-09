@@ -129,4 +129,3 @@ export const logout = createAsyncThunk<void, undefined, ExtraType>(
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   }
 );
-
