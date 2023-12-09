@@ -4,13 +4,13 @@ import { addPluralEnging } from '../../../utils/common';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { Map } from '../map/map';
 import { SortItem } from '../sort-item/sort-item';
-import MemorizedListLocation from '../list-location/list-location';
 import { TOffer, TOfferForOffers } from '../../../types/types';
 import { fetchFavorites, fetchOffers } from '../../../store/api-action';
 import { AuthorizationStatus, RequestStatus } from '../../../const';
 import { PageError } from '../../pages/page-error/page-error';
 import Loader from '../loader/loader';
 import { MainEmpty } from '../main-empty/main-empty';
+import MemorizedListLocation from '../list-location/list-location';
 
 export type TMainBlocks= {
   placesOptions: TMainItem[];

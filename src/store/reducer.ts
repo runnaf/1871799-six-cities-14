@@ -48,6 +48,7 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(login.fulfilled, (state, action) => {
       state.authorizationStatus = AuthorizationStatus.Auth;
       state.user = action.payload;
+      state.loginSendingStatus = RequestStatus.Success;
     })
     .addCase(login.rejected, (state) => {
       state.authorizationStatus = AuthorizationStatus.NoAuth;
@@ -55,6 +56,7 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(logout.fulfilled, (state) => {
       state.authorizationStatus = AuthorizationStatus.NoAuth;
       state.user = null;
+      state.loginSendingStatus = RequestStatus.Success;
     })
     .addCase(fetchOffers.pending, (state) => {
       state.offersFetchingStatus = RequestStatus.Pending;

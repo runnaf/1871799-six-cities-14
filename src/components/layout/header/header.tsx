@@ -3,7 +3,7 @@ import { AppRoute, AuthorizationStatus } from '../../../const';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { changePagePath } from '../../../store/action';
 import { logout } from '../../../store/api-action';
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
 
 export function Header(): JSX.Element {
   const favoritesCount = useAppSelector((state)=> state.favoritesPage.length);
@@ -12,14 +12,16 @@ export function Header(): JSX.Element {
   const user = useAppSelector((state) => state.user);
 
 
-  const handleClickSingOut = useCallback((): void => {
+  const handleClickSingOut = (): void => {
     dispatch(changePagePath(AppRoute.Root));
+    if (authorizationStatus === AuthorizationStatus.Auth) {
     dispatch(logout());
-  }, [dispatch]);
+    }
+  };
 
-  const handleClickSingIn = useCallback((): void => {
+  const handleClickSingIn = (): void => {
     dispatch(changePagePath(AppRoute.Login));
-  }, [dispatch]);
+  };
 
   return (
     <header className="header">

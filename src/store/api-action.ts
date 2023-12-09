@@ -47,14 +47,9 @@ export const fetchReviews = createAsyncThunk<TReviews, TOffer['id'], ExtraType>(
   }
 );
 
-export const postReviews = createAsyncThunk<
-  TComment,
-  { comment: TCommentData['comment']; offerId: TOffer['id']; rating: TCommentData['rating'] },
-  ExtraType
->(
+export const postReviews = createAsyncThunk<TComment, { comment: TCommentData['comment']; offerId: TOffer['id']; rating: TCommentData['rating'] }, ExtraType >(
   `${NameSpace.Reviews}/postReview`,
   async ({comment, offerId, rating}, {extra: api}) => {
-
     const {data} = await api.post<TComment>(`${APIRoute.Reviews}/${offerId}`,
       {comment, rating}
     );
@@ -98,6 +93,7 @@ export const login = createAsyncThunk<TUser, undefined, ExtraType>
   'auth/login',
   async (_arg, {extra: api}) => {
     const {data} = await api.get<TUser>(APIRoute.Login);
+    saveToken(data.token);
     return data;
   },
 );
@@ -134,14 +130,3 @@ export const logout = createAsyncThunk<void, undefined, ExtraType>(
   }
 );
 
-export const checkAuthAction = createAsyncThunk<void, undefined, ExtraType>(
-  `${NameSpace.User}/checkAuth`,
-  async (_arg, {dispatch, extra: api}) => {
-    try {
-      await api.get(APIRoute.Login);
-      dispatch(requireAuthorization(AuthorizationStatus.Auth));
-    } catch {
-      dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
-    }
-  }
-);

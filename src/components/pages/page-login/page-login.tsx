@@ -130,7 +130,6 @@ export function PageLogin() {
               <button
                 className="login__submit form__submit button"
                 type="submit"
-                disabled={!isValid || sendingStatus === RequestStatus.Pending}
               >
                 {sendingStatus === RequestStatus.Pending ? 'sending...' : 'Sign in'}
 
