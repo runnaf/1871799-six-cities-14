@@ -5,21 +5,18 @@ import { PageFavorites } from '../pages/page-favorites/page-favorites';
 import { PageOffer } from '../pages/page-offer/page-offer';
 import { PageError } from '../pages/page-error/page-error';
 import { PageMain } from '../pages/page-main/page-main';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import { ProtectedRoute } from '../protected-rout/protected-rout';
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { useAppDispatch } from '../../hooks/hooks';
 import { useEffect } from 'react';
 import { login } from '../../store/api-action';
 
 function App() {
   const dispatch = useAppDispatch();
-  const statusAuth = useAppSelector((state)=> state.authorizationStatus);
 
   useEffect(() => {
-    if (statusAuth === AuthorizationStatus.Auth) {
-      dispatch(login());
-    }
-  }, [dispatch, statusAuth]);
+    dispatch(login());
+  }, [dispatch]);
 
   return (
     <HelmetProvider>
