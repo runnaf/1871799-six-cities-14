@@ -25,12 +25,10 @@ export const createAPI = (): AxiosInstance => {
     (error: AxiosError<{error: string}>) => {
 
       if (error.response?.status === StatusCodes.NOT_FOUND) {
-        console.log('hi')
         browserHistory.push(AppRoute.Root);
       }
 
       if (error.response?.status === StatusCodes.UNAUTHORIZED) {
-        console.log('hello')
         toast.warn(error.response.data.error);
       }
 
