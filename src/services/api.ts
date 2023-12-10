@@ -3,6 +3,10 @@ import { AppRoute, BACKEND_URL, REQUEST_TIMEOUT, browserHistory } from '../const
 import { getToken } from './token';
 import { StatusCodes } from 'http-status-codes';
 
+type TError = {
+  error: string;
+}
+
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
     baseURL: BACKEND_URL,
@@ -21,7 +25,7 @@ export const createAPI = (): AxiosInstance => {
 
   api.interceptors.response.use(
     (response) => response,
-    (error: AxiosError<{error: string}>) => {
+    (error: AxiosError<{error: TError}>) => {
 
       if (error.response?.status === StatusCodes.NOT_FOUND) {
         browserHistory.push(AppRoute.Root);

@@ -47,10 +47,10 @@ export const fetchReviews = createAsyncThunk<TReviews, TOffer['id'], ExtraType>(
   }
 );
 
-export const postReviews = createAsyncThunk<TComment, { comment: TCommentData['comment']; offerId: TOffer['id']; rating: TCommentData['rating'] }, ExtraType >(
+export const postReviews = createAsyncThunk<TComment, TCommentData, ExtraType >(
   `${NameSpace.Reviews}/postReview`,
-  async ({comment, offerId, rating}, {extra: api}) => {
-    const {data} = await api.post<TComment>(`${APIRoute.Reviews}/${offerId}`,
+  async ({comment, id, rating}, {extra: api}) => {
+    const {data} = await api.post<TComment>(`${APIRoute.Reviews}/${id}`,
       {comment, rating}
     );
     return data;
