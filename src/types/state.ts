@@ -104,4 +104,3 @@ export type TOfferNearPlace = {
   isPremium: boolean;
   rating: number;
 }
-
