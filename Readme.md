@@ -60,3 +60,4 @@ _`.editorconfig`, `.gitattributes`, `.gitignore`._
 Сервер принимает данные в виде JSON-объекта.
 Авторизация на сервере происходит на основании токена. Токен передаётся с каждым запросом в заголовке X-Token.
 Токен сохраняется в localStorage под именем six-cities-token.
+![6-cities](https://github.com/user-attachments/assets/81f82dae-3ca0-4876-944b-e7d220969481)
